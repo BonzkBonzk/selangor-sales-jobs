@@ -13,11 +13,12 @@
     retail:'零售／门店销售经验', retail2:'至少两年销售经验', b2b:'B2B 或顾问式销售经验', appliances:'家电销售经验',
     sales_target:'能按销售目标工作', solar:'Solar／能源相关经验', crm:'会用 CRM',
     english:'英语沟通', malay:'马来语沟通', mandarin:'普通话沟通', cantonese:'广东话沟通',
-    drive:'有效汽车驾照', vehicle:'有自己的交通工具', travel:'愿意外出拜访客户'
+    drive:'有效汽车驾照', vehicle:'有自己的交通工具', travel:'愿意外出拜访客户／出差', weekends:'接受周末／公假或轮班', spm:'SPM 或以上',
+    native_jp:'日语母语级', biz_jp:'日语商务流利', korean:'会韩语', vietnamese:'会越南语', thai:'会泰语'
   };
   const DEFAULT_FACTS = {
     KH: { english:'yes', malay:'yes', mandarin:'yes', cantonese:'yes', diploma:'yes', sales:'yes', sales1:'yes', retail:'yes', retail2:'yes', appliances:'yes', sales_target:'yes' },
-    JW: { jlptn1:'yes', jlptn2:'yes', jlptn3:'yes' }
+    JW: { jlptn1:'yes', jlptn2:'yes', jlptn3:'yes', english:'yes', mandarin:'yes', biz_jp:'yes' }
   };
 
   /* ---------- 存储 ---------- */
@@ -83,9 +84,36 @@
   };
 
   /* ---------- 条件匹配 ---------- */
-  const reqKey = r => r.key ? 'fact:' + r.key : 'label:' + r.label.normalize('NFKC').toLowerCase().replace(/[\s，。、,.!?！？:：;；（）()]+/g,' ').trim();
-  const fit = r => { const k = reqKey(r), p = P(); return (r.key ? p.facts[r.key] : p.answers[k]) || 'unknown'; };
-  const setFit = (r, v) => { const p = P(); if (r.key) p.facts[r.key] = v; else p.answers[reqKey(r)] = v; save(); };
+  // 把不同写法的同一个条件归成同一个 key，改一次就同步到所有职位
+  const CANON = [
+    [/JLPT\s*N?1|N1 程度|N1 level/i, 'jlptn1', 'JLPT N1'],
+    [/JLPT\s*N?2|N2 或以上|BJT/i, 'jlptn2', 'JLPT N2 或以上'],
+    [/JLPT\s*N?3/i, 'jlptn3', 'JLPT N3 或以上'],
+    [/(日语母语|native japanese|native speaker)/i, 'native_jp', '日语母语级'],
+    [/(商务流利|business[- ]level|商务沟通)/i, 'biz_jp', '日语商务流利'],
+    [/^(?!.*日语或韩语).*韩语/, 'korean', '会韩语'],
+    [/越南语/, 'vietnamese', '会越南语'],
+    [/泰语/, 'thai', '会泰语'],
+    [/(驾照|licen[cs]e)/i, 'drive', '有效汽车驾照'],
+    [/(交通工具|own (car|transport|vehicle)|自己的车)/i, 'vehicle', '有自己的交通工具'],
+    [/(广东话|cantonese)/i, 'cantonese', '广东话沟通'],
+    [/(普通话|华语|中文|mandarin|chinese)/i, 'mandarin', '普通话／华语沟通'],
+    [/(马来语|malay|bahasa)/i, 'malay', '马来语沟通'],
+    [/(英语|english)/i, 'english', '英语沟通'],
+    [/(学士|bachelor|degree)/i, 'bachelor', '学士学位'],
+    [/diploma/i, 'diploma', 'Diploma'],
+    [/(周末|公假|weekend|6 天|六天|轮班|shift)/i, 'weekends', '接受周末／公假或轮班'],
+    [/(出差|外出拜访|travel|勘察现场)/i, 'travel', '愿意外出拜访客户／出差'],
+    [/^SPM/i, 'spm', 'SPM 或以上']
+  ];
+  const canon = r => {
+    if (r.key && !['english','malay','mandarin'].includes(r.key)) return r.key;
+    for (const [re, k] of CANON) if (re.test(r.label)) return k;
+    return r.key || '';
+  };
+  const reqKey = r => { const c = canon(r); return c ? 'fact:' + c : 'label:' + r.label.normalize('NFKC').toLowerCase().replace(/[\s，。、,.!?！？:：;；（）()]+/g,' ').trim(); };
+  const fit = r => { const k = reqKey(r), p = P(); return (k.startsWith('fact:') ? p.facts[k.slice(5)] : p.answers[k]) || 'unknown'; };
+  const setFit = (r, v) => { const p = P(), k = reqKey(r); if (k.startsWith('fact:')) p.facts[k.slice(5)] = v; else p.answers[k] = v; save(); };
   const required = j => (j.requirements || []).filter(r => !r.preferred);
   const unmetRatio = j => { const rq = required(j); return rq.length ? rq.filter(r => fit(r) === 'no').length / rq.length : 0; };
   const tooFar = j => unmetRatio(j) > 0.2;
@@ -210,10 +238,11 @@
         <span class="row1">${isNew ? '<em class="new">NEW</em>' : ''}${p.fav[j.url] ? '<em class="heart">❤</em>' : ''}<strong>${esc(j.title)}</strong></span>
         <span class="co">${esc(j.company)} · ${esc(j.location || '')}</span>
         <span class="row3"><b>${esc(j.salary || '薪资未公开')}</b><i>${esc(when(j))}</i></span>
-        <span class="tags">${chip(j.source)}${j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${expired ? chip('已超过 30 天','warn') : ''}${tab === 'list' ? r.tags.slice(0,2).map(t => chip(t[0], t[1])).join('') : ''}</span>
+        <span class="tags">${tab === 'hidden' ? required(j).filter(x => fit(x) === 'no').map(x => chip('× ' + x.label.slice(0, 18), 'warn')).join('') : ''}${chip(j.source)}${j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${expired ? chip('已超过 30 天','warn') : ''}${tab === 'list' ? r.tags.slice(0,2).map(t => chip(t[0], t[1])).join('') : ''}</span>
       </button>`;
-    }).join('') : `<p class="empty">${tab === 'fav' ? '还没有收藏。点职位右边的 ❤ 收藏。' : tab === 'ni' ? '没有标记无兴趣的职位。' : tab === 'hidden' ? '没有被移出的职位。' : '没有符合筛选的职位，试试放宽地区或薪资。'}</p>`;
+    }).join('') : `<p class="empty">${tab === 'fav' ? '还没有收藏。点职位右边的 ❤ 收藏。' : tab === 'ni' ? '没有标记无兴趣的职位。' : tab === 'hidden' ? '目前没有职位被移到这里。<br>在「我的条件」把做不到的条件标 ×（例如「日语母语级」「有效汽车驾照」），必需条件里 × 超过 20% 的职位就会自动移到这里，不会删掉。<br><button class="primary" id="go-set">打开我的条件</button>' : '没有符合筛选的职位，试试放宽地区或薪资。'}</p>`;
 
+    if ($('go-set')) $('go-set').onclick = settings;
     if (!rows.find(j => j.url === selected)) selected = rows[0]?.url || '';
     renderDetail(rows.find(j => j.url === selected));
 
@@ -288,17 +317,33 @@
   function modal(title, html) { $('modal-title').textContent = title; $('modal-body').innerHTML = html; $('modal').showModal(); }
   let tt; function toast(m) { const t = $('toast'); t.textContent = m; t.classList.add('show'); clearTimeout(tt); tt = setTimeout(() => t.classList.remove('show'), 3500); }
 
+  function conditionStats() {
+    // 统计这个档案的职位里，每个必需条件出现几次
+    const m = new Map();
+    for (const j of data.jobs.filter(forProfile).filter(fresh)) for (const r of required(j)) {
+      const k = reqKey(r);
+      const e = m.get(k) || { k, label: k.startsWith('fact:') ? (KNOWN[k.slice(5)] || r.label) : r.label, n: 0, sample: r };
+      e.n++; m.set(k, e);
+    }
+    return [...m.values()].sort((a, b) => b.n - a.n);
+  }
   function settings() {
     const p = P();
-    const keys = Object.keys(KNOWN);
+    const stats = conditionStats();
+    const row = e => { const v = fit(e.sample); return `<li><span class="lbl">${esc(e.label)} <small>${e.n} 个职位</small></span><span class="tri" data-k="${esc(e.k)}">${[['yes','✓'],['no','×'],['unknown','～']].map(([x,t]) => `<button data-v="${x}" class="${v === x ? 'on ' + x : ''}">${t}</button>`).join('')}</span></li>`; };
+    const top = stats.filter(e => e.n >= 2), rest = stats.filter(e => e.n < 2);
     modal(`我的条件（${store.profile}）`, `
-      <p class="hint">在这里改，所有职位里相同的条件会一起更新。</p>
-      <ul class="reqs">${keys.map(k => { const v = p.facts[k] || 'unknown'; return `<li><span class="lbl">${esc(KNOWN[k])}</span><span class="tri" data-k="${k}">${[['yes','✓'],['no','×'],['unknown','～']].map(([x,t]) => `<button data-v="${x}" class="${v === x ? 'on ' + x : ''}">${t}</button>`).join('')}</span></li>`; }).join('')}</ul>
+      <p class="hint">按出现次数排列。标 × 的条件，在一个职位的必需条件里超过 20%，这个职位就会移到「不太符合」。改一次，所有职位一起更新。</p>
+      <ul class="reqs">${top.map(row).join('')}</ul>
+      ${rest.length ? `<details><summary>只出现一次的条件（${rest.length}）</summary><ul class="reqs">${rest.map(row).join('')}</ul></details>` : ''}
       <h3>备份与换设备</h3>
       <p class="hint">收藏、无兴趣和勾选只存在这个浏览器。换手机或电脑前，先导出，再到新设备导入。</p>
-      <div class="actions"><button id="m-exp">导出备份</button><label class="filebtn">导入备份<input id="m-imp" type="file" accept="application/json"></label></div>`);
+      <div class="actions"><button id="m-exp">导出备份</button><label class="filebtn">导入备份<input id="m-imp" type="file" accept="application/json"></label><button id="m-reset">清除这个档案的勾选</button></div>`);
+    $('m-reset').onclick = () => { p.facts = { ...DEFAULT_FACTS[store.profile] }; p.answers = {}; save(); $('modal').close(); toast('已恢复默认勾选'); render(); };
     $('modal-body').querySelectorAll('.tri button').forEach(b => b.onclick = () => {
-      p.facts[b.parentElement.dataset.k] = b.dataset.v; save();
+      const k = b.parentElement.dataset.k;
+      if (k.startsWith('fact:')) p.facts[k.slice(5)] = b.dataset.v; else p.answers[k] = b.dataset.v;
+      save();
       b.parentElement.querySelectorAll('button').forEach(x => x.className = x === b ? 'on ' + x.dataset.v : '');
       render();
     });
