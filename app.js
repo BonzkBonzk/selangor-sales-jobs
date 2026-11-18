@@ -36,7 +36,7 @@
   }
   const P = () => {
     const p = store.profiles[store.profile] ||= {};
-    p.facts ||= {}; p.answers ||= {}; p.fav ||= {}; p.ni ||= {}; p.f ||= {};
+    p.facts ||= {}; p.answers ||= {}; p.fav ||= {}; p.prac ||= {}; p.ni ||= {}; p.f ||= {};
     if (!('area' in p.f) || (p.f.area === 'selangor' && !p.f.areaV2)) { p.f.area = 'klv'; p.f.areaV2 = true; }
     for (const [k,v] of Object.entries(DEFAULT_FACTS[store.profile])) if (!(k in p.facts)) p.facts[k] = v;
     return p;
@@ -177,7 +177,8 @@
     const p = P(); let n = 0;
     for (const [u, v] of Object.entries(p.ni)) {
       const j = byUrl.get(u) || v.job;
-      const a = j && j.postedAt ? ageDays(j.postedAt) : ageDays((v.at || '').slice(0,10));
+      // 按职位的发布日期算，不是按标记无兴趣的日期
+      const a = j && j.postedAt ? ageDays(j.postedAt) : ageDays(j?.firstSeen || j?.checkedAt || (v.at || '').slice(0,10));
       if (a !== null && a > 30) { delete p.ni[u]; n++; }
     }
     if (n) save();
@@ -191,8 +192,9 @@
       (tooFar(j) ? hidden : list).push(j);
     }
     const fav = Object.values(p.fav).map(v => byUrl.get(v.job.url) || v.job).filter(forProfile);
+    const prac = Object.values(p.prac).map(v => byUrl.get(v.job.url) || v.job).filter(forProfile);
     const ni = Object.values(p.ni).map(v => byUrl.get(v.job.url) || v.job).filter(forProfile);
-    return { list, hidden, fav, ni };
+    return { list, hidden, fav, prac, ni };
   }
 
   /* ---------- 渲染 ---------- */
@@ -219,28 +221,29 @@
     $('q').value = f.q || '';
 
     const g = groups();
-    for (const k of ['list','fav','ni','hidden']) $('n-' + k).textContent = g[k].length;
-    let rows = (g[tab] || []).filter(j => tab === 'fav' || tab === 'ni' ? true : passFilters(j));
+    for (const k of ['list','fav','prac','ni','hidden']) $('n-' + k).textContent = g[k].length;
+    let rows = (g[tab] || []).filter(j => tab === 'fav' || tab === 'prac' || tab === 'ni' ? true : passFilters(j));
     const sc = new Map(rows.map(j => [j.url, reasons(j)]));
     const sort = f.sort || 'score';
     rows.sort((a, b) => sort === 'new' ? (b.postedAt || '').localeCompare(a.postedAt || '')
       : sort === 'pay' ? ((payRange(b.salary) || [0,0])[1] - (payRange(a.salary) || [0,0])[1])
       : (sc.get(b.url).score - sc.get(a.url).score) || (b.postedAt || '').localeCompare(a.postedAt || ''));
-    if (tab === 'fav') rows.sort((a,b) => (p.fav[b.url]?.at || '').localeCompare(p.fav[a.url]?.at || ''));
+    if (tab === 'fav' || tab === 'prac') rows.sort((a,b) => (p[tab][b.url]?.at || '').localeCompare(p[tab][a.url]?.at || ''));
 
     const latest = data.jobs.reduce((m, j) => j.firstSeen > m ? j.firstSeen : m, '');
     const seenBefore = p.prevVisit || '';
     $('list').innerHTML = rows.length ? rows.map(j => {
       const r = sc.get(j.url), a = ageDays(j.postedAt);
       const isNew = seenBefore ? j.firstSeen > seenBefore.slice(0,10) : j.firstSeen === latest;
-      const expired = (tab === 'fav') && (a !== null && a > 30 || !byUrl.has(j.url));
+      const expired = (tab === 'fav' || tab === 'prac') && (a !== null && a > 30 || !byUrl.has(j.url));
+      const st = (tab === 'fav' || tab === 'prac') ? p[tab][j.url]?.stage : '';
       return `<button class="item${j.url === selected ? ' sel' : ''}" data-url="${esc(j.url)}">
-        <span class="row1">${isNew ? '<em class="new">NEW</em>' : ''}${p.fav[j.url] ? '<em class="heart">❤</em>' : ''}<strong>${esc(j.title)}</strong></span>
+        <span class="row1">${isNew ? '<em class="new">NEW</em>' : ''}${p.fav[j.url] ? '<em class="heart">❤</em>' : ''}${p.prac[j.url] ? '<em class="prac">🎯</em>' : ''}<strong>${esc(j.title)}</strong></span>
         <span class="co">${esc(j.company)} · ${esc(j.location || '')}</span>
         <span class="row3"><b>${esc(j.salary || '薪资未公开')}</b><i>${esc(when(j))}</i></span>
-        <span class="tags">${tab === 'hidden' ? required(j).filter(x => fit(x) === 'no').map(x => chip('× ' + x.label.slice(0, 18), 'warn')).join('') : ''}${chip(j.source)}${j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${expired ? chip('已超过 30 天','warn') : ''}${tab === 'list' ? r.tags.slice(0,2).map(t => chip(t[0], t[1])).join('') : ''}</span>
+        <span class="tags">${tab === 'hidden' ? required(j).filter(x => fit(x) === 'no').map(x => chip('× ' + x.label.slice(0, 18), 'warn')).join('') : ''}${chip(j.source)}${j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${st ? chip(st,'green') : ''}${expired ? chip('已超过 30 天','warn') : ''}${tab === 'list' ? r.tags.slice(0,2).map(t => chip(t[0], t[1])).join('') : ''}</span>
       </button>`;
-    }).join('') : `<p class="empty">${tab === 'fav' ? '还没有收藏。点职位右边的 ❤ 收藏。' : tab === 'ni' ? '没有标记无兴趣的职位。' : tab === 'hidden' ? '目前没有职位被移到这里。<br>在「我的条件」把做不到的条件标 ×（例如「日语母语级」「有效汽车驾照」），必需条件里 × 超过 20% 的职位就会自动移到这里，不会删掉。<br><button class="primary" id="go-set">打开我的条件</button>' : '没有符合筛选的职位，试试放宽地区或薪资。'}</p>`;
+    }).join('') : `<p class="empty">${tab === 'fav' ? '还没有收藏。点职位右边的 ❤ 收藏。' : tab === 'prac' ? '还没有练习的职位。<br>想把某个职位的面试当练习，就在职位右边点「🎯 练习」。和收藏一样可以记已申请、面试中和备注，超过 30 天也会保留。' : tab === 'ni' ? '没有标记无兴趣的职位。' : tab === 'hidden' ? '目前没有职位被移到这里。<br>在「我的条件」把做不到的条件标 ×（例如「日语母语级」「有效汽车驾照」），必需条件里 × 超过 20% 的职位就会自动移到这里，不会删掉。<br><button class="primary" id="go-set">打开我的条件</button>' : '没有符合筛选的职位，试试放宽地区或薪资。'}</p>`;
 
     if ($('go-set')) $('go-set').onclick = settings;
     if (!rows.find(j => j.url === selected)) selected = rows[0]?.url || '';
@@ -257,11 +260,13 @@
     const box = $('detail');
     if (!j) { box.innerHTML = '<p class="empty">选择左边的职位查看详情。</p>'; return; }
     const p = P(), r = reasons(j), a = ageDays(j.postedAt);
-    const fav = p.fav[j.url], ni = p.ni[j.url];
+    const fav = p.fav[j.url], prac = p.prac[j.url], ni = p.ni[j.url];
     const gone = !byUrl.has(j.url) || (a !== null && a > 30);
     const reqs = (j.requirements || []);
     const rq = required(j);
     const pct = rq.length ? Math.round(100 * rq.filter(x => fit(x) === 'no').length / rq.length) : 0;
+    const STAGES = ['想申请','已申请','面试中','已拿 offer','不考虑'];
+    const stageSel = (kind, rec) => `<select class="stage" data-kind="${kind}" aria-label="${kind === 'fav' ? '收藏' : '练习'}的跟进状态">${STAGES.map(s => `<option${rec.stage === s ? ' selected' : ''}>${s}</option>`).join('')}</select>`;
     box.innerHTML = `
       <div class="d-head">
         <div class="tags">${chip(j.source)}${chip(CATS[store.profile][classify(j)] || '', 'green')}${j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${gone ? chip('已超过 30 天／已下架','warn') : ''}</div>
@@ -269,10 +274,12 @@
         <p class="co">${esc(j.company)} · ${esc(j.location || '')} · ${esc(when(j))}${j.postedAt ? '（' + esc(j.postedAt) + '）' : ''}</p>
         <div class="actions">
           <a class="primary" href="${esc(j.url)}" target="_blank" rel="noopener noreferrer">打开原帖 ↗</a>
-          <button id="b-fav" class="${fav ? 'on' : ''}">${fav ? '❤ 已收藏' : '♡ 收藏'}</button>
-          ${fav ? `<select id="b-stage" aria-label="跟进状态">${['想申请','已申请','面试中','已拿 offer','不考虑'].map(s => `<option${fav.stage === s ? ' selected' : ''}>${s}</option>`).join('')}</select>` : ''}
+          <button data-kind="fav" class="keep ${fav ? 'on' : ''}">${fav ? '❤ 已收藏' : '♡ 收藏'}</button>
+          ${fav ? stageSel('fav', fav) : ''}
+          <button data-kind="prac" class="keep ${prac ? 'on prac' : ''}">${prac ? '🎯 已加入练习' : '🎯 练习'}</button>
+          ${prac ? stageSel('prac', prac) : ''}
           <button id="b-ni" class="${ni ? 'on' : ''}">${ni ? '↩ 恢复到列表' : '🚫 无兴趣'}</button>
-          ${fav && gone ? '<button id="b-del" class="danger" title="删除这个收藏">✕ 删除</button>' : ''}
+          ${(fav || prac) && gone ? '<button id="b-del" class="danger" title="删除">✕ 删除</button>' : ''}
         </div>
       </div>
       <div class="money">
@@ -287,31 +294,34 @@
           <span class="tri" data-i="${i}">${[['yes','✓'],['no','×'],['unknown','～']].map(([k,t]) => `<button data-v="${k}" class="${v === k ? 'on ' + k : ''}" aria-label="${k}">${t}</button>`).join('')}</span></li>`; }).join('')}</ul>` : '<p>原帖没有列出具体条件。</p>'}
         <p class="hint">同一个条件在所有职位同步。必需条件 × 超过 20% 会移到「不太符合」，刚好 20% 仍显示。</p>
       </section>
-      ${fav ? `<section><h3>我的备注</h3><textarea id="b-note" rows="3" placeholder="面试时间、联系人、想问的问题…">${esc(fav.note || '')}</textarea></section>` : ''}`;
+      ${fav ? `<section><h3>收藏备注</h3><textarea class="note" data-kind="fav" rows="3" placeholder="面试时间、联系人、想问的问题…">${esc(fav.note || '')}</textarea></section>` : ''}
+      ${prac ? `<section><h3>练习备注</h3><textarea class="note" data-kind="prac" rows="3" placeholder="想练什么、被问了什么、下次怎么答更好…">${esc(prac.note || '')}</textarea></section>` : ''}`;
 
-    $('b-fav').onclick = () => {
-      if (fav) { if (gone) return confirmDelete(j); delete p.fav[j.url]; toast('已取消收藏'); }
-      else { p.fav[j.url] = { job: snapshot(j), at: new Date().toISOString(), stage:'想申请' }; delete p.ni[j.url]; toast('已收藏，超过 30 天也会保留'); }
+    box.querySelectorAll('button.keep').forEach(b => b.onclick = () => {
+      const kind = b.dataset.kind, name = kind === 'fav' ? '收藏' : '练习';
+      if (p[kind][j.url]) { if (gone) return confirmDelete(j, kind); delete p[kind][j.url]; toast('已取消' + name); }
+      else { p[kind][j.url] = { job: snapshot(j), at: new Date().toISOString(), stage:'想申请' }; delete p.ni[j.url]; toast('已加入「' + name + '」，超过 30 天也会保留'); }
       save(); render();
-    };
+    });
     $('b-ni').onclick = () => {
       if (ni) { delete p.ni[j.url]; toast('已恢复到列表'); }
-      else { p.ni[j.url] = { job: snapshot(j), at: new Date().toISOString() }; delete p.fav[j.url]; toast('已移到「无兴趣」，超过 30 天自动清除'); selected = ''; }
+      else { p.ni[j.url] = { job: snapshot(j), at: new Date().toISOString() }; delete p.fav[j.url]; delete p.prac[j.url]; toast('已移到「无兴趣」，职位发布满 30 天后自动清除'); selected = ''; }
       save(); render();
     };
-    if ($('b-del')) $('b-del').onclick = () => confirmDelete(j);
-    if ($('b-stage')) $('b-stage').onchange = e => { p.fav[j.url].stage = e.target.value; save(); };
-    if ($('b-note')) $('b-note').onchange = e => { p.fav[j.url].note = e.target.value; save(); };
+    if ($('b-del')) $('b-del').onclick = () => confirmDelete(j, prac && !fav ? 'prac' : (tab === 'prac' ? 'prac' : 'fav'));
+    box.querySelectorAll('select.stage').forEach(el => el.onchange = e => { p[el.dataset.kind][j.url].stage = e.target.value; save(); render(); });
+    box.querySelectorAll('textarea.note').forEach(el => el.onchange = e => { p[el.dataset.kind][j.url].note = e.target.value; save(); });
     box.querySelectorAll('.tri button').forEach(b => b.onclick = () => {
       const i = +b.parentElement.dataset.i; setFit(reqs[i], b.dataset.v); render();
     });
   }
 
-  function confirmDelete(j) {
-    modal('确定删除这个收藏吗？', `<p>「${esc(j.title)}」— ${esc(j.company)}</p><p>这个职位已经超过 30 天。删除后不能恢复。</p>
+  function confirmDelete(j, kind = 'fav') {
+    const name = kind === 'fav' ? '收藏' : '练习';
+    modal(`确定删除这个${name}吗？`, `<p>「${esc(j.title)}」— ${esc(j.company)}</p><p>这个职位已经发布超过 30 天。删除后不能恢复。</p>
       <div class="actions"><button id="m-no">取消</button><button id="m-yes" class="danger">确认删除</button></div>`);
     $('m-no').onclick = () => $('modal').close();
-    $('m-yes').onclick = () => { delete P().fav[j.url]; save(); $('modal').close(); toast('已删除'); render(); };
+    $('m-yes').onclick = () => { delete P()[kind][j.url]; save(); $('modal').close(); toast('已删除'); render(); };
   }
 
   function modal(title, html) { $('modal-title').textContent = title; $('modal-body').innerHTML = html; $('modal').showModal(); }
