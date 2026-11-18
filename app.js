@@ -239,7 +239,7 @@
 
     const latest = data.jobs.reduce((m, j) => j.firstSeen > m ? j.firstSeen : m, '');
     const seenBefore = p.prevVisit || '';
-    const panel = (tab === 'fav' || tab === 'prac') ? progressPanel(tab) : '';
+    const panel = progressPanel(tab);
     $('list').innerHTML = panel + (rows.length ? rows.map(j => {
       const r = sc.get(j.url), a = ageDays(j.postedAt);
       const isNew = seenBefore ? j.firstSeen > seenBefore.slice(0,10) : j.firstSeen === latest;
@@ -252,6 +252,7 @@
         <span class="tags">${tab === 'hidden' ? required(j).filter(x => fit(x) === 'no').map(x => chip('× ' + x.label.slice(0, 18), 'warn')).join('') : ''}${chip(j.source)}${j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${st ? chip(st + ((tab === 'fav' || tab === 'prac') && p[tab][j.url]?.appliedAt && st !== '想申请' ? ' · ' + fmtD(p[tab][j.url].appliedAt) + ' 申请' : ''),'green') : ''}${expired ? chip('已超过 30 天','warn') : ''}${tab === 'list' ? r.tags.slice(0,2).map(t => chip(t[0], t[1])).join('') : ''}</span>
       </button>`;
     }).join('') : `<p class="empty">${tab === 'fav' ? '还没有收藏。点职位右边的 ❤ 收藏。' : tab === 'prac' ? '还没有练习的职位。<br>想把某个职位的面试当练习，就在职位右边点「🎯 练习」。和收藏一样可以记已申请、面试中和备注，超过 30 天也会保留。' : tab === 'ni' ? '没有标记无兴趣的职位。' : tab === 'hidden' ? '目前没有职位被移到这里。<br>在「我的条件」把做不到的条件标 ×（例如「日语母语级」「有效汽车驾照」），必需条件里 × 超过 20% 的职位就会自动移到这里，不会删掉。<br><button class="primary" id="go-set">打开我的条件</button>' : '没有符合筛选的职位，试试放宽地区或薪资。'}</p>`);
+    const pp = $('prog-panel'); if (pp) pp.ontoggle = () => { try { localStorage.setItem('ssd.panel', pp.open ? '1' : '0'); } catch {} };
 
     if ($('go-set')) $('go-set').onclick = settings;
     if (!rows.find(j => j.url === selected)) selected = rows[0]?.url || '';
@@ -409,7 +410,9 @@
     const up = ev.filter(x => x.e.s === '准备面试' && x.e.d >= today).sort((a, b) => (a.e.d + (a.e.t||'')).localeCompare(b.e.d + (b.e.t||'')));
     const recent = ev.filter(x => !up.includes(x)).sort((a, b) => (b.e.d + (b.e.t||'')).localeCompare(a.e.d + (a.e.t||''))).slice(0, 8);
     const line = x => `<div class="pl" data-url="${esc(x.job.url)}"><b>${fmtD(x.e.d)}${x.e.t ? ' ' + esc(x.e.t) : ''}</b> ${esc(VERB[x.e.s] || x.e.s)} ${esc(x.job.company)} · ${esc(x.job.title)}${x.k === 'prac' ? ' <em class="tagp">练习</em>' : ''}</div>`;
-    return `<div class="panel">${up.length ? `<h4>📅 接下来的面试</h4>${up.map(line).join('')}` : ''}<h4>📝 最近进度</h4>${recent.map(line).join('') || '<p class="hint">暂时没有</p>'}</div>`;
+    let open = true; try { open = localStorage.getItem('ssd.panel') !== '0'; } catch {}
+    const sum = `📝 我的进度${up.length ? ` · <span class="up-n">📅 ${up.length} 个面试</span>` : ''}${readOnly() ? '（' + esc(store.profile) + '，只读）' : ''}`;
+    return `<details class="panel" id="prog-panel"${open ? ' open' : ''}><summary>${sum}</summary>${up.length ? `<h4>📅 接下来的面试</h4>${up.map(line).join('')}` : ''}<h4>📝 最近进度</h4>${recent.map(line).join('') || '<p class="hint">暂时没有</p>'}</details>`;
   }
 
   function confirmDelete(j, kind = 'fav') {
