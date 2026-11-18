@@ -39,14 +39,14 @@
   <section class="filters" aria-label="筛选">
     <label class="search"><span aria-hidden="true">⌕</span><input id="q" type="search" placeholder="搜职位、公司、地区、关键词"></label>
     <select id="f-cat" aria-label="方向"></select>
-    <select id="f-area" aria-label="地区"><option value="selangor">雪兰莪</option><option value="">全马</option><option value="other">雪兰莪以外</option></select>
+    <select id="f-area" aria-label="地区"><option value="klv">雪兰莪 + 吉隆坡</option><option value="selangor">只看雪兰莪</option><option value="kl">只看吉隆坡</option><option value="">全马</option><option value="other">其他州属</option></select>
     <select id="f-src" aria-label="来源"><option value="">所有来源</option></select>
     <select id="f-sort" aria-label="排序"><option value="score">推荐优先</option><option value="new">最新发布</option><option value="pay">广告薪资高</option></select>
     <div class="pay">
       <span>月薪 RM</span>
       <input id="f-min" type="number" min="0" step="500" placeholder="最低" aria-label="最低月薪">
       <input id="f-max" type="number" min="0" step="500" placeholder="最高" aria-label="最高月薪">
-      <label><input id="f-unknown" type="checkbox" checked> 含未公开</label>
+      
       <label id="only-comm-wrap"><input id="f-only" type="checkbox"> 只看纯佣金</label>
     </div>
   </section>
@@ -58,7 +58,7 @@
 
   <footer>
     <span>✓ 符合　× 不符合　～ 待确认 · 必需条件 × 超过 20% 移到「不太符合」</span>
-    <span>只列近 30 天发布的职位 · 收藏不会自动删除 · 无兴趣超过 30 天自动清除</span>
+    <span>只列近 30 天发布、写明薪资的职位 · 收藏不会自动删除 · 无兴趣超过 30 天自动清除</span>
     <span>你的勾选、收藏和无兴趣只保存在这个浏览器；换设备请用「我的条件 → 备份」。</span>
   </footer>
 </main>

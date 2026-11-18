@@ -36,7 +36,7 @@
   const P = () => {
     const p = store.profiles[store.profile] ||= {};
     p.facts ||= {}; p.answers ||= {}; p.fav ||= {}; p.ni ||= {}; p.f ||= {};
-    if (!('area' in p.f)) p.f.area = 'selangor';
+    if (!('area' in p.f) || (p.f.area === 'selangor' && !p.f.areaV2)) { p.f.area = 'klv'; p.f.areaV2 = true; }
     for (const [k,v] of Object.entries(DEFAULT_FACTS[store.profile])) if (!(k in p.facts)) p.facts[k] = v;
     return p;
   };
@@ -122,15 +122,18 @@
   const fresh = j => j.postedAt ? ageDays(j.postedAt) <= 30 : (j.checkedAt ? ageDays(j.checkedAt) <= 7 : true);
   const passFilters = j => {
     const f = P().f;
+    const inKLV = j.region === 'selangor' || j.region === 'kl';
+    if (f.area === 'klv' && !inKLV) return false;
     if (f.area === 'selangor' && j.region !== 'selangor') return false;
-    if (f.area === 'other' && j.region === 'selangor') return false;
+    if (f.area === 'kl' && j.region !== 'kl') return false;
+    if (f.area === 'other' && inKLV) return false;
     if (f.cat && classify(j) !== f.cat) return false;
     if (f.src && j.source !== f.src) return false;
     if (!isJW() && f.only && j.commissionType !== 'only') return false;
     if (f.min || f.max) {
       const r = payRange(j.salary);
-      if (!r) { if (!f.unknown) return false; }
-      else if (r[1] < (f.min || 0) || r[0] > (f.max || Infinity)) return false;
+      if (!r) return false;
+      if (r[1] < (f.min || 0) || r[0] > (f.max || Infinity)) return false;
     }
     if (f.q) {
       const hay = [j.title, j.company, j.location, j.summary, j.commission, j.source].join(' ').toLowerCase();
@@ -177,14 +180,14 @@
     document.querySelectorAll('[data-profile]').forEach(b => b.classList.toggle('on', b.dataset.profile === store.profile));
     document.querySelectorAll('[data-tab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
     $('title').textContent = isJW() ? '日语职位' : '销售职位';
-    $('subtitle').textContent = isJW() ? '雪兰莪优先 · 全职 · 偏好日语客服、月薪 RM8,000 以上（只影响排序）' : '雪兰莪优先 · 全职 · 原帖写明有佣金';
+    $('subtitle').textContent = isJW() ? '雪兰莪 + 吉隆坡 · 全职 · 写明薪资 · 日语客服、月薪 RM8,000 以上排前面' : '雪兰莪 + 吉隆坡 · 全职 · 写明薪资 · 原帖写明有佣金';
     $('only-comm-wrap').hidden = isJW();
     $('f-cat').innerHTML = Object.entries(CATS[store.profile]).map(([k,v]) => `<option value="${k}"${k === (f.cat || '') ? ' selected' : ''}>${v}</option>`).join('');
-    $('f-area').value = f.area ?? 'selangor';
+    $('f-area').value = f.area ?? 'klv';
     $('f-src').value = f.src || '';
     $('f-sort').value = f.sort || 'score';
     $('f-min').value = f.min || ''; $('f-max').value = f.max || '';
-    $('f-unknown').checked = f.unknown !== false; $('f-only').checked = !!f.only;
+    $('f-only').checked = !!f.only;
     $('q').value = f.q || '';
 
     const g = groups();
@@ -314,7 +317,7 @@
   const bindF = (id, key, fn = e => e.target.value) => $(id).addEventListener(id === 'q' ? 'input' : 'change', e => { P().f[key] = fn(e); save(); render(); });
   bindF('q','q'); bindF('f-cat','cat'); bindF('f-area','area'); bindF('f-src','src'); bindF('f-sort','sort');
   bindF('f-min','min', e => +e.target.value || 0); bindF('f-max','max', e => +e.target.value || 0);
-  bindF('f-unknown','unknown', e => e.target.checked); bindF('f-only','only', e => e.target.checked);
+  bindF('f-only','only', e => e.target.checked);
   document.querySelectorAll('[data-profile]').forEach(b => b.onclick = () => { store.profile = b.dataset.profile; save(); selected = ''; purge(); render(); });
   document.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; selected = ''; render(); });
   $('list').addEventListener('click', e => {
