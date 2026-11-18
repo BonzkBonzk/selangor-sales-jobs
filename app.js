@@ -239,7 +239,8 @@
 
     const latest = data.jobs.reduce((m, j) => j.firstSeen > m ? j.firstSeen : m, '');
     const seenBefore = p.prevVisit || '';
-    $('list').innerHTML = rows.length ? rows.map(j => {
+    const panel = (tab === 'fav' || tab === 'prac') ? progressPanel(tab) : '';
+    $('list').innerHTML = panel + (rows.length ? rows.map(j => {
       const r = sc.get(j.url), a = ageDays(j.postedAt);
       const isNew = seenBefore ? j.firstSeen > seenBefore.slice(0,10) : j.firstSeen === latest;
       const expired = (tab === 'fav' || tab === 'prac') && (a !== null && a > 30 || !byUrl.has(j.url));
@@ -248,9 +249,9 @@
         <span class="row1">${isNew ? '<em class="new">NEW</em>' : ''}${p.fav[j.url] ? '<em class="heart">❤</em>' : ''}${p.prac[j.url] ? '<em class="prac">🎯</em>' : ''}<strong>${esc(j.title)}</strong></span>
         <span class="co">${esc(j.company)} · ${esc(j.location || '')}</span>
         <span class="row3"><b>${esc(j.salary || '薪资未公开')}</b><i>${esc(when(j))}</i></span>
-        <span class="tags">${tab === 'hidden' ? required(j).filter(x => fit(x) === 'no').map(x => chip('× ' + x.label.slice(0, 18), 'warn')).join('') : ''}${chip(j.source)}${j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${st ? chip(st,'green') : ''}${expired ? chip('已超过 30 天','warn') : ''}${tab === 'list' ? r.tags.slice(0,2).map(t => chip(t[0], t[1])).join('') : ''}</span>
+        <span class="tags">${tab === 'hidden' ? required(j).filter(x => fit(x) === 'no').map(x => chip('× ' + x.label.slice(0, 18), 'warn')).join('') : ''}${chip(j.source)}${j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${st ? chip(st + ((tab === 'fav' || tab === 'prac') && p[tab][j.url]?.appliedAt && st !== '想申请' ? ' · ' + fmtD(p[tab][j.url].appliedAt) + ' 申请' : ''),'green') : ''}${expired ? chip('已超过 30 天','warn') : ''}${tab === 'list' ? r.tags.slice(0,2).map(t => chip(t[0], t[1])).join('') : ''}</span>
       </button>`;
-    }).join('') : `<p class="empty">${tab === 'fav' ? '还没有收藏。点职位右边的 ❤ 收藏。' : tab === 'prac' ? '还没有练习的职位。<br>想把某个职位的面试当练习，就在职位右边点「🎯 练习」。和收藏一样可以记已申请、面试中和备注，超过 30 天也会保留。' : tab === 'ni' ? '没有标记无兴趣的职位。' : tab === 'hidden' ? '目前没有职位被移到这里。<br>在「我的条件」把做不到的条件标 ×（例如「日语母语级」「有效汽车驾照」），必需条件里 × 超过 20% 的职位就会自动移到这里，不会删掉。<br><button class="primary" id="go-set">打开我的条件</button>' : '没有符合筛选的职位，试试放宽地区或薪资。'}</p>`;
+    }).join('') : `<p class="empty">${tab === 'fav' ? '还没有收藏。点职位右边的 ❤ 收藏。' : tab === 'prac' ? '还没有练习的职位。<br>想把某个职位的面试当练习，就在职位右边点「🎯 练习」。和收藏一样可以记已申请、面试中和备注，超过 30 天也会保留。' : tab === 'ni' ? '没有标记无兴趣的职位。' : tab === 'hidden' ? '目前没有职位被移到这里。<br>在「我的条件」把做不到的条件标 ×（例如「日语母语级」「有效汽车驾照」），必需条件里 × 超过 20% 的职位就会自动移到这里，不会删掉。<br><button class="primary" id="go-set">打开我的条件</button>' : '没有符合筛选的职位，试试放宽地区或薪资。'}</p>`);
 
     if ($('go-set')) $('go-set').onclick = settings;
     if (!rows.find(j => j.url === selected)) selected = rows[0]?.url || '';
@@ -272,7 +273,7 @@
     const reqs = (j.requirements || []);
     const rq = required(j);
     const pct = rq.length ? Math.round(100 * rq.filter(x => fit(x) === 'no').length / rq.length) : 0;
-    const STAGES = ['想申请','已申请','面试中','已拿 offer','不考虑'];
+    const STAGES = ['想申请','已申请','准备面试','面试完','等结果','已拿 offer','没通过','不考虑'];
     const stageSel = (kind, rec) => `<select class="stage" data-kind="${kind}" aria-label="${kind === 'fav' ? '收藏' : '练习'}的跟进状态">${STAGES.map(s => `<option${rec.stage === s ? ' selected' : ''}>${s}</option>`).join('')}</select>`;
     box.innerHTML = `
       <div class="d-head">
@@ -303,9 +304,14 @@
         <p class="hint">同一个条件在所有职位同步。必需条件 × 超过 20% 会移到「不太符合」，刚好 20% 仍显示。</p>
       </section>
       ${fav ? `<section><h3>收藏备注</h3><textarea class="note" data-kind="fav"${readOnly() ? ' readonly' : ''} rows="3" placeholder="面试时间、联系人、想问的问题…">${esc(fav.note || '')}</textarea></section>` : ''}
+      ${(fav || prac) ? progressHTML(j, fav, prac) : ''}
       ${prac ? `<section><h3>练习备注</h3><textarea class="note" data-kind="prac"${readOnly() ? ' readonly' : ''} rows="3" placeholder="想练什么、被问了什么、下次怎么答更好…">${esc(prac.note || '')}</textarea></section>` : ''}`;
 
+    box.querySelectorAll('.log-ics').forEach(b => b.onclick = () => {
+      const rec = p[b.dataset.kind][j.url]; const e = (rec?.log || []).find(x => x.id === b.dataset.id); if (e) downloadIcs(j, e);
+    });
     if (readOnly()) {
+      box.querySelectorAll('.log-add, .log-del').forEach(el => el.remove());
       box.querySelectorAll('.actions button, .actions select, .tri button').forEach(el => { if (!el.closest('a')) el.disabled = true; });
       box.querySelector('.actions').classList.remove('ro-hide');
       box.querySelectorAll('.actions button, .actions select').forEach(el => el.style.display = 'none');
@@ -323,11 +329,87 @@
       save(); render();
     };
     if ($('b-del')) $('b-del').onclick = () => confirmDelete(j, prac && !fav ? 'prac' : (tab === 'prac' ? 'prac' : 'fav'));
-    box.querySelectorAll('select.stage').forEach(el => el.onchange = e => { p[el.dataset.kind][j.url].stage = e.target.value; touch(p, el.dataset.kind, j.url); save(); render(); });
+    box.querySelectorAll('select.stage').forEach(el => el.onchange = e => stageModal(j, el.dataset.kind, e.target.value));
+    box.querySelectorAll('.log-add').forEach(b => b.onclick = () => stageModal(j, b.dataset.kind, p[b.dataset.kind][j.url]?.stage || '已申请', true));
+    box.querySelectorAll('.log-del').forEach(b => b.onclick = () => {
+      const rec = p[b.dataset.kind][j.url]; if (!rec) return;
+      rec.log = (rec.log || []).filter(x => x.id !== b.dataset.id);
+      const ap = rec.log.filter(x => x.s === '已申请').map(x => x.d).sort().pop(); if (ap) rec.appliedAt = ap; else delete rec.appliedAt;
+      const last = rec.log.slice().sort((a, c) => (a.d + (a.t || '')).localeCompare(c.d + (c.t || ''))).pop(); rec.stage = last ? last.s : '想申请';
+      touch(p, b.dataset.kind, j.url); save(); render();
+    });
     box.querySelectorAll('textarea.note').forEach(el => el.onchange = e => { p[el.dataset.kind][j.url].note = e.target.value; touch(p, el.dataset.kind, j.url); save(); });
     box.querySelectorAll('.tri button').forEach(b => b.onclick = () => {
       const i = +b.parentElement.dataset.i; setFit(reqs[i], b.dataset.v); render();
     });
+  }
+
+  /* ---------- 申请与面试进度 ---------- */
+  const fmtD = d => { const [y, m, dd] = d.split('-'); return `${+m}/${+dd}`; };
+  const VERB = { '已申请':'申请了', '准备面试':'面试', '面试完':'面试完', '等结果':'等结果', '已拿 offer':'拿到 offer', '没通过':'没通过', '不考虑':'决定不考虑', '想申请':'想申请' };
+  function progressHTML(j, fav, prac) {
+    const rows = [];
+    for (const [kind, rec] of [['fav', fav], ['prac', prac]]) if (rec) for (const e of (rec.log || [])) rows.push({ kind, e });
+    rows.sort((a, b) => (a.e.d + (a.e.t || '')).localeCompare(b.e.d + (b.e.t || '')));
+    const today = todayMY();
+    return `<section class="progress"><h3>进度记录</h3>
+      ${rows.length ? `<ul class="log">${rows.map(({ kind, e }) => `<li class="${e.s === '准备面试' && e.d >= today ? 'up' : ''}">
+        <span><b>${fmtD(e.d)}${e.t ? ' ' + esc(e.t) : ''}</b> ${esc(e.s)}${kind === 'prac' ? ' <em class="tagp">练习</em>' : ''}${e.where ? ' · ' + esc(e.where) : ''}${e.note ? '<br><small>' + esc(e.note) + '</small>' : ''}</span>
+        <span class="log-btns">${e.s === '准备面试' ? `<button class="log-ics" data-kind="${kind}" data-id="${e.id}" title="下载日历档">🗓</button>` : ''}<button class="log-del" data-kind="${kind}" data-id="${e.id}" title="删除这笔">✕</button></span></li>`).join('')}</ul>` : '<p class="hint">还没有记录。改上面的状态，或按下面的按钮记一笔。</p>'}
+      <div class="actions">${fav ? '<button class="log-add" data-kind="fav">＋ 记一笔（收藏）</button>' : ''}${prac ? '<button class="log-add" data-kind="prac">＋ 记一笔（练习）</button>' : ''}</div>
+    </section>`;
+  }
+  function stageModal(j, kind, stage, chooseStage = false) {
+    const p = P(), rec = p[kind][j.url]; if (!rec || readOnly()) return;
+    const STG = ['已申请','准备面试','面试完','等结果','已拿 offer','没通过','不考虑','想申请'];
+    const title = stage === '已申请' ? '几时申请的？' : stage === '准备面试' ? '面试是几时？' : '记下这一步';
+    modal(title, `<p class="hint">「${esc(j.title)}」— ${esc(j.company)}（${kind === 'fav' ? '收藏' : '练习'}）</p>
+      <div class="form">
+        <label>状态 <select id="s-stage">${STG.map(x => `<option${x === stage ? ' selected' : ''}>${x}</option>`).join('')}</select></label>
+        <label>日期 <input id="s-date" type="date" value="${todayMY()}"></label>
+        <label id="s-time-w">时间 <input id="s-time" type="time" value="10:00"></label>
+        <label id="s-where-w">地点／方式 <input id="s-where" type="text" placeholder="例如：公司地址、Zoom、电话"></label>
+        <label>备注 <input id="s-note" type="text" placeholder="可不填"></label>
+      </div>
+      <div class="actions"><button id="s-cancel">取消</button><button id="s-ok" class="primary">保存</button></div>`);
+    const sync = () => { const iv = $('s-stage').value === '准备面试'; $('s-time-w').hidden = !iv; $('s-where-w').hidden = !iv; };
+    $('s-stage').onchange = sync; sync();
+    if (!chooseStage) $('s-stage').disabled = false;
+    $('s-cancel').onclick = () => { $('modal').close(); render(); };
+    $('s-ok').onclick = () => {
+      const s2 = $('s-stage').value, d = $('s-date').value || todayMY();
+      const e = { id: Date.now().toString(36), s: s2, d, at: Date.now() };
+      if (s2 === '准备面试') { e.t = $('s-time').value || ''; e.where = $('s-where').value.trim(); }
+      const n = $('s-note').value.trim(); if (n) e.note = n;
+      (rec.log ||= []).push(e); rec.stage = s2; if (s2 === '已申请') rec.appliedAt = d;
+      touch(p, kind, j.url); save(); $('modal').close();
+      toast(s2 === '已申请' ? `已记下：${fmtD(d)} 申请了 ${j.company}` : s2 === '准备面试' ? `已记下面试：${fmtD(d)} ${e.t}${syncCfg ? '，订阅日历会自动出现' : ''}` : '已记下');
+      render();
+    };
+  }
+  function icsText(j, e) {
+    const pad = n => String(n).padStart(2, '0');
+    const [y, m, d] = e.d.split('-').map(Number), [hh, mm] = (e.t || '09:00').split(':').map(Number);
+    const start = new Date(Date.UTC(y, m - 1, d, hh - 8, mm)), end = new Date(start.getTime() + 3600000);
+    const z = t => `${t.getUTCFullYear()}${pad(t.getUTCMonth() + 1)}${pad(t.getUTCDate())}T${pad(t.getUTCHours())}${pad(t.getUTCMinutes())}00Z`;
+    const x = s => String(s || '').replace(/[\\;,]/g, c => '\\' + c).replace(/\n/g, '\\n');
+    return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Job//CN','BEGIN:VEVENT', `UID:${e.id}@job`, `DTSTAMP:${z(new Date())}`, `DTSTART:${z(start)}`, `DTEND:${z(end)}`,
+      `SUMMARY:${x('面试：' + j.company + ' · ' + j.title)}`, `LOCATION:${x(e.where)}`, `DESCRIPTION:${x((e.note ? e.note + '\n' : '') + j.url)}`,
+      'BEGIN:VALARM','TRIGGER:-PT2H','ACTION:DISPLAY','DESCRIPTION:面试提醒','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  }
+  function downloadIcs(j, e) {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([icsText(j, e)], { type:'text/calendar' }));
+    a.download = 'interview-' + e.d + '.ics'; a.click();
+  }
+  function progressPanel(kind) {
+    const p = P(), today = todayMY(), ev = [];
+    for (const k of ['fav','prac']) for (const rec of Object.values(p[k])) for (const e of (rec.log || [])) ev.push({ k, e, job: byUrl.get(rec.job.url) || rec.job });
+    if (!ev.length) return '';
+    const up = ev.filter(x => x.e.s === '准备面试' && x.e.d >= today).sort((a, b) => (a.e.d + (a.e.t||'')).localeCompare(b.e.d + (b.e.t||'')));
+    const recent = ev.filter(x => !up.includes(x)).sort((a, b) => (b.e.d + (b.e.t||'')).localeCompare(a.e.d + (a.e.t||''))).slice(0, 8);
+    const line = x => `<div class="pl" data-url="${esc(x.job.url)}"><b>${fmtD(x.e.d)}${x.e.t ? ' ' + esc(x.e.t) : ''}</b> ${esc(VERB[x.e.s] || x.e.s)} ${esc(x.job.company)} · ${esc(x.job.title)}${x.k === 'prac' ? ' <em class="tagp">练习</em>' : ''}</div>`;
+    return `<div class="panel">${up.length ? `<h4>📅 接下来的面试</h4>${up.map(line).join('')}` : ''}<h4>📝 最近进度</h4>${recent.map(line).join('') || '<p class="hint">暂时没有</p>'}</div>`;
   }
 
   function confirmDelete(j, kind = 'fav') {
@@ -364,9 +446,14 @@
       <p class="hint">每人一个同步码：填自己的码，就能在所有设备同步自己的收藏、练习、无兴趣和勾选；切到对方的档案可以看，但不能改。同步码只存在这个浏览器，不要给别人。</p>
       <div class="sync-row"><input id="m-sync" type="password" placeholder="贴上同步码" value="${esc(syncCfg ? syncCfg.raw : '')}"><button id="m-sync-go">${syncCfg ? '更新' : '连接'}</button>${syncCfg ? '<button id="m-sync-off">停止同步</button>' : ''}</div>
       <p class="hint" id="m-sync-status">${esc(syncStatus)}</p>
+      <h3>Apple 日历</h3>
+      ${syncCfg ? `<p class="hint">订阅一次，之后你记下的面试时间会自动出现在 Apple 日历（Apple 每隔一段时间自动刷新）。只包含你自己（${esc(syncCfg.owner || '')}）的申请和面试。</p>
+      <div class="sync-row"><input id="m-cal" readonly value="${esc(syncCfg.url.replace(/^https:/, 'webcal:') + '?ics=1&t=' + syncCfg.t)}"><button id="m-cal-copy">复制</button></div>
+      <p class="hint">iPhone：设置 → 日历 → 账户 → 添加账户 → 其他 → 添加已订阅的日历 → 贴上链接。<br>Mac：日历 App → 文件 → 新建日历订阅 → 贴上链接，自动刷新选「每 15 分钟」或「每小时」。</p>` : '<p class="hint">先在上面填同步码，才能订阅日历。也可以在每个面试旁边按 🗓 下载单个日历档。</p>'}
       <h3>备份与换设备</h3>
       <p class="hint">收藏、无兴趣和勾选只存在这个浏览器。换手机或电脑前，先导出，再到新设备导入。</p>
       <div class="actions"><button id="m-exp">导出备份</button><label class="filebtn">导入备份<input id="m-imp" type="file" accept="application/json"></label><button id="m-reset">清除这个档案的勾选</button></div>`);
+    if ($('m-cal-copy')) $('m-cal-copy').onclick = async () => { try { await navigator.clipboard.writeText($('m-cal').value); toast('已复制日历链接'); } catch { $('m-cal').select(); toast('请手动复制'); } };
     $('m-sync-go').onclick = async () => {
       const raw = $('m-sync').value.trim(); const i = raw.lastIndexOf('#');
       if (!/^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec#\w{16,}$/.test(raw)) { toast('同步码格式不对，请整段贴上。'); return; }
@@ -406,7 +493,7 @@
   document.querySelectorAll('[data-profile]').forEach(b => b.onclick = () => { store.profile = b.dataset.profile; save(); selected = ''; purge(); render(); });
   document.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; selected = ''; render(); });
   $('list').addEventListener('click', e => {
-    const it = e.target.closest('.item'); if (!it) return;
+    const it = e.target.closest('.item, .pl'); if (!it) return;
     selected = it.dataset.url; render();
     if (matchMedia('(max-width: 860px)').matches) $('detail').scrollIntoView({ behavior:'smooth' });
   });
