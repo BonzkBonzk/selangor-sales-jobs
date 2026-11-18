@@ -247,7 +247,7 @@
     renderDetail(rows.find(j => j.url === selected));
 
     const upd = data.updatedAt ? new Date(data.updatedAt).toLocaleString('zh-MY', { timeZone:'Asia/Kuala_Lumpur', month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit' }) : '—';
-    $('meta').innerHTML = `<span>资料更新：${esc(upd)}</span><span>每 5 天更新${data.nextUpdate ? ' · 下次约 ' + esc(data.nextUpdate) : ''}</span>`;
+    $('meta').innerHTML = `<span>资料更新：${esc(upd)}</span><span>每 3 天更新${data.nextUpdate ? ' · 下次约 ' + esc(data.nextUpdate) : ''}</span>`;
     const newCount = g.list.filter(j => seenBefore ? j.firstSeen > seenBefore.slice(0,10) : j.firstSeen === latest).length;
     $('news').hidden = !newCount;
     $('news').innerHTML = newCount ? `<b>${newCount}</b> 个职位是${seenBefore ? '你上次来访之后' : '最近一次更新'}新增的，列表里标了 NEW。` : '';
