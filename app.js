@@ -52,7 +52,7 @@
   const readOnly = () => { try { const c = JSON.parse(localStorage.getItem('ssd.sync')); return !!(c && c.owner && c.owner !== store.profile); } catch { return false; } };
 
   /* ---------- 数据 ---------- */
-  let data = { jobs:[] }, byUrl = new Map(), tab = 'list', selected = '';
+  let data = { jobs:[] }, byUrl = new Map(), tab = 'list', selected = '', page = 0, jumpTo = false;
 
   const CATS = {
     KH: { '':'所有方向', energy:'能源 / Solar', b2b:'企业销售 / B2B', retail:'门店 / 展厅', property:'房地产', auto:'汽车', digital:'数码 / 科技', finance:'金融 / 保险', education:'教育 / 招生', other:'其他销售' },
@@ -239,8 +239,14 @@
 
     const latest = data.jobs.reduce((m, j) => j.firstSeen > m ? j.firstSeen : m, '');
     const seenBefore = p.prevVisit || '';
-    const panel = progressPanel(tab);
-    $('list').innerHTML = panel + (rows.length ? rows.map(j => {
+    const per = f.per ?? 20, pages = per ? Math.max(1, Math.ceil(rows.length / per)) : 1;
+    if (jumpTo && per) { const ix = rows.findIndex(j => j.url === selected); if (ix >= 0) page = Math.floor(ix / per); }
+    jumpTo = false; if (page >= pages) page = pages - 1; if (page < 0) page = 0;
+    const view = per ? rows.slice(page * per, page * per + per) : rows;
+    const perSel = `<select class="f-per" aria-label="每页显示">${[[20,'每页 20'],[50,'每页 50'],[0,'全部显示']].map(([v,t]) => `<option value="${v}"${v === per ? ' selected' : ''}>${t}</option>`).join('')}</select>`;
+    const pagerTop = rows.length ? `<div class="pager top">共 ${rows.length} 个${pages > 1 ? ` · 第 ${page + 1}/${pages} 页` : ''}${perSel}</div>` : '';
+    const pagerBot = pages > 1 ? `<div class="pager"><button data-pg="-1"${page ? '' : ' disabled'}>‹ 上一页</button><span>${page + 1} / ${pages}</span><button data-pg="1"${page < pages - 1 ? '' : ' disabled'}>下一页 ›</button></div>` : '';
+    $('list').innerHTML = pagerTop + (rows.length ? view.map(j => {
       const r = sc.get(j.url), a = ageDays(j.postedAt);
       const isNew = seenBefore ? j.firstSeen > seenBefore.slice(0,10) : j.firstSeen === latest;
       const expired = (tab === 'fav' || tab === 'prac') && (a !== null && a > 30 || !byUrl.has(j.url));
@@ -251,12 +257,19 @@
         <span class="row3"><b>${esc(j.salary || '薪资未公开')}</b><i>${esc(when(j))}</i></span>
         <span class="tags">${tab === 'hidden' ? required(j).filter(x => fit(x) === 'no').map(x => chip('× ' + x.label.slice(0, 18), 'warn')).join('') : ''}${chip(j.source)}${j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${st ? chip(st + ((tab === 'fav' || tab === 'prac') && p[tab][j.url]?.appliedAt && st !== '想申请' ? ' · ' + fmtD(p[tab][j.url].appliedAt) + ' 申请' : ''),'green') : ''}${expired ? chip('已超过 30 天','warn') : ''}${tab === 'list' ? r.tags.slice(0,2).map(t => chip(t[0], t[1])).join('') : ''}</span>
       </button>`;
-    }).join('') : `<p class="empty">${tab === 'fav' ? '还没有收藏。点职位右边的 ❤ 收藏。' : tab === 'prac' ? '还没有练习的职位。<br>想把某个职位的面试当练习，就在职位右边点「🎯 练习」。和收藏一样可以记已申请、面试中和备注，超过 30 天也会保留。' : tab === 'ni' ? '没有标记无兴趣的职位。' : tab === 'hidden' ? '目前没有职位被移到这里。<br>在「我的条件」把做不到的条件标 ×（例如「日语母语级」「有效汽车驾照」），必需条件里 × 超过 20% 的职位就会自动移到这里，不会删掉。<br><button class="primary" id="go-set">打开我的条件</button>' : '没有符合筛选的职位，试试放宽地区或薪资。'}</p>`);
-    const pp = $('prog-panel'); if (pp) pp.ontoggle = () => { try { localStorage.setItem('ssd.panel', pp.open ? '1' : '0'); } catch {} };
+    }).join('') : `<p class="empty">${tab === 'fav' ? '还没有收藏。点职位右边的 ❤ 收藏。' : tab === 'prac' ? '还没有练习的职位。<br>想把某个职位的面试当练习，就在职位右边点「🎯 练习」。和收藏一样可以记已申请、面试中和备注，超过 30 天也会保留。' : tab === 'ni' ? '没有标记无兴趣的职位。' : tab === 'hidden' ? '目前没有职位被移到这里。<br>在「我的条件」把做不到的条件标 ×（例如「日语母语级」「有效汽车驾照」），必需条件里 × 超过 20% 的职位就会自动移到这里，不会删掉。<br><button class="primary" id="go-set">打开我的条件</button>' : '没有符合筛选的职位，试试放宽地区或薪资。'}</p>`) + pagerBot;
+    $('list').querySelectorAll('.f-per').forEach(el => el.onchange = () => { P().f.per = +el.value; page = 0; save(); render(); });
+    $('list').querySelectorAll('[data-pg]').forEach(b => b.onclick = () => {
+      page += +b.dataset.pg; selected = ''; render();
+      if (mobile()) $('list').scrollIntoView({ block:'start' }); else $('list').scrollTop = 0;
+    });
 
     if ($('go-set')) $('go-set').onclick = settings;
-    if (!rows.find(j => j.url === selected)) selected = rows[0]?.url || '';
-    renderDetail(rows.find(j => j.url === selected));
+    if (!view.find(j => j.url === selected)) selected = view[0]?.url || '';
+    renderDetail(view.find(j => j.url === selected));
+    $('detail').insertAdjacentHTML('afterbegin', '<button class="d-back" id="d-back">← 返回列表</button>');
+    $('d-back').onclick = closeDetail;
+    renderCal();
 
     const upd = data.updatedAt ? new Date(data.updatedAt).toLocaleString('zh-MY', { timeZone:'Asia/Kuala_Lumpur', month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit' }) : '—';
     $('meta').innerHTML = `<span id="sync-badge" title="${esc(syncStatus)}">${syncCfg ? (syncStatus.startsWith('已同步') ? '⟳ 已同步' + (syncCfg.owner ? '（我是 ' + syncCfg.owner + '）' : '') : '⚠ 未同步') : ''}</span><span>资料更新：${esc(upd)}</span><span>每 3 天更新${data.nextUpdate ? ' · 下次约 ' + esc(data.nextUpdate) : ''}</span>`;
@@ -489,17 +502,102 @@
   }
 
   /* ---------- 事件 ---------- */
-  const bindF = (id, key, fn = e => e.target.value) => $(id).addEventListener(id === 'q' ? 'input' : 'change', e => { P().f[key] = fn(e); save(); render(); });
+  const bindF = (id, key, fn = e => e.target.value) => $(id).addEventListener(id === 'q' ? 'input' : 'change', e => { P().f[key] = fn(e); page = 0; save(); render(); });
   bindF('q','q'); bindF('f-cat','cat'); bindF('f-area','area'); bindF('f-src','src'); bindF('f-sort','sort');
   bindF('f-min','min', e => +e.target.value || 0); bindF('f-max','max', e => +e.target.value || 0);
   bindF('f-only','only', e => e.target.checked);
-  document.querySelectorAll('[data-profile]').forEach(b => b.onclick = () => { store.profile = b.dataset.profile; save(); selected = ''; purge(); render(); });
-  document.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; selected = ''; render(); });
+  document.querySelectorAll('[data-profile]').forEach(b => b.onclick = () => { store.profile = b.dataset.profile; save(); selected = ''; page = 0; purge(); render(); });
+  document.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; selected = ''; page = 0; render(); });
   $('list').addEventListener('click', e => {
-    const it = e.target.closest('.item, .pl'); if (!it) return;
-    selected = it.dataset.url; render();
-    if (matchMedia('(max-width: 860px)').matches) $('detail').scrollIntoView({ behavior:'smooth' });
+    const it = e.target.closest('.item'); if (!it) return;
+    selected = it.dataset.url; render(); openDetail();
   });
+  /* 手机：职位详情全屏打开，返回时列表停在原来的位置 */
+  const mobile = () => matchMedia('(max-width: 860px)').matches;
+  function openDetail() {
+    if (!mobile()) return;
+    document.body.classList.add('dopen'); $('detail').scrollTop = 0;
+    if (!history.state?.d) history.pushState({ d:1 }, '');
+  }
+  function closeDetail() { if (history.state?.d) history.back(); else document.body.classList.remove('dopen'); }
+  addEventListener('popstate', () => document.body.classList.remove('dopen'));
+
+  /* ---------- 进度日历（可拖动的浮动卡） ---------- */
+  let calMonth = todayMY().slice(0, 7), calDay = '';
+  const calGet = () => { try { return JSON.parse(localStorage.getItem('ssd.cal')) || {}; } catch { return {}; } };
+  const calSet = o => { try { localStorage.setItem('ssd.cal', JSON.stringify({ ...calGet(), ...o })); } catch {} };
+  const sideRoom = () => { const m = document.querySelector('main.shell'); return m ? m.getBoundingClientRect().left : 0; };
+  function calEvents() {
+    const p = P(), ev = [];
+    for (const k of ['fav','prac']) for (const rec of Object.values(p[k] || {})) for (const e of (rec.log || [])) ev.push({ k, e, job: byUrl.get(rec.job.url) || rec.job });
+    return ev.sort((a, b) => (a.e.d + (a.e.t || '')).localeCompare(b.e.d + (b.e.t || '')));
+  }
+  function renderCal() {
+    let el = $('cal');
+    if (!el) { el = document.createElement('div'); el.id = 'cal'; document.body.appendChild(el); bindCal(el); }
+    const st = calGet(), today = todayMY(), ev = calEvents();
+    const roomy = sideRoom() >= 236;
+    const open = st.open ?? roomy;
+    const up = ev.filter(x => x.e.s === '准备面试' && x.e.d >= today);
+    if (!open) {
+      const y = Math.min(Math.max(st.ty ?? innerHeight * 0.4, 70), innerHeight - 60);
+      el.innerHTML = `<button class="cal-tab" style="top:${y}px" title="打开进度日历" aria-label="打开进度日历">‹<span>📅</span>${up.length ? `<b>${up.length}</b>` : ''}</button>`;
+      return;
+    }
+    const w = mobile() ? Math.min(300, innerWidth - 24) : roomy && st.x == null ? Math.min(270, sideRoom() - 28) : 270;
+    let x = st.x ?? (roomy ? 14 : innerWidth - w - 14), yy = st.y ?? 78;
+    x = Math.min(Math.max(x, 4), innerWidth - w - 4); yy = Math.min(Math.max(yy, 4), innerHeight - 120);
+    const [Y, M] = calMonth.split('-').map(Number), first = new Date(Date.UTC(Y, M - 1, 1)).getUTCDay(), days = new Date(Date.UTC(Y, M, 0)).getUTCDate();
+    const byDay = {}; for (const x2 of ev) (byDay[x2.e.d] ||= []).push(x2);
+    let cells = '<i>日</i><i>一</i><i>二</i><i>三</i><i>四</i><i>五</i><i>六</i>' + '<span></span>'.repeat(first);
+    for (let d = 1; d <= days; d++) {
+      const ds = `${calMonth}-${String(d).padStart(2, '0')}`, list = byDay[ds] || [];
+      const dots = list.length ? `<em class="${list.some(z => z.e.s === '准备面试') ? 'iv' : ''}"></em>` : '';
+      cells += `<button data-day="${ds}" class="${ds === today ? 'today ' : ''}${ds === calDay ? 'on ' : ''}${list.length ? 'has' : ''}">${d}${dots}</button>`;
+    }
+    const line = z => `<button class="cl" data-url="${esc(z.job.url)}" data-k="${z.k}"><b>${fmtD(z.e.d)}${z.e.t ? ' ' + esc(z.e.t) : ''}</b> ${esc(VERB[z.e.s] || z.e.s)} ${esc(z.job.company)}${z.k === 'prac' ? ' <em class="tagp">练习</em>' : ''}</button>`;
+    let body;
+    if (calDay) body = `<h4>${fmtD(calDay)}</h4>${(byDay[calDay] || []).map(line).join('') || '<p class="hint">这天没有记录</p>'}`;
+    else {
+      const recent = ev.filter(z => !up.includes(z)).reverse().slice(0, 5);
+      body = (up.length ? `<h4>接下来的面试</h4>${up.map(line).join('')}` : '') + `<h4>最近进度</h4>${recent.map(line).join('') || '<p class="hint">还没有记录。收藏或练习职位后，改状态就会记在这里。</p>'}`;
+    }
+    el.innerHTML = `<section class="cal-card" style="left:${x}px;top:${yy}px;width:${w}px">
+      <header class="cal-head" title="按住拖动"><span>📅 进度 · ${esc(store.profile)}${readOnly() ? '（只读）' : ''}</span><button class="cal-close" title="收起" aria-label="收起">›</button></header>
+      <div class="cal-m"><button data-m="-1" aria-label="上个月">‹</button><b>${Y} 年 ${M} 月</b><button data-m="1" aria-label="下个月">›</button></div>
+      <div class="cal-grid">${cells}</div>
+      <div class="cal-list">${body}</div></section>`;
+  }
+  function bindCal(el) {
+    let drag = null;
+    el.addEventListener('pointerdown', e => {
+      const h = e.target.closest('.cal-head, .cal-tab'); if (!h || e.target.closest('.cal-close')) return;
+      const box = h.classList.contains('cal-tab') ? h : el.querySelector('.cal-card'), r = box.getBoundingClientRect();
+      drag = { box, tab: h.classList.contains('cal-tab'), dx: e.clientX - r.left, dy: e.clientY - r.top, sx: e.clientX, sy: e.clientY, moved: false };
+      h.setPointerCapture(e.pointerId);
+    });
+    el.addEventListener('pointermove', e => {
+      if (!drag) return;
+      if (Math.abs(e.clientX - drag.sx) + Math.abs(e.clientY - drag.sy) > 6) drag.moved = true;
+      if (!drag.moved) return;
+      e.preventDefault();
+      if (drag.tab) drag.box.style.top = Math.min(Math.max(e.clientY - drag.dy, 60), innerHeight - 60) + 'px';
+      else { drag.box.style.left = Math.min(Math.max(e.clientX - drag.dx, 4), innerWidth - 60) + 'px'; drag.box.style.top = Math.min(Math.max(e.clientY - drag.dy, 4), innerHeight - 60) + 'px'; }
+    });
+    el.addEventListener('pointerup', () => {
+      if (!drag) return; const d = drag; drag = null;
+      if (d.moved) { const r = d.box.getBoundingClientRect(); calSet(d.tab ? { ty: r.top } : { x: r.left, y: r.top }); }
+      else if (d.tab) { calSet({ open: true }); renderCal(); }
+    });
+    el.addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b || b.classList.contains('cal-tab')) return;
+      if (b.classList.contains('cal-close')) { calSet({ open: false }); renderCal(); return; }
+      if (b.dataset.m) { const [Y, M] = calMonth.split('-').map(Number), d = new Date(Date.UTC(Y, M - 1 + +b.dataset.m, 1)); calMonth = d.toISOString().slice(0, 7); calDay = ''; renderCal(); return; }
+      if (b.dataset.day) { calDay = calDay === b.dataset.day ? '' : b.dataset.day; renderCal(); return; }
+      if (b.dataset.url) { tab = b.dataset.k; selected = b.dataset.url; jumpTo = true; render(); openDetail(); if (mobile()) { calSet({ open: false }); renderCal(); } }
+    });
+    addEventListener('resize', () => renderCal());
+  }
   $('open-settings').onclick = settings;
 
   /* ---------- 同步（Google Apps Script） ---------- */
