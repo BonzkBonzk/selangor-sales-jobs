@@ -36,13 +36,20 @@
   }
   const P = () => {
     const p = store.profiles[store.profile] ||= {};
-    p.facts ||= {}; p.answers ||= {}; p.fav ||= {}; p.prac ||= {}; p.ni ||= {}; p.f ||= {};
+    p.facts ||= {}; p.answers ||= {}; p.fav ||= {}; p.prac ||= {}; p.ni ||= {}; p.tomb ||= {}; p.f ||= {};
     if (!('area' in p.f) || (p.f.area === 'selangor' && !p.f.areaV2)) { p.f.area = 'klv'; p.f.areaV2 = true; }
     for (const [k,v] of Object.entries(DEFAULT_FACTS[store.profile])) if (!(k in p.facts)) p.facts[k] = v;
     return p;
   };
-  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch { toast('浏览器无法保存，修改只在这次打开期间有效。'); } };
+  const saveLocal = () => { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch { toast('浏览器无法保存，修改只在这次打开期间有效。'); } };
+  const save = () => { saveLocal(); queueSync(); };
+  // 记录修改时间，方便两台设备合并
+  const put = (p, kind, url, obj) => { obj.upd = Date.now(); p[kind][url] = obj; };
+  const drop = (p, kind, url) => { if (p[kind][url]) { delete p[kind][url]; p.tomb[kind + '|' + url] = Date.now(); } };
+  const touch = (p, kind, url) => { if (p[kind][url]) p[kind][url].upd = Date.now(); };
+  const touchFacts = p => { p.factsAt = Date.now(); };
   const isJW = () => store.profile === 'JW';
+  const readOnly = () => { try { const c = JSON.parse(localStorage.getItem('ssd.sync')); return !!(c && c.owner && c.owner !== store.profile); } catch { return false; } };
 
   /* ---------- 数据 ---------- */
   let data = { jobs:[] }, byUrl = new Map(), tab = 'list', selected = '';
@@ -113,7 +120,7 @@
   };
   const reqKey = r => { const c = canon(r); return c ? 'fact:' + c : 'label:' + r.label.normalize('NFKC').toLowerCase().replace(/[\s，。、,.!?！？:：;；（）()]+/g,' ').trim(); };
   const fit = r => { const k = reqKey(r), p = P(); return (k.startsWith('fact:') ? p.facts[k.slice(5)] : p.answers[k]) || 'unknown'; };
-  const setFit = (r, v) => { const p = P(), k = reqKey(r); if (k.startsWith('fact:')) p.facts[k.slice(5)] = v; else p.answers[k] = v; save(); };
+  const setFit = (r, v) => { const p = P(), k = reqKey(r); if (k.startsWith('fact:')) p.facts[k.slice(5)] = v; else p.answers[k] = v; touchFacts(p); save(); };
   const required = j => (j.requirements || []).filter(r => !r.preferred);
   const unmetRatio = j => { const rq = required(j); return rq.length ? rq.filter(r => fit(r) === 'no').length / rq.length : 0; };
   const tooFar = j => unmetRatio(j) > 0.2;
@@ -179,7 +186,7 @@
       const j = byUrl.get(u) || v.job;
       // 按职位的发布日期算，不是按标记无兴趣的日期
       const a = j && j.postedAt ? ageDays(j.postedAt) : ageDays(j?.firstSeen || j?.checkedAt || (v.at || '').slice(0,10));
-      if (a !== null && a > 30) { delete p.ni[u]; n++; }
+      if (a !== null && a > 30) { drop(p, 'ni', u); n++; }
     }
     if (n) save();
   }
@@ -250,7 +257,7 @@
     renderDetail(rows.find(j => j.url === selected));
 
     const upd = data.updatedAt ? new Date(data.updatedAt).toLocaleString('zh-MY', { timeZone:'Asia/Kuala_Lumpur', month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit' }) : '—';
-    $('meta').innerHTML = `<span>资料更新：${esc(upd)}</span><span>每 3 天更新${data.nextUpdate ? ' · 下次约 ' + esc(data.nextUpdate) : ''}</span>`;
+    $('meta').innerHTML = `<span id="sync-badge" title="${esc(syncStatus)}">${syncCfg ? (syncStatus.startsWith('已同步') ? '⟳ 已同步' + (syncCfg.owner ? '（我是 ' + syncCfg.owner + '）' : '') : '⚠ 未同步') : ''}</span><span>资料更新：${esc(upd)}</span><span>每 3 天更新${data.nextUpdate ? ' · 下次约 ' + esc(data.nextUpdate) : ''}</span>`;
     const newCount = g.list.filter(j => seenBefore ? j.firstSeen > seenBefore.slice(0,10) : j.firstSeen === latest).length;
     $('news').hidden = !newCount;
     $('news').innerHTML = newCount ? `<b>${newCount}</b> 个职位是${seenBefore ? '你上次来访之后' : '最近一次更新'}新增的，列表里标了 NEW。` : '';
@@ -272,7 +279,8 @@
         <div class="tags">${chip(j.source)}${chip(CATS[store.profile][classify(j)] || '', 'green')}${j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${gone ? chip('已超过 30 天／已下架','warn') : ''}</div>
         <h2>${esc(j.title)}</h2>
         <p class="co">${esc(j.company)} · ${esc(j.location || '')} · ${esc(when(j))}${j.postedAt ? '（' + esc(j.postedAt) + '）' : ''}</p>
-        <div class="actions">
+        ${readOnly() ? `<p class="ro">👀 这是 ${store.profile} 的档案，只能看，不能改。${fav ? ' · ❤ 已收藏' + (fav.stage ? '（' + esc(fav.stage) + '）' : '') : ''}${prac ? ' · 🎯 练习' + (prac.stage ? '（' + esc(prac.stage) + '）' : '') : ''}</p>` : ''}
+        <div class="actions${readOnly() ? ' ro-hide' : ''}">
           <a class="primary" href="${esc(j.url)}" target="_blank" rel="noopener noreferrer">打开原帖 ↗</a>
           <button data-kind="fav" class="keep ${fav ? 'on' : ''}">${fav ? '❤ 已收藏' : '♡ 收藏'}</button>
           ${fav ? stageSel('fav', fav) : ''}
@@ -294,23 +302,29 @@
           <span class="tri" data-i="${i}">${[['yes','✓'],['no','×'],['unknown','～']].map(([k,t]) => `<button data-v="${k}" class="${v === k ? 'on ' + k : ''}" aria-label="${k}">${t}</button>`).join('')}</span></li>`; }).join('')}</ul>` : '<p>原帖没有列出具体条件。</p>'}
         <p class="hint">同一个条件在所有职位同步。必需条件 × 超过 20% 会移到「不太符合」，刚好 20% 仍显示。</p>
       </section>
-      ${fav ? `<section><h3>收藏备注</h3><textarea class="note" data-kind="fav" rows="3" placeholder="面试时间、联系人、想问的问题…">${esc(fav.note || '')}</textarea></section>` : ''}
-      ${prac ? `<section><h3>练习备注</h3><textarea class="note" data-kind="prac" rows="3" placeholder="想练什么、被问了什么、下次怎么答更好…">${esc(prac.note || '')}</textarea></section>` : ''}`;
+      ${fav ? `<section><h3>收藏备注</h3><textarea class="note" data-kind="fav"${readOnly() ? ' readonly' : ''} rows="3" placeholder="面试时间、联系人、想问的问题…">${esc(fav.note || '')}</textarea></section>` : ''}
+      ${prac ? `<section><h3>练习备注</h3><textarea class="note" data-kind="prac"${readOnly() ? ' readonly' : ''} rows="3" placeholder="想练什么、被问了什么、下次怎么答更好…">${esc(prac.note || '')}</textarea></section>` : ''}`;
 
+    if (readOnly()) {
+      box.querySelectorAll('.actions button, .actions select, .tri button').forEach(el => { if (!el.closest('a')) el.disabled = true; });
+      box.querySelector('.actions').classList.remove('ro-hide');
+      box.querySelectorAll('.actions button, .actions select').forEach(el => el.style.display = 'none');
+      return;
+    }
     box.querySelectorAll('button.keep').forEach(b => b.onclick = () => {
       const kind = b.dataset.kind, name = kind === 'fav' ? '收藏' : '练习';
-      if (p[kind][j.url]) { if (gone) return confirmDelete(j, kind); delete p[kind][j.url]; toast('已取消' + name); }
-      else { p[kind][j.url] = { job: snapshot(j), at: new Date().toISOString(), stage:'想申请' }; delete p.ni[j.url]; toast('已加入「' + name + '」，超过 30 天也会保留'); }
+      if (p[kind][j.url]) { if (gone) return confirmDelete(j, kind); drop(p, kind, j.url); toast('已取消' + name); }
+      else { put(p, kind, j.url, { job: snapshot(j), at: new Date().toISOString(), stage:'想申请' }); drop(p, 'ni', j.url); toast('已加入「' + name + '」，超过 30 天也会保留'); }
       save(); render();
     });
     $('b-ni').onclick = () => {
-      if (ni) { delete p.ni[j.url]; toast('已恢复到列表'); }
-      else { p.ni[j.url] = { job: snapshot(j), at: new Date().toISOString() }; delete p.fav[j.url]; delete p.prac[j.url]; toast('已移到「无兴趣」，职位发布满 30 天后自动清除'); selected = ''; }
+      if (ni) { drop(p, 'ni', j.url); toast('已恢复到列表'); }
+      else { put(p, 'ni', j.url, { job: snapshot(j), at: new Date().toISOString() }); drop(p, 'fav', j.url); drop(p, 'prac', j.url); toast('已移到「无兴趣」，职位发布满 30 天后自动清除'); selected = ''; }
       save(); render();
     };
     if ($('b-del')) $('b-del').onclick = () => confirmDelete(j, prac && !fav ? 'prac' : (tab === 'prac' ? 'prac' : 'fav'));
-    box.querySelectorAll('select.stage').forEach(el => el.onchange = e => { p[el.dataset.kind][j.url].stage = e.target.value; save(); render(); });
-    box.querySelectorAll('textarea.note').forEach(el => el.onchange = e => { p[el.dataset.kind][j.url].note = e.target.value; save(); });
+    box.querySelectorAll('select.stage').forEach(el => el.onchange = e => { p[el.dataset.kind][j.url].stage = e.target.value; touch(p, el.dataset.kind, j.url); save(); render(); });
+    box.querySelectorAll('textarea.note').forEach(el => el.onchange = e => { p[el.dataset.kind][j.url].note = e.target.value; touch(p, el.dataset.kind, j.url); save(); });
     box.querySelectorAll('.tri button').forEach(b => b.onclick = () => {
       const i = +b.parentElement.dataset.i; setFit(reqs[i], b.dataset.v); render();
     });
@@ -321,7 +335,7 @@
     modal(`确定删除这个${name}吗？`, `<p>「${esc(j.title)}」— ${esc(j.company)}</p><p>这个职位已经发布超过 30 天。删除后不能恢复。</p>
       <div class="actions"><button id="m-no">取消</button><button id="m-yes" class="danger">确认删除</button></div>`);
     $('m-no').onclick = () => $('modal').close();
-    $('m-yes').onclick = () => { delete P()[kind][j.url]; save(); $('modal').close(); toast('已删除'); render(); };
+    $('m-yes').onclick = () => { drop(P(), kind, j.url); save(); $('modal').close(); toast('已删除'); render(); };
   }
 
   function modal(title, html) { $('modal-title').textContent = title; $('modal-body').innerHTML = html; $('modal').showModal(); }
@@ -343,17 +357,33 @@
     const row = e => { const v = fit(e.sample); return `<li><span class="lbl">${esc(e.label)} <small>${e.n} 个职位</small></span><span class="tri" data-k="${esc(e.k)}">${[['yes','✓'],['no','×'],['unknown','～']].map(([x,t]) => `<button data-v="${x}" class="${v === x ? 'on ' + x : ''}">${t}</button>`).join('')}</span></li>`; };
     const top = stats.filter(e => e.n >= 2), rest = stats.filter(e => e.n < 2);
     modal(`我的条件（${store.profile}）`, `
-      <p class="hint">按出现次数排列。标 × 的条件，在一个职位的必需条件里超过 20%，这个职位就会移到「不太符合」。改一次，所有职位一起更新。</p>
+      ${readOnly() ? `<p class="ro">👀 这是 ${store.profile} 的条件，只能看。</p>` : ''}<p class="hint">按出现次数排列。标 × 的条件，在一个职位的必需条件里超过 20%，这个职位就会移到「不太符合」。改一次，所有职位一起更新。</p>
       <ul class="reqs">${top.map(row).join('')}</ul>
       ${rest.length ? `<details><summary>只出现一次的条件（${rest.length}）</summary><ul class="reqs">${rest.map(row).join('')}</ul></details>` : ''}
+      <h3>和对方同步</h3>
+      <p class="hint">每人一个同步码：填自己的码，就能在所有设备同步自己的收藏、练习、无兴趣和勾选；切到对方的档案可以看，但不能改。同步码只存在这个浏览器，不要给别人。</p>
+      <div class="sync-row"><input id="m-sync" type="password" placeholder="贴上同步码" value="${esc(syncCfg ? syncCfg.raw : '')}"><button id="m-sync-go">${syncCfg ? '更新' : '连接'}</button>${syncCfg ? '<button id="m-sync-off">停止同步</button>' : ''}</div>
+      <p class="hint" id="m-sync-status">${esc(syncStatus)}</p>
       <h3>备份与换设备</h3>
       <p class="hint">收藏、无兴趣和勾选只存在这个浏览器。换手机或电脑前，先导出，再到新设备导入。</p>
       <div class="actions"><button id="m-exp">导出备份</button><label class="filebtn">导入备份<input id="m-imp" type="file" accept="application/json"></label><button id="m-reset">清除这个档案的勾选</button></div>`);
-    $('m-reset').onclick = () => { p.facts = { ...DEFAULT_FACTS[store.profile] }; p.answers = {}; save(); $('modal').close(); toast('已恢复默认勾选'); render(); };
+    $('m-sync-go').onclick = async () => {
+      const raw = $('m-sync').value.trim(); const i = raw.lastIndexOf('#');
+      if (!/^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec#\w{16,}$/.test(raw)) { toast('同步码格式不对，请整段贴上。'); return; }
+      syncCfg = { raw, url: raw.slice(0, i), t: raw.slice(i + 1) };
+      try { localStorage.setItem(SYNC_KEY, JSON.stringify(syncCfg)); } catch {}
+      $('m-sync-status').textContent = '连接中…';
+      await syncNow(true); $('m-sync-status').textContent = syncStatus;
+      if (syncCfg && syncCfg.owner && store.profile !== syncCfg.owner) { store.profile = syncCfg.owner; saveLocal(); render(); }
+    };
+    if ($('m-sync-off')) $('m-sync-off').onclick = () => { syncCfg = null; try { localStorage.removeItem(SYNC_KEY); } catch {} syncStatus = '已停止同步'; $('modal').close(); toast('已停止同步'); };
+    $('m-reset').onclick = () => { if (readOnly()) return toast('不能改对方的档案'); p.facts = { ...DEFAULT_FACTS[store.profile] }; p.answers = {}; touchFacts(p); save(); $('modal').close(); toast('已恢复默认勾选'); render(); };
+    if (readOnly()) $('modal-body').querySelectorAll('.tri button').forEach(b => b.disabled = true);
     $('modal-body').querySelectorAll('.tri button').forEach(b => b.onclick = () => {
+      if (readOnly()) return;
       const k = b.parentElement.dataset.k;
       if (k.startsWith('fact:')) p.facts[k.slice(5)] = b.dataset.v; else p.answers[k] = b.dataset.v;
-      save();
+      touchFacts(p); save();
       b.parentElement.querySelectorAll('button').forEach(x => x.className = x === b ? 'on ' + x.dataset.v : '');
       render();
     });
@@ -382,11 +412,73 @@
   });
   $('open-settings').onclick = settings;
 
+  /* ---------- 同步（Google Apps Script） ---------- */
+  const SYNC_KEY = 'ssd.sync';
+  let syncCfg = null, syncStatus = '未连接', syncTimer, syncing = false, syncAgain = false;
+  try { syncCfg = JSON.parse(localStorage.getItem(SYNC_KEY)) || null; } catch {}
+  const KINDS = ['fav','prac','ni'];
+  const pick = p => ({ fav:p.fav||{}, prac:p.prac||{}, ni:p.ni||{}, tomb:p.tomb||{}, facts:p.facts||{}, answers:p.answers||{}, factsAt:p.factsAt||0 });
+  const stamp = e => e.upd || Date.parse(e.at) || 0;
+  function mergeProfile(a = {}, b = {}) {
+    const out = { tomb:{ ...(a.tomb||{}) } };
+    for (const [k, t] of Object.entries(b.tomb || {})) out.tomb[k] = Math.max(out.tomb[k] || 0, t);
+    for (const kind of KINDS) {
+      out[kind] = {};
+      for (const src of [a[kind] || {}, b[kind] || {}]) for (const [u, e] of Object.entries(src)) {
+        if (!out[kind][u] || stamp(e) > stamp(out[kind][u])) out[kind][u] = e;
+      }
+      for (const [u, e] of Object.entries(out[kind])) if ((out.tomb[kind + '|' + u] || 0) >= stamp(e)) delete out[kind][u];
+    }
+    const fa = a.factsAt || 0, fb = b.factsAt || 0;
+    const w = fb > fa ? b : a;
+    out.facts = { ...(w.facts || {}) }; out.answers = { ...(w.answers || {}) }; out.factsAt = Math.max(fa, fb);
+    // 墓碑只留 60 天
+    const old = Date.now() - 60 * 86400000;
+    for (const [k, t] of Object.entries(out.tomb)) if (t < old) delete out.tomb[k];
+    return out;
+  }
+  async function syncNow(loud = false) {
+    if (!syncCfg) return;
+    if (syncing) { syncAgain = true; return; }
+    syncing = true;
+    try {
+      const r = await fetch(syncCfg.url + '?t=' + encodeURIComponent(syncCfg.t), { cache:'no-store' });
+      const res = await r.json();
+      if (res.error) throw new Error(res.error === 'auth' ? '同步码不对' : res.error);
+      const remote = res.data || {}, owner = res.owner;
+      if (syncCfg.owner !== owner) { syncCfg.owner = owner; try { localStorage.setItem(SYNC_KEY, JSON.stringify(syncCfg)); } catch {} }
+      // 自己的档案：合并后上传；对方的档案：以对方的为准，只读
+      const mine = mergeProfile(pick(store.profiles[owner] || {}), remote[owner] || {});
+      Object.assign(store.profiles[owner] ||= {}, mine);
+      for (const other of ['KH','JW'].filter(x => x !== owner)) {
+        const r = remote[other] || {};
+        Object.assign(store.profiles[other] ||= {}, { fav:r.fav||{}, prac:r.prac||{}, ni:r.ni||{}, tomb:r.tomb||{}, facts:{ ...DEFAULT_FACTS[other], ...(r.facts||{}) }, answers:r.answers||{}, factsAt:r.factsAt||0 });
+      }
+      saveLocal();
+      if (JSON.stringify(mine) !== JSON.stringify(remote[owner] ? mergeProfile(remote[owner], {}) : null)) {
+        await fetch(syncCfg.url, { method:'POST', headers:{ 'Content-Type':'text/plain;charset=utf-8' }, body: JSON.stringify({ t: syncCfg.t, data: mine }) });
+      }
+      syncStatus = '已同步 · ' + new Date().toLocaleTimeString('zh-MY', { hour:'2-digit', minute:'2-digit' });
+      if (loud) toast('已连接并同步');
+      if (data.jobs.length) render();
+    } catch (e) {
+      syncStatus = '同步失败：' + (e.message || '网络问题') + '（修改仍保存在这台设备）';
+      if (loud) toast(syncStatus);
+    } finally {
+      syncing = false;
+      const el = $('sync-badge'); if (el) { el.textContent = syncCfg ? (syncStatus.startsWith('已同步') ? '⟳ 已同步' + (syncCfg.owner ? '（我是 ' + syncCfg.owner + '）' : '') : '⚠ 未同步') : ''; el.title = syncStatus; }
+      if (syncAgain) { syncAgain = false; queueSync(); }
+    }
+  }
+  function queueSync() { if (!syncCfg) return; clearTimeout(syncTimer); syncTimer = setTimeout(syncNow, 1500); }
+  setInterval(() => { if (document.visibilityState === 'visible') syncNow(); }, 60000);
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') syncNow(); });
+
   fetch('jobs.json', { cache:'no-cache' }).then(r => r.json()).then(d => {
     data = d; byUrl = new Map(d.jobs.map(j => [j.url, j]));
     const srcs = [...new Set(d.jobs.map(j => j.source))].sort();
     $('f-src').innerHTML = '<option value="">所有来源</option>' + srcs.map(s => `<option>${esc(s)}</option>`).join('');
     for (const pr of ['KH','JW']) { const keep = store.profile; store.profile = pr; const p = P(); if (!p.lastVisit || Date.now() - Date.parse(p.lastVisit) > 6 * 3600000) { p.prevVisit = p.lastVisit || ''; p.lastVisit = new Date().toISOString(); } purge(); store.profile = keep; }
-    save(); render();
+    save(); render(); syncNow();
   }).catch(() => { $('list').innerHTML = '<p class="empty">资料读取失败，请稍后刷新。</p>'; });
 })();
