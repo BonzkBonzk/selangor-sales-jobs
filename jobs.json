@@ -1,7 +1,383 @@
 {
-"updatedAt": "2026-11-19T02:40:00+08:00",
+"updatedAt": "2026-11-19T02:35:00+08:00",
 "nextUpdate": "2026-11-24",
 "jobs": [
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=7f39e489a9e5aaf4",
+"source": "Indeed",
+"title": "Car Sales Advisor",
+"company": "Jia Ming Auto Services Sdn. Bhd.",
+"location": "Puchong, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "",
+"datePending": true,
+"checkedAt": "2026-11-19",
+"summary": "新车销售：接待到店客人、安排试驾、跟进和成交，鼓励回头客与转介绍。",
+"requirements": [
+{
+"label": "销售经验",
+"preferred": true,
+"key": "sales"
+}
+],
+"firstSeen": "2026-11-19",
+"salary": "RM4,000–RM4,500 / 月",
+"commission": "底薪 + 销售佣金 + 绩效奖励",
+"commissionType": "yes"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=178bc16f23273009",
+"source": "Indeed",
+"title": "Sales Consultant",
+"company": "MX Group",
+"location": "Cyberjaya, Selangor（可混合办公）",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "",
+"datePending": true,
+"checkedAt": "2026-11-19",
+"summary": "金融服务产品顾问销售，有培训和导师。同公司另有 Takaful 顾问帖。",
+"requirements": [
+{
+"label": "Diploma 或以上",
+"preferred": false
+},
+{
+"label": "欢迎应届毕业生",
+"preferred": true
+}
+],
+"firstSeen": "2026-11-19",
+"salary": "RM4,500–RM7,000 / 月",
+"commission": "有奖励及佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=eea1e0f36415ca2f",
+"source": "Indeed",
+"title": "Car Sales Advisor - Nissan Puchong",
+"company": "Edaran Tan Chong Motor Sdn Bhd",
+"location": "Puchong／Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "",
+"datePending": true,
+"checkedAt": "2026-11-19",
+"summary": "Nissan 汽车销售，参加路演和新车发布。注意：全职但为合约制。Klang、Glenmarie 分行也在招。",
+"requirements": [
+{
+"label": "有效汽车驾照",
+"preferred": false,
+"key": "drive"
+},
+{
+"label": "SPM 或以上",
+"preferred": false
+},
+{
+"label": "汽车销售经验",
+"preferred": true
+},
+{
+"label": "可使用自己的交通工具",
+"preferred": true,
+"key": "vehicle"
+}
+],
+"firstSeen": "2026-11-19",
+"salary": "RM3,500–RM5,000 / 月",
+"commission": "底薪 + 高佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=e8a4978e534be3e4",
+"source": "Indeed",
+"title": "Sales Representative - Skincare Products (Basic + Commission)",
+"company": "CARELIKA MALAYSIA SDN BHD",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "",
+"datePending": true,
+"checkedAt": "2026-11-19",
+"summary": "欧洲护肤品牌，向美容院、Spa 和零售商推销，开发新客户。周一至五上班。",
+"requirements": [
+{
+"label": "商业、营销或相关 Diploma／学位",
+"preferred": false,
+"key": "diploma"
+}
+],
+"firstSeen": "2026-11-19",
+"salary": "RM4,000–RM6,000 / 月",
+"commission": "底薪 + 佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=129b692d62b71b95",
+"source": "Indeed",
+"title": "Brand Activation Sales Executive",
+"company": "JEV Management & Trading",
+"location": "Puchong, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "",
+"datePending": true,
+"checkedAt": "2026-11-19",
+"summary": "品牌活动、展示架（POSM）项目销售，从提案跟到安装。",
+"requirements": [
+{
+"label": "2–3 年 POSM、活动、品牌或广告相关经验",
+"preferred": false
+},
+{
+"label": "客户服务或业务开发经验",
+"preferred": false
+}
+],
+"firstSeen": "2026-11-19",
+"commission": "收款后发销售佣金 + 项目奖金",
+"commissionType": "yes"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=19bcbf9100869c94",
+"source": "Indeed",
+"title": "[ELM] Sales Executive",
+"company": "Mindful Solutions Sdn. Bhd.",
+"location": "Puchong, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "",
+"datePending": true,
+"checkedAt": "2026-11-19",
+"summary": "学习科技平台的企业订阅销售：自己开发客户、约见、推进并成交。客户续约时还有持续佣金。",
+"requirements": [
+{
+"label": "有 B2B 或顾问式销售经验",
+"preferred": true,
+"key": "b2b"
+}
+],
+"firstSeen": "2026-11-19",
+"commission": "底薪 + 成交佣金 + 客户续约的持续佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=6e9982d12d6d4ad7",
+"source": "Indeed",
+"title": "Japanese-Speaking Customer Service Executive",
+"company": "TPE Resource Solutions",
+"location": "Cyberjaya, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"datePending": true,
+"checkedAt": "2026-11-19",
+"summary": "日语客服：电话、邮件、聊天处理询问和投诉。轮班 7am–10:30pm，没有夜班。",
+"requirements": [
+{
+"label": "日语母语级（原文写 Native Japanese speaker）",
+"preferred": false
+},
+{
+"label": "英语 B2 程度",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "Diploma 或学士",
+"preferred": false
+},
+{
+"label": "至少 6 个月客服经验（应届也可）",
+"preferred": false
+}
+],
+"firstSeen": "2026-11-19",
+"salary": "RM8,000–RM9,500 / 月"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=1438c224766be2be",
+"source": "Indeed",
+"title": "Senior Officer, Customer Service, Care Chemicals - Japanese Speaking",
+"company": "BASF",
+"location": "Petaling Jaya, Selangor（混合办公）",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"datePending": true,
+"checkedAt": "2026-11-19",
+"summary": "化工产品客服：订单到收款流程、对接主要客户、带客服团队。",
+"requirements": [
+{
+"label": "会日语（标题写明 Japanese Speaking）",
+"preferred": false
+},
+{
+"label": "订单管理／客服经验",
+"preferred": false
+}
+],
+"firstSeen": "2026-11-19"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=e64f758203b19c62",
+"source": "Indeed",
+"title": "Service Desk Analyst (Japanese Speaker)",
+"company": "DXC Technology",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"datePending": true,
+"checkedAt": "2026-11-19",
+"summary": "IT 服务台：用日语处理软硬件问题和客户咨询。",
+"requirements": [
+{
+"label": "会日语（标题写明 Japanese Speaker）",
+"preferred": false
+},
+{
+"label": "技术支援能力",
+"preferred": false
+}
+],
+"firstSeen": "2026-11-19"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=bb29fe8c53a36c0d",
+"source": "Indeed",
+"title": "Credit and Collection Senior Analyst (Japanese Speaker)",
+"company": "Sanofi",
+"location": "Petaling Jaya（TRX）, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"datePending": true,
+"checkedAt": "2026-11-19",
+"summary": "订单到收款团队的信用与收款分析，混合办公。",
+"requirements": [
+{
+"label": "会日语（标题写明 Japanese Speaker）",
+"preferred": false
+}
+],
+"firstSeen": "2026-11-19"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=3b8e19c68225ea87",
+"source": "Indeed",
+"title": "Senior Associate, People Operations (Japanese Speaker)",
+"company": "Schneider Electric",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"datePending": true,
+"checkedAt": "2026-11-19",
+"summary": "支援东亚员工的 HR 营运：入职离职、考勤、薪资和福利。",
+"requirements": [
+{
+"label": "会日语（标题写明 Japanese Speaker）",
+"preferred": false
+},
+{
+"label": "HR 营运经验",
+"preferred": false
+}
+],
+"firstSeen": "2026-11-19"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=b3964a65351c0055",
+"source": "Indeed",
+"title": "PGA Associate Account Manager - Japanese Language",
+"company": "Expedia",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"datePending": true,
+"checkedAt": "2026-11-19",
+"summary": "维护 APAC 酒店合作伙伴的房价和房型竞争力。",
+"requirements": [
+{
+"label": "会日语（标题写明 Japanese Language）",
+"preferred": false
+}
+],
+"firstSeen": "2026-11-19"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=8f0ddfcff3d216c0",
+"source": "Indeed",
+"title": "Assistant Manager, Business Strategy & Planning - Japanese Speaker",
+"company": "Nextpert Talent",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"datePending": true,
+"checkedAt": "2026-11-19",
+"summary": "定价、产品开发和营销活动规划，跨部门协调。",
+"requirements": [
+{
+"label": "JLPT N2／N3（标题写明）",
+"preferred": false,
+"key": "jlptn3"
+},
+{
+"label": "学士学位",
+"preferred": false,
+"key": "bachelor"
+},
+{
+"label": "3–5 年汽车、租赁、金融或产品开发相关经验",
+"preferred": false
+}
+],
+"firstSeen": "2026-11-19",
+"salary": "RM6,000–RM7,600 / 月"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=3ee16a408ef2c50e",
+"source": "Indeed",
+"title": "Assistant Digital Marketing Manager (Japanese Speaker)",
+"company": "JEV Management & Trading",
+"location": "Klang, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"datePending": true,
+"checkedAt": "2026-11-19",
+"summary": "Shopify 电商与广告投放、营销自动化，和英国团队合作。",
+"requirements": [
+{
+"label": "会说日语",
+"preferred": false
+},
+{
+"label": "Shopify、Google Ads、Meta Ads 经验",
+"preferred": false
+}
+],
+"firstSeen": "2026-11-19"
+},
 {
 "region": "selangor",
 "role": "sales",
@@ -149,35 +525,6 @@
 "label": "工作需要时能出差",
 "key": "",
 "preferred": false
-}
-],
-"role": "japanese",
-"sector": "other",
-"commissionType": "",
-"basic": "",
-"datePending": false,
-"region": "selangor",
-"firstSeen": "2026-11-18"
-},
-{
-"source": "LinkedIn",
-"url": "https://my.linkedin.com/jobs/view/customer-service-associate-japanese-speaker-at-accenture-southeast-asia-4468786877",
-"title": "Customer Service Associate – Japanese Speaker",
-"company": "Accenture Southeast Asia",
-"location": "Petaling Jaya, Selangor",
-"postedAt": "2026-11-18",
-"salary": "",
-"summary": "处理客户来电和外呼，维护客户记录并跟进服务质量。",
-"requirements": [
-{
-"label": "具备较强日语和英语沟通能力",
-"key": "",
-"preferred": false
-},
-{
-"label": "约一年客服经验",
-"key": "",
-"preferred": true
 }
 ],
 "role": "japanese",
@@ -518,45 +865,6 @@
 "firstSeen": "2026-11-18"
 },
 {
-"source": "LinkedIn",
-"url": "https://my.linkedin.com/jobs/view/process-analyst-order-to-cash-japanese-bilingual-at-ibm-4490478143",
-"title": "Process Analyst – Order to Cash (Japanese Bilingual)",
-"company": "IBM",
-"location": "Petaling Jaya, Selangor",
-"postedAt": "2026-11-17",
-"salary": "",
-"summary": "负责应收账款、对账、收款分配和客户信用分析。",
-"requirements": [
-{
-"label": "学士学位",
-"key": "bachelor",
-"preferred": false
-},
-{
-"label": "3–6 年应收、收款分配或信用管理经验",
-"key": "",
-"preferred": false
-},
-{
-"label": "具备专业日语沟通能力",
-"key": "",
-"preferred": false
-},
-{
-"label": "熟悉 SAP S/4HANA 或类似系统",
-"key": "",
-"preferred": true
-}
-],
-"role": "japanese",
-"sector": "other",
-"commissionType": "",
-"basic": "",
-"datePending": false,
-"region": "selangor",
-"firstSeen": "2026-11-18"
-},
-{
 "title": "Sales Executive / Sales Engineer",
 "company": "M-CKD Precision",
 "location": "Shah Alam, Selangor",
@@ -874,40 +1182,6 @@
 "preferred": true
 }
 ],
-"firstSeen": "2026-11-18"
-},
-{
-"source": "LinkedIn",
-"url": "https://my.linkedin.com/jobs/view/ms-engineer-l1-japanese-speaking-at-ntt-data-inc-4481420385",
-"title": "MS Engineer (L1) Japanese-speaking",
-"company": "NTT DATA",
-"location": "Cyberjaya, Selangor",
-"postedAt": "2026-11-16",
-"salary": "",
-"summary": "接收并记录 IT 服务请求，进行第一线排查和转交。",
-"requirements": [
-{
-"label": "非日语母语申请者须 JLPT N3 或以上",
-"key": "jlptn3",
-"preferred": false
-},
-{
-"label": "Diploma 或学位，IT／计算机相关优先",
-"key": "",
-"preferred": false
-},
-{
-"label": "1–2 年 IT 服务台或客服经验",
-"key": "",
-"preferred": true
-}
-],
-"role": "japanese",
-"sector": "other",
-"commissionType": "",
-"basic": "",
-"datePending": false,
-"region": "selangor",
 "firstSeen": "2026-11-18"
 },
 {
@@ -1443,45 +1717,6 @@
 "firstSeen": "2026-11-19"
 },
 {
-"source": "LinkedIn",
-"url": "https://my.linkedin.com/jobs/view/o2c-specialist-japanese-speaker-at-novartis-malaysia-4488583345",
-"title": "O2C Specialist (Japanese Speaker)",
-"company": "Novartis Malaysia",
-"location": "Selangor, Malaysia",
-"postedAt": "2026-11-13",
-"salary": "",
-"summary": "负责日本业务的收款入账、信用管理及应收账款结账。",
-"requirements": [
-{
-"label": "JLPT N2 或以上，具备商务敬语能力",
-"key": "jlptn2",
-"preferred": false
-},
-{
-"label": "商业、经济或会计相关学位",
-"key": "",
-"preferred": false
-},
-{
-"label": "至少三年面向日本业务的 O2C 经验",
-"key": "",
-"preferred": false
-},
-{
-"label": "英语听说读写",
-"key": "english",
-"preferred": false
-}
-],
-"role": "japanese",
-"sector": "other",
-"commissionType": "",
-"basic": "",
-"datePending": false,
-"region": "selangor",
-"firstSeen": "2026-11-18"
-},
-{
 "title": "Sales Executive – Industrial Pumps",
 "company": "Mechpump",
 "location": "Klang / Port Klang, Selangor",
@@ -1706,108 +1941,6 @@
 ],
 "salary": "RM3,000–RM7,000 / 月（含佣金）",
 "firstSeen": "2026-11-19"
-},
-{
-"source": "LinkedIn",
-"url": "https://my.linkedin.com/jobs/view/sales-japanese-speaker-at-jac-recruitment-4490320843",
-"title": "Sales / Japanese Speaker",
-"company": "JAC Recruitment",
-"location": "Selangor, Malaysia",
-"postedAt": "2026-11-12",
-"salary": "",
-"summary": "维护日本客户并开拓业务，跟进销售报告和 CRM。",
-"requirements": [
-{
-"label": "日语沟通能力",
-"key": "",
-"preferred": false
-},
-{
-"label": "有化工行业经验",
-"key": "",
-"preferred": true
-}
-],
-"role": "japanese",
-"sector": "other",
-"commissionType": "",
-"basic": "",
-"datePending": false,
-"region": "selangor",
-"firstSeen": "2026-11-18"
-},
-{
-"source": "LinkedIn",
-"url": "https://my.linkedin.com/jobs/view/hr-service-delivery-generalist-apac-japanese-speaker-at-danaher-4480003245",
-"title": "HR Service Delivery Generalist, APAC (Japanese Speaker)",
-"company": "Danaher",
-"location": "Petaling Jaya, Selangor",
-"postedAt": "2026-11-12",
-"salary": "",
-"summary": "负责区域员工的 HR 问询、人员流程和工单跟进。",
-"requirements": [
-{
-"label": "2–4 年人力资源或同等经验",
-"key": "",
-"preferred": false
-},
-{
-"label": "日语沟通能力",
-"key": "",
-"preferred": false
-},
-{
-"label": "学士学位或同等经验",
-"key": "",
-"preferred": true
-}
-],
-"role": "japanese",
-"sector": "other",
-"commissionType": "",
-"basic": "",
-"datePending": false,
-"region": "selangor",
-"firstSeen": "2026-11-18"
-},
-{
-"source": "LinkedIn",
-"url": "https://my.linkedin.com/jobs/view/record-to-report-cla-analyst-japanese-speaking-at-roche-4474149551",
-"title": "Record to Report CLA Analyst (Japanese-speaking)",
-"company": "Roche",
-"location": "Petaling Jaya, Selangor",
-"postedAt": "2026-11-12",
-"salary": "",
-"summary": "执行固定资产和租赁会计、对账、结账及协助审计。",
-"requirements": [
-{
-"label": "日语最低 N3",
-"key": "jlptn3",
-"preferred": false
-},
-{
-"label": "英语沟通",
-"key": "english",
-"preferred": false
-},
-{
-"label": "财务或会计相关 Diploma／学位",
-"key": "",
-"preferred": false
-},
-{
-"label": "1–3 年固定资产、租赁会计或相关经验",
-"key": "",
-"preferred": false
-}
-],
-"role": "japanese",
-"sector": "other",
-"commissionType": "",
-"basic": "",
-"datePending": false,
-"region": "selangor",
-"firstSeen": "2026-11-18"
 },
 {
 "title": "Sales Representative – Dental Supplies",

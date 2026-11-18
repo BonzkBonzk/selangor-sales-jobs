@@ -119,7 +119,7 @@
 
   /* ---------- 职位过滤 ---------- */
   const forProfile = j => isJW() ? j.role === 'japanese' : j.role !== 'japanese';
-  const fresh = j => j.postedAt ? ageDays(j.postedAt) <= 30 : true;
+  const fresh = j => j.postedAt ? ageDays(j.postedAt) <= 30 : (j.checkedAt ? ageDays(j.checkedAt) <= 7 : true);
   const passFilters = j => {
     const f = P().f;
     if (f.area === 'selangor' && j.region !== 'selangor') return false;
@@ -167,7 +167,7 @@
   /* ---------- 渲染 ---------- */
   const chip = (t, v = '') => `<span class="chip ${v}">${esc(t)}</span>`;
   const when = j => {
-    if (!j.postedAt) return '发布日期待核对';
+    if (!j.postedAt) return j.source === 'Indeed' ? '30 天内发布（Indeed 未显示日期）' : '发布日期待核对';
     const a = ageDays(j.postedAt);
     return a === 0 ? '今天发布' : a === 1 ? '昨天发布' : `${a} 天前发布`;
   };
