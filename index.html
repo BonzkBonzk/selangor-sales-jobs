@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-MY"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex"><title>Selangor Sales Jobs</title>
+<style>
+:root{color-scheme:light;font:15px "Segoe UI","Microsoft YaHei",sans-serif;background:#f2f5f0;color:#183429}
+*{box-sizing:border-box} body{margin:0} main{max-width:950px;margin:auto;padding:42px 25px}header{display:flex;justify-content:space-between;align-items:end;gap:15px;flex-wrap:wrap;border-bottom:1px solid #cddcd0;padding-bottom:20px;margin-bottom:15px}
+h1{font-size:clamp(30px,6vw,51px);line-height:1.04;letter-spacing:-.03em;margin:8px 0}
+p{line-height:1.6;margin:6px 0}.meta{font-size:13px;color:#506659}.filters{display:flex;gap:9px;margin-bottom:15px}
+input,select{background:white;color:inherit;border:1px solid #cddcd0;border-radius:8px;padding:10px;min-width:0;font:inherit}input{flex:1}
+article{background:white;border:1px solid #d7e2d8;border-radius:14px;padding:18px 20px;margin-bottom:10px}
+h2{font-size:21px;margin:7px 0}dl{margin:10px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:7px}dl div{padding:8px;background:#edf4ec;border-radius:7px}dt{font-size:12px;color:#506659}dd{margin:2px 0;font-weight:650}.tag{font-size:12px;font-weight:650;color:#285943}a{display:inline-block;margin-top:8px;color:#235c40;font-weight:650;text-underline-offset:3px}summary{cursor:pointer}li{margin-bottom:3px}.empty{background:white;border-radius:10px;padding:16px}
+@media(max-width:540px){main{padding:28px 13px}dl{grid-template-columns:1fr}.filters{flex-wrap:wrap}}
+</style>
+<main><header><div><p class="meta">Selangor · 全职 · 有佣金</p><h1>销售职位</h1><p>最近 30 天发布的招聘。薪资以招聘原帖为准。</p></div><span id="count" aria-live="polite"></span></header>
+<div class="filters"><input id="query" type="search" placeholder="搜职位、公司或地区" aria-label="搜职位、公司或地区"><select id="category" aria-label="销售方向"><option value="">所有方向</option></select></div>
+<section id="jobs" aria-label="职位列表"></section></main>
+<script id="data" type="application/json">[{"title":"Business Development Executive (Vestech)","company":"Solarvest Holdings Bhd. / Vestech Energy","location":"Petaling Jaya, Selangor","url":"https://my.jobstreet.com/job/95940979","source":"JobStreet","postedAt":"2026-11-17","expiresAt":"","salary":"金额未公开","basic":"有底薪，金额未公开","commission":"有佣金，另有津贴","summary":"销售住宅、商业和工业太阳能方案。工作包括开发客户、现场勘察、提案和谈判，以及管理合作伙伴与投标。","requirements":["电机工程学士、相关高阶学历或同等资格","熟悉 Salesforce","熟悉 Microsoft Office、Microsoft Project、CRM 和 ERP","有效汽车驾照","能外出工作","必要时能在周末和公假工作"],"category":"能源 / Solar"},{"title":"Indoor Sales (Sanitaryware & Lighting)","company":"LEMANDI Bath & Light Sdn. Bhd.","location":"Balakong, Selangor","url":"https://my.jobstreet.com/job/95621416","source":"JobStreet","postedAt":"2026-11-01","expiresAt":"","salary":"RM3,000–RM4,500 / 月","basic":"有底薪，金额未拆分","commission":"有佣金，另有绩效奖励","summary":"在展厅销售卫浴、灯饰及家居产品。接待到店顾客、推荐产品，并跟进报价、订单及客户关系。广告列出多个资历级别。","requirements":["沟通、待客及谈判能力","能达成销售目标","团队协作","有卫浴、灯饰、厨房家电或建材销售经验","申请时申报在马来西亚工作的资格"],"category":"门店 / 展厅"},{"title":"Junior Digital Marketing Sales Consultant","company":"INNO HUB (MY) SDN. BHD.","location":"Petaling Jaya, Selangor","url":"https://my.jobstreet.com/job/95442213","source":"JobStreet","postedAt":"2026-10-22","expiresAt":"","salary":"RM2,900–RM4,350 / 月","basic":"RM2,500 / 月","commission":"广告写有机会达到 RM2,500+ / 月，另列符合条件的报销","summary":"向中小企业销售数码营销方案，预约客户、了解需求、准备提案和报价，再用 CRM 跟进机会。提供培训。","requirements":["任何领域的 Diploma 或学士","欢迎应届毕业生及有 0–2 年经验者","善于沟通，愿意接触新客户","能独立工作并与团队合作","销售经验","有自己的交通工具拜访客户"],"category":"数码营销 / 科技"}]</script>
+<script>(function sharedView() {
+  const jobs=JSON.parse(document.querySelector('#data').textContent);
+  const query=document.querySelector('#query'), group=document.querySelector('#category'), list=document.querySelector('#jobs');
+  const day=86400000;
+  const text=(tag,value,klass)=>{const el=document.createElement(tag); el.textContent=value;if(klass)el.className=klass;return el;};
+  for(const name of [...new Set(jobs.map(job=>job.category))].sort()) group.append(new Option(name,name));
+  function render(){
+    const today=new Date(Date.now()+8*3600000).toISOString().slice(0,10);
+    const cutoff=(Date.parse(today)-30*day);
+    const filtered=jobs.filter(job=>Date.parse(job.postedAt)>=cutoff&&job.postedAt<=today&&(!job.expiresAt||job.expiresAt>=today)
+      &&(!group.value||group.value===job.category)
+      &&[job.title,job.company,job.location,job.summary].join(' ').toLowerCase().includes(query.value.trim().toLowerCase()));
+    document.querySelector('#count').textContent=filtered.length+' 个职位';
+    list.replaceChildren();
+    for(const job of filtered){
+      const card=text('article','');
+      card.append(text('div',job.category+' · '+job.source,'tag'),text('h2',job.title),text('p',job.company+' · '+job.location,'meta'));
+      const pay=text('dl','');
+      for(const [key,value] of [['广告薪资',job.salary],['底薪',job.basic],['佣金',job.commission||'有佣金']]){
+        const cell=text('div','');
+        cell.append(text('dt',key),text('dd',value||'未公开'));pay.append(cell);
+      }
+      card.append(pay,text('p',job.summary),text('p','发布于 '+job.postedAt,'meta'));
+      if(job.requirements.length){
+        const details=text('details',''),points=text('ul','');
+        details.append(text('summary','职位要求'));
+        for(const label of job.requirements) points.append(text('li',label));
+        details.append(points);card.append(details);
+      }
+      const link=text('a','打开招聘原帖 ↗');link.href=job.url;link.rel='noopener noreferrer';link.target='_blank';
+      card.append(link);list.append(card);
+    }
+    if(!filtered.length)list.append(text('p','目前没有符合筛选的职位。','empty'));
+  }
+  query.addEventListener('input',render);
+  group.addEventListener('change',render);
+  render();
+})();</script></html>
