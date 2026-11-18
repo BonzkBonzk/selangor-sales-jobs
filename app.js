@@ -350,7 +350,7 @@
     $('m-exp').onclick = () => {
       const a = document.createElement('a');
       a.href = URL.createObjectURL(new Blob([JSON.stringify(store, null, 1)], { type:'application/json' }));
-      a.download = 'selangor-sales-desk-backup-' + todayMY() + '.json'; a.click();
+      a.download = 'job-backup-' + todayMY() + '.json'; a.click();
     };
     $('m-imp').onchange = async e => {
       try { const s = JSON.parse(await e.target.files[0].text()); if (!s.profiles) throw 0; store = s; save(); $('modal').close(); toast('已导入'); render(); }
