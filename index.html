@@ -1,55 +1,471 @@
 <!doctype html>
-<html lang="zh-MY"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex"><title>Selangor Sales Jobs</title>
-<style>
-:root{color-scheme:light;font:15px "Segoe UI","Microsoft YaHei",sans-serif;background:#f2f5f0;color:#183429}
-*{box-sizing:border-box} body{margin:0} main{max-width:950px;margin:auto;padding:42px 25px}header{display:flex;justify-content:space-between;align-items:end;gap:15px;flex-wrap:wrap;border-bottom:1px solid #cddcd0;padding-bottom:20px;margin-bottom:15px}
-h1{font-size:clamp(30px,6vw,51px);line-height:1.04;letter-spacing:-.03em;margin:8px 0}
-p{line-height:1.6;margin:6px 0}.meta{font-size:13px;color:#506659}.filters{display:flex;gap:9px;margin-bottom:15px}
-input,select{background:white;color:inherit;border:1px solid #cddcd0;border-radius:8px;padding:10px;min-width:0;font:inherit}input{flex:1}
-article{background:white;border:1px solid #d7e2d8;border-radius:14px;padding:18px 20px;margin-bottom:10px}
-h2{font-size:21px;margin:7px 0}dl{margin:10px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:7px}dl div{padding:8px;background:#edf4ec;border-radius:7px}dt{font-size:12px;color:#506659}dd{margin:2px 0;font-weight:650}.tag{font-size:12px;font-weight:650;color:#285943}a{display:inline-block;margin-top:8px;color:#235c40;font-weight:650;text-underline-offset:3px}summary{cursor:pointer}li{margin-bottom:3px}.empty{background:white;border-radius:10px;padding:16px}
-@media(max-width:540px){main{padding:28px 13px}dl{grid-template-columns:1fr}.filters{flex-wrap:wrap}}
-</style>
-<main><header><div><p class="meta">Selangor · 全职 · 有佣金</p><h1>销售职位</h1><p>最近 30 天发布的招聘。薪资以招聘原帖为准。</p></div><span id="count" aria-live="polite"></span></header>
-<div class="filters"><input id="query" type="search" placeholder="搜职位、公司或地区" aria-label="搜职位、公司或地区"><select id="category" aria-label="销售方向"><option value="">所有方向</option></select></div>
-<section id="jobs" aria-label="职位列表"></section></main>
-<script id="data" type="application/json">[{"title":"Business Development Executive (Vestech)","company":"Solarvest Holdings Bhd. / Vestech Energy","location":"Petaling Jaya, Selangor","url":"https://my.jobstreet.com/job/95940979","source":"JobStreet","postedAt":"2026-11-17","expiresAt":"","salary":"金额未公开","basic":"有底薪，金额未公开","commission":"有佣金，另有津贴","summary":"销售住宅、商业和工业太阳能方案。工作包括开发客户、现场勘察、提案和谈判，以及管理合作伙伴与投标。","requirements":["电机工程学士、相关高阶学历或同等资格","熟悉 Salesforce","熟悉 Microsoft Office、Microsoft Project、CRM 和 ERP","有效汽车驾照","能外出工作","必要时能在周末和公假工作"],"category":"能源 / Solar"},{"title":"Indoor Sales (Sanitaryware & Lighting)","company":"LEMANDI Bath & Light Sdn. Bhd.","location":"Balakong, Selangor","url":"https://my.jobstreet.com/job/95621416","source":"JobStreet","postedAt":"2026-11-01","expiresAt":"","salary":"RM3,000–RM4,500 / 月","basic":"有底薪，金额未拆分","commission":"有佣金，另有绩效奖励","summary":"在展厅销售卫浴、灯饰及家居产品。接待到店顾客、推荐产品，并跟进报价、订单及客户关系。广告列出多个资历级别。","requirements":["沟通、待客及谈判能力","能达成销售目标","团队协作","有卫浴、灯饰、厨房家电或建材销售经验","申请时申报在马来西亚工作的资格"],"category":"门店 / 展厅"},{"title":"Junior Digital Marketing Sales Consultant","company":"INNO HUB (MY) SDN. BHD.","location":"Petaling Jaya, Selangor","url":"https://my.jobstreet.com/job/95442213","source":"JobStreet","postedAt":"2026-10-22","expiresAt":"","salary":"RM2,900–RM4,350 / 月","basic":"RM2,500 / 月","commission":"广告写有机会达到 RM2,500+ / 月，另列符合条件的报销","summary":"向中小企业销售数码营销方案，预约客户、了解需求、准备提案和报价，再用 CRM 跟进机会。提供培训。","requirements":["任何领域的 Diploma 或学士","欢迎应届毕业生及有 0–2 年经验者","善于沟通，愿意接触新客户","能独立工作并与团队合作","销售经验","有自己的交通工具拜访客户"],"category":"数码营销 / 科技"}]</script>
-<script>(function sharedView() {
-  const jobs=JSON.parse(document.querySelector('#data').textContent);
-  const query=document.querySelector('#query'), group=document.querySelector('#category'), list=document.querySelector('#jobs');
-  const day=86400000;
-  const text=(tag,value,klass)=>{const el=document.createElement(tag); el.textContent=value;if(klass)el.className=klass;return el;};
-  for(const name of [...new Set(jobs.map(job=>job.category))].sort()) group.append(new Option(name,name));
-  function render(){
-    const today=new Date(Date.now()+8*3600000).toISOString().slice(0,10);
-    const cutoff=(Date.parse(today)-30*day);
-    const filtered=jobs.filter(job=>Date.parse(job.postedAt)>=cutoff&&job.postedAt<=today&&(!job.expiresAt||job.expiresAt>=today)
-      &&(!group.value||group.value===job.category)
-      &&[job.title,job.company,job.location,job.summary].join(' ').toLowerCase().includes(query.value.trim().toLowerCase()));
-    document.querySelector('#count').textContent=filtered.length+' 个职位';
-    list.replaceChildren();
-    for(const job of filtered){
-      const card=text('article','');
-      card.append(text('div',job.category+' · '+job.source,'tag'),text('h2',job.title),text('p',job.company+' · '+job.location,'meta'));
-      const pay=text('dl','');
-      for(const [key,value] of [['广告薪资',job.salary],['底薪',job.basic],['佣金',job.commission||'有佣金']]){
-        const cell=text('div','');
-        cell.append(text('dt',key),text('dd',value||'未公开'));pay.append(cell);
-      }
-      card.append(pay,text('p',job.summary),text('p','发布于 '+job.postedAt,'meta'));
-      if(job.requirements.length){
-        const details=text('details',''),points=text('ul','');
-        details.append(text('summary','职位要求'));
-        for(const label of job.requirements) points.append(text('li',label));
-        details.append(points);card.append(details);
-      }
-      const link=text('a','打开招聘原帖 ↗');link.href=job.url;link.rel='noopener noreferrer';link.target='_blank';
-      card.append(link);list.append(card);
-    }
-    if(!filtered.length)list.append(text('p','目前没有符合筛选的职位。','empty'));
+<html lang="zh-MY">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f4f6f2">
+<title>Selangor Sales Desk</title>
+<meta name="robots" content="noindex">
+<style>:root{color-scheme:light;--ink:#17261f;--muted:#53655a;--green:#23583f;--dark:#183c2b;--line:#dce4dd;--white:#fff;--bg:#f4f6f2;--soft:#edf5ee;--radius:13px;font-family:"Segoe UI","Microsoft YaHei",sans-serif}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-size:14px}button,input,select,textarea{font:inherit;color:inherit}button,a,input,select,textarea{outline-offset:3px}button{cursor:pointer}a{color:var(--green);text-underline-offset:3px}button{border:1px solid var(--line);border-radius:8px;background:white;padding:9px 13px}button:hover{border-color:#93ae9d}button:disabled{opacity:.61;cursor:wait}.shell{max-width:1360px;width:calc(100% - 88px);margin:auto}.top{background:#fbfcfa;border-bottom:1px solid var(--line)}.top-inner{height:66px;display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{display:flex;gap:11px;align-items:center;text-decoration:none;color:var(--dark);font-size:16px;font-weight:750;letter-spacing:-.2px}.brand-mark{display:grid;place-items:center;width:32px;height:32px;color:white;background:var(--dark);border-radius:8px;font-size:21px}.top nav{display:flex;gap:9px}.primary{background:var(--dark);border-color:var(--dark);color:white;font-weight:650}.primary:hover{background:#28563d}.flat{background:transparent}.intro{display:flex;align-items:end;justify-content:space-between;gap:16px;padding:32px 0 22px}.intro h1{font-size:43px;letter-spacing:-2px;margin:0 0 9px;line-height:1.1}.intro p{margin:0;color:var(--muted);font-weight:550}.intro p span{margin:0 7px;color:#7c9786}.refresh{display:flex;align-items:center;gap:9px;color:var(--green);background:transparent}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:25px}.stat{background:var(--white);text-align:left;border-radius:var(--radius);padding:13px 17px;display:grid;gap:3px;color:var(--dark)}.stat.active{background:#e8f1e9;border-color:#a7c2ad}.stat span{font-weight:650}.stat strong{font-size:29px;line-height:1.14;font-variant-numeric:tabular-nums}.stat small{color:var(--muted);font-size:12px}.workspace{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}.workspace-head{min-height:55px;padding:0 19px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);gap:10px}.tabs{display:flex;gap:20px;overflow:auto}.tabs button{border:0;border-radius:0;padding:17px 2px 15px;background:transparent;white-space:nowrap;color:var(--muted);border-bottom:2px solid transparent}.tabs button.active{font-weight:700;color:var(--dark);border-bottom-color:var(--green)}.result{color:var(--muted);font-size:12px;white-space:nowrap}.filters{display:flex;gap:10px;padding:12px 19px;border-bottom:1px solid var(--line);background:#fbfcfa;flex-wrap:wrap}.search{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:white;border-radius:8px;padding:0 10px;flex:1;min-width:185px}.search span{font-size:22px;color:var(--green)}.search input{border:0;background:transparent;width:100%;min-height:38px}.filters select,.fields :is(input,textarea,select),.status-select,.notes textarea{border:1px solid var(--line);border-radius:7px;background:#fff;padding:8px 9px;min-height:37px}.split{display:grid;grid-template-columns:minmax(285px, .84fr) minmax(0,1.55fr);min-height:490px}.list{border-right:1px solid var(--line);min-width:0;background:#fcfdfa;max-height:790px;overflow:auto}.job{display:block;text-align:left;width:100%;padding:15px 17px;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;position:relative}.job:hover{background:#f5f8f4}.job.active{background:#edf5ed;box-shadow:inset 3px 0 var(--green)}.job h3{font-size:15px;line-height:1.32;margin:8px 0 4px;overflow-wrap:anywhere}.job p{margin:0;color:var(--muted);font-size:12px;line-height:1.55}.job strong{display:block;color:var(--green);font-size:13px;margin-top:7px}.job-meta,.chips,.detail-actions,.form-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.chip{display:inline-block;padding:3px 8px;border-radius:6px;background:#eff2ee;color:#43564a;font-size:11px;font-weight:650;white-space:nowrap}.chip.green{background:#e1f0e3;color:#20583b}.chip.gold{background:#fbf0d9;color:#76571f}.chip.dark{background:#e9eeeb;color:#294536}.detail{min-width:0;padding:21px 24px;overflow-wrap:anywhere}.detail h2{font-size:26px;letter-spacing:-.5px;line-height:1.2;margin:10px 0 7px}.detail p{line-height:1.6;margin:7px 0}.sub{color:var(--muted);font-size:13px}.detail-actions{margin:13px 0 16px}.link-button{display:inline-block;padding:9px 12px;border-radius:8px;text-decoration:none}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.metric{background:#f4f7f3;border:1px solid #e8eee8;padding:9px 11px;border-radius:8px;min-width:0}.metric small{color:var(--muted);display:block;margin-bottom:3px}.metric b{font-size:13px}.panel-section{margin-top:19px}.panel-section h3{margin:0 0 7px;font-size:15px}.section-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.req{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid #edf1ec}.req label{flex:1;line-height:1.42}.req label span{margin-left:5px}.req select{border:0;border-radius:6px;min-width:94px;padding:5px;color:#41594a;background:#edf2ef}.req select.yes{color:#215938;background:#e5f3e7}.req select.no{color:#922f32;background:#fbecee}.req select.unknown{color:#795821;background:#f9f1df}.req-note,.explain{color:var(--muted);font-size:12px}.notes textarea{width:100%;resize:vertical}.notes button{margin-top:5px}.raw{white-space:pre-wrap;word-break:break-word;max-height:260px;overflow:auto}.empty{padding:25px 15px;color:var(--muted);line-height:1.7}.empty h3{color:var(--ink);margin-top:0}.notice{border:1px solid #e9ddbe;background:#faf5e8;border-radius:8px;padding:8px 11px;margin:7px 0}.workspace p,.fields p{white-space:pre-line}footer{display:flex;justify-content:space-between;color:var(--muted);padding:13px 0 21px;font-size:12px}dialog{width:min(720px,calc(100% - 28px));max-height:88vh;border:1px solid var(--line);border-radius:15px;padding:17px 21px 22px;color:var(--ink);background:white;box-shadow:0 10px 40px #182c223b}dialog::backdrop{background:#15271e70}.dialog-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}.dialog-head h2{font-size:23px;margin:0}.fields{display:grid;gap:10px}.fields label{display:grid;gap:4px;min-width:0;font-weight:600}.fields textarea{width:100%;resize:vertical}.fields input[type=file]{max-width:100%}.fields details summary,.notes summary{cursor:pointer}.grid-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:9px}.form-actions{margin-top:7px}.source-line{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;border-bottom:1px solid var(--line);padding:9px 0}.source-line small{display:block;color:var(--muted);margin-top:3px}.fact{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding:7px 0}.fact select{padding:5px;border:1px solid var(--line);border-radius:7px;background:white}.toast-show{opacity:1!important;transform:translateY(0)!important}#toast{pointer-events:none;position:fixed;right:18px;bottom:18px;max-width:calc(100% - 36px);color:white;background:var(--dark);padding:10px 15px;border-radius:8px;opacity:0;transform:translateY(4px);transition:.15s}
+@media(max-width:930px){.shell{width:calc(100% - 36px)}.detail{padding:18px 15px}.tabs{gap:12px}}@media(max-width:680px){.shell{width:calc(100% - 24px)}.brand{font-size:12px}.brand-mark{width:25px;height:25px;font-size:16px}.top nav{gap:4px}.top nav button{padding:7px}.intro{align-items:start;padding:22px 0 17px}.intro h1{font-size:32px}.refresh{font-size:11px;padding:7px}.stats{grid-template-columns:repeat(2,1fr);margin-bottom:17px}.stat{padding:9px 12px}.split{display:block}.list{border-right:0;border-bottom:1px solid var(--line);max-height:310px}.filters{padding:9px}.filters select{max-width:100%}.workspace-head{padding:0 9px}.result{display:none}.detail h2{font-size:22px}.metrics{grid-template-columns:1fr}.req label{font-size:13px}.grid-fields{grid-template-columns:1fr}footer{font-size:10px}}
+.industries{display:flex;gap:7px;padding:10px 19px;border-bottom:1px solid var(--line);flex-wrap:wrap}.industries button{border-radius:20px;padding:5px 9px;font-size:12px;white-space:nowrap;background:#f9fbf8}.industries button.active{background:#e1f0e3;color:var(--dark);border-color:#9dbba6;font-weight:650}.industries span{color:var(--muted);margin-left:3px;font-variant-numeric:tabular-nums}@media(max-width:680px){.industries{padding:8px 9px}}</style>
+
+</head>
+<body>
+<header class="top"><div class="shell top-inner">
+  <a class="brand" href="./"><span aria-hidden="true" class="brand-mark">↗</span> Selangor Sales Desk</a>
+  <nav aria-label="网站菜单"><button id="share" class="primary">复制分享链接</button></nav>
+</div></header>
+<main class="shell">
+  <section class="intro">
+    <div><h1>销售职位</h1><p>Selangor <span>·</span> 全职销售 <span>·</span> 有佣金</p></div>
+    <button id="sources" class="refresh"><span aria-hidden="true">◷</span> <span id="sync-label">更新与来源</span><span aria-hidden="true">↗</span></button>
+  </section>
+  <section class="stats" aria-label="职位统计">
+    <button data-tab="match" class="stat"><span>符合筛选</span><strong id="count-match">—</strong><small>全职 · 雪兰莪 · 有佣金</small></button>
+    <button id="browse-industries" class="stat"><span>销售方向</span><strong id="count-industries">—</strong><small>按行业查看职位</small></button>
+    <button id="public-sources" class="stat"><span>招聘来源</span><strong id="count-sources">—</strong><small>查看招聘网站</small></button>
+    <button data-tab="commission-only" class="stat"><span>纯佣金</span><strong id="count-commission-only">—</strong><small>零底薪职位</small></button>
+  </section>
+  <section class="workspace" aria-label="职位工作区">
+    <div class="workspace-head"><div class="tabs" id="tabs" aria-label="职位类别">
+      <button data-tab="match">全部职位</button><button data-tab="commission-only">纯佣金</button>
+    </div><span id="result-count" class="result"></span></div>
+    <div id="industries" class="industries" role="group" aria-label="筛选销售方向"></div>
+    <div class="filters">
+      <label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="搜职位、公司、地区" aria-label="搜职位、公司、地区"></label>
+      <select id="source" aria-label="筛选招聘网站"><option value="">所有来源</option></select>
+      <select id="commission-filter" aria-label="筛选佣金"><option value="">所有佣金类型</option><option value="only">零底薪 · 纯佣金</option><option value="yes">有佣金</option></select>
+      <select id="sort" aria-label="排序"><option value="latest">最近发布</option></select>
+    </div>
+    <div class="split"><div id="list" class="list" aria-label="职位列表"></div><article id="detail" class="detail" aria-label="职位详情"></article></div>
+  </section>
+  <footer><span>薪资以招聘原帖为准</span><span>只显示近 30 天有效职位</span></footer>
+</main>
+<dialog id="modal"><div class="dialog-head"><h2 id="modal-title"></h2><button id="close" class="flat" aria-label="关闭">✕</button></div><div id="modal-body"></div></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<script id="public-listings" type="application/json">{"jobs":[{"title":"Business Development Executive (Vestech)","company":"Solarvest Holdings Bhd. / Vestech Energy","location":"Petaling Jaya, Selangor","url":"https://my.jobstreet.com/job/95940979","source":"JobStreet","postedAt":"2026-11-17","expiresAt":"","salary":"金额未公开","basic":"有底薪，金额未公开","commission":"有佣金，另有津贴","summary":"销售住宅、商业和工业太阳能方案。工作包括开发客户、现场勘察、提案和谈判，以及管理合作伙伴与投标。","sector":"energy","commissionType":"yes","verifiedAt":"2026-11-18T23:35:00+08:00","requirements":[{"label":"电机工程学士、相关高阶学历或同等资格","preferred":false},{"label":"熟悉 Salesforce","preferred":false},{"label":"熟悉 Microsoft Office、Microsoft Project、CRM 和 ERP","preferred":false},{"label":"有效汽车驾照","preferred":false},{"label":"能外出工作","preferred":false},{"label":"必要时能在周末和公假工作","preferred":false}]},{"title":"Indoor Sales (Sanitaryware & Lighting)","company":"LEMANDI Bath & Light Sdn. Bhd.","location":"Balakong, Selangor","url":"https://my.jobstreet.com/job/95621416","source":"JobStreet","postedAt":"2026-11-01","expiresAt":"","salary":"RM3,000–RM4,500 / 月","basic":"有底薪，金额未拆分","commission":"有佣金，另有绩效奖励","summary":"在展厅销售卫浴、灯饰及家居产品。接待到店顾客、推荐产品，并跟进报价、订单及客户关系。广告列出多个资历级别。","sector":"other","commissionType":"yes","verifiedAt":"2026-11-18T23:35:00+08:00","requirements":[{"label":"沟通、待客及谈判能力","preferred":false},{"label":"能达成销售目标","preferred":false},{"label":"团队协作","preferred":false},{"label":"有卫浴、灯饰、厨房家电或建材销售经验","preferred":true},{"label":"申请时申报在马来西亚工作的资格","preferred":false}]},{"title":"Junior Digital Marketing Sales Consultant","company":"INNO HUB (MY) SDN. BHD.","location":"Petaling Jaya, Selangor","url":"https://my.jobstreet.com/job/95442213","source":"JobStreet","postedAt":"2026-10-22","expiresAt":"","salary":"RM2,900–RM4,350 / 月","basic":"RM2,500 / 月","commission":"广告写有机会达到 RM2,500+ / 月，另列符合条件的报销","summary":"向中小企业销售数码营销方案，预约客户、了解需求、准备提案和报价，再用 CRM 跟进机会。提供培训。","sector":"other","commissionType":"yes","verifiedAt":"2026-11-18T15:47:52.700Z","requirements":[{"label":"任何领域的 Diploma 或学士","preferred":false},{"label":"欢迎应届毕业生及有 0–2 年经验者","preferred":false},{"label":"善于沟通，愿意接触新客户","preferred":false},{"label":"能独立工作并与团队合作","preferred":false},{"label":"销售经验","preferred":true},{"label":"有自己的交通工具拜访客户","preferred":true}]}],"checkedAt":"2026-11-18T15:47:52.700Z","seedCheckedAt":"2026-11-18T23:35:00+08:00"}</script>
+<script>'use strict';
+(function appMain() {
+  const $ = id => document.getElementById(id);
+  const esc = input => String(input ?? '').replace(/[&<>"']/g, character => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' })[character]);
+  const meanings = { yes:'✓ 符合', no:'× 不符合', unknown:'～ 待确认' };
+  const stages = { new:'未跟进', saved:'已收藏', applied:'已申请', interview:'面试中', archived:'已归档' };
+  const known = {
+    diploma:'商业相关 Diploma', electrical_degree:'电机工程学历', bachelor:'学士学位',
+    sales:'销售经验', sales1:'至少一年销售经验', retail:'零售销售经验', retail2:'至少两年零售经验', b2b:'B2B 销售经验', b2b1:'至少一年 B2B 销售经验',
+    customer:'客户咨询与售后跟进经验', appliances:'家电销售经验', sales_target:'能达到销售目标', solar:'Solar PV / 能源知识或销售经验',
+    english:'英语沟通', malay:'马来语沟通', mandarin:'普通话沟通', cantonese:'广东话沟通',
+    drive:'有效汽车驾照', vehicle:'可使用自己的交通工具', travel:'愿意外出拜访客户', weekends:'接受周末/公假工作',
+    crm:'熟悉 CRM 系统', salesforce:'熟悉 Salesforce', right_to_work:'有权在马来西亚工作'
+  };
+  const boards = [
+    ['JobStreet','https://my.jobstreet.com/sales-commission-jobs/in-Selangor/full-time'],
+    ['LinkedIn','https://www.linkedin.com/jobs/search/?keywords=sales%20commission&location=Selangor%2C%20Malaysia&f_JT=F'],
+    ['Indeed','https://malaysia.indeed.com/jobs?q=sales+commission&l=Selangor&sc=0kf%3Ajt%28fulltime%29%3B'],
+    ['Hiredly','https://my.hiredly.com/jobs'],
+    ['Maukerja','https://www.maukerja.my/en/jobsearch/sales-jobs-in-selangor']
+  ];
+  const publicData = $('public-listings');
+  const readOnly = Boolean(publicData);
+  let desk = { jobs: [], facts: {}, sources: {} };
+  let tab = 'match';
+  let industry = '';
+  const categories = {
+    retail:'门店 / 展厅',
+    b2b:'企业销售 / B2B',
+    auto:'汽车销售',
+    digital:'数码营销 / 科技',
+    property:'房地产销售',
+    education:'教育 / 招生',
+    energy:'能源 / Solar',
+    other:'其他销售'
+  };
+  const classify = job => {
+    const subject = [job.title,job.company,job.summary].join(' ');
+    const evidence = [
+      ['energy', /solar|renewable energy|太阳能|可再生能源|储能方案/i],
+      ['auto', /car sales|automotiv|car dealer|\b(?:nissan|zeekr|proton|perodua|toyota|honda)\b|汽车销售|销售汽车/i],
+      ['property', /property sales|real estate|房地产|楼盘/i],
+      ['education', /education consult|student recruit|招生|推广大学课程/i],
+      ['digital', /digital marketing|\bsaas\b|software sales|数码营销|数字营销|软件销售/i],
+      ['retail', /\bindoor sales\b|retail|showroom|门店|展厅|到店顾客/i],
+      ['b2b', /\bb2b\b|freight forwarding|企业客户|企业销售|物流服务/i]
+    ];
+    if (job.sector === 'energy') return 'energy';
+    return evidence.find(([,pattern]) => pattern.test(subject))?.[0] || 'other';
+  };
+
+  let selected = '';
+  let lastSnapshot = '';
+  let toastTimer;
+  let saving = 0;
+  let refreshVersion = 0;
+  const notify = message => {
+    $('toast').textContent = message;
+    $('toast').classList.add('toast-show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => $('toast').classList.remove('toast-show'), 4800);
+  };
+  const formatTime = (value, onlyDate = false) => {
+    if (!value || Number.isNaN(Date.parse(value))) return '';
+    return new Intl.DateTimeFormat('en-MY', { timeZone:'Asia/Kuala_Lumpur', day:'numeric', month:'short', ...(onlyDate ? {} : { hour:'numeric', minute:'2-digit' }) }).format(new Date(value));
+  };
+  const requirementKey = req => typeof req.key === 'string' && /^[a-z][a-z0-9_]{0,50}$/.test(req.key)
+    ? 'fact:' + req.key
+    : 'label:' + req.label.normalize('NFKC').toLowerCase().trim().replace(/[\s，。、,.!?！？:：;；]+/g,' ');
+  const fit = (job, req) => {
+    const key = requirementKey(req);
+    return job.answers['#' + req.label]
+      || (key.startsWith('fact:') ? desk.facts[req.key] : desk.sharedAnswers?.[key])
+      || 'unknown';
+  };
+  const fulfilled = job => job.requirements.filter(req => !req.preferred && fit(job, req) === 'yes').length;
+  const unmet = job => job.requirements.filter(req => !req.preferred && fit(job, req) === 'no').length;
+  const exceedsUnmetLimit = job => {
+    const requiredCount = job.requirements.filter(req => !req.preferred).length;
+    return 10 * unmet(job) > 3 * requiredCount;
+  };
+  const hasPostingDate = job => Boolean(job.postedAt && (!desk.today || job.postedAt <= desk.today));
+  const qualifies = job => hasPostingDate(job) && job.employment === 'full-time' && job.region === 'selangor' && job.role === 'sales' && ['yes','only'].includes(job.commissionType);
+  const hidden = job => job.stage === 'archived' || job.listingStatus === 'closed';
+  const matchesTab = (job, target) => {
+    if (exceedsUnmetLimit(job)) return false;
+    if (target === 'commission-only') return qualifies(job) && job.commissionType === 'only';
+    if (target === 'archive') return hidden(job);
+    if (target === 'saved') return ['saved','applied','interview'].includes(job.stage);
+    if (hidden(job)) return false;
+    if (target === 'review') return !qualifies(job);
+    return qualifies(job);
+  };
+  const commissionLabel = job => ({ yes:'有佣金', only:'纯佣金', no:'无佣金' })[job.commissionType] || '佣金待确认';
+  const chip = (label, variant = '') => `<span class="chip ${variant}">${esc(label)}</span>`;
+  const opt = (values, selectedValue) => Object.entries(values).map(([value,label]) => `<option value="${esc(value)}"${value === selectedValue ? ' selected' : ''}>${esc(label)}</option>`).join('');
+  const tokens = job => [chip(job.source), chip(categories[classify(job)],'green'), job.listingStatus === 'closed' ? chip('已下架','gold') : '',
+    job.commissionType === 'only' ? chip('纯佣金','gold') : ''].join('');
+  function setTab(target) {
+    tab = target;
+    industry = '';
+    $('source').value = '';
+    $('commission-filter').value = '';
+    $('search').value = '';
+    render();
   }
-  query.addEventListener('input',render);
-  group.addEventListener('change',render);
-  render();
-})();</script></html>
+  function render() {
+    const source = $('source');
+    source.innerHTML = opt(Object.fromEntries([['','所有来源'], ...[...new Set(desk.jobs.map(job => job.source))].sort().map(value => [value,value])]), source.value);
+    document.querySelectorAll('[data-tab]').forEach(button => {
+      const isActive = button.dataset.tab === tab;
+      button.classList.toggle('active', isActive);
+      button.setAttribute('aria-pressed', isActive);
+    });
+    const stats = readOnly ? ['match','commission-only'] : ['match','review','saved'];
+    stats.forEach(key => $('count-' + key).textContent = desk.jobs.filter(job => matchesTab(job, key)).length);
+    if (readOnly) $('count-sources').textContent = new Set(desk.jobs.map(job => job.source)).size;
+    const categoryCounts = new Map();
+    const possible = desk.jobs.filter(job => matchesTab(job,tab));
+    for (const job of possible) {
+      const key = classify(job);
+      categoryCounts.set(key,(categoryCounts.get(key) || 0) + 1);
+    }
+    $('count-industries').textContent = new Set(desk.jobs.filter(job => matchesTab(job,'match')).map(classify)).size;
+    const choices = [['','所有方向'], ...Object.entries(categories).filter(([key]) => key !== 'other' || categoryCounts.has(key))];
+    $('industries').innerHTML = choices.map(([key,label]) => `<button data-industry="${key}" aria-pressed="${industry === key}"${key === industry ? ' class="active"' : ''}>${esc(label)} <span>${key ? (categoryCounts.get(key) || 0) : possible.length}</span></button>`).join('');
+    $('sync-label').textContent = desk.checkedAt ? '更新 · ' + formatTime(desk.checkedAt) : '更新与来源';
+    const query = $('search').value.trim().toLowerCase();
+    const list = possible.filter(job => (!industry || industry === classify(job))
+      && (!source.value || source.value === job.source)
+      && (!$('commission-filter').value || $('commission-filter').value === job.commissionType)
+      && [job.title,job.company,job.location,job.summary].some(value => value.toLowerCase().includes(query)));
+    const latest = job => Date.parse(job.postedAt || job.verifiedAt || job.addedAt) || 0;
+    list.sort((left, right) => ($('sort').value === 'fit' ? unmet(left) - unmet(right) || fulfilled(right) - fulfilled(left) : 0)
+      || latest(right) - latest(left));
+    if (!list.some(job => job.id === selected)) selected = list[0]?.id || '';
+    $('result-count').textContent = list.length + ' 个职位';
+    $('list').innerHTML = list.map(job => `<button class="job ${job.id === selected ? 'active' : ''}" data-id="${esc(job.id)}" aria-pressed="${job.id === selected}">
+      <div class="job-meta">${tokens(job)}</div><h3>${esc(job.title)}</h3><p>${esc([job.company,job.location].filter(Boolean).join(' · ') || '资料待补充')}</p>
+      <strong>${esc(job.salary || job.basic || '薪资未公开')}</strong><p>${esc(commissionLabel(job))}${!readOnly && job.requirements.length ? ' · ' + fulfilled(job) + ' 项符合' : ''}</p></button>`).join('')
+      || '<div class="empty"><h3>这里暂时没有职位</h3>请尝试调整筛选条件。</div>';
+    renderDetail(list.find(job => job.id === selected));
+  }
+  function renderDetail(job) {
+    if (!job) {
+      $('detail').innerHTML = '<div class="empty">选择一个职位查看详情。</div>';
+      return;
+    }
+    const lacking = job.requirements.filter(req => fit(job,req) === 'unknown');
+    const questions = new Set(lacking.map(req => req.key).filter(key => known[key]));
+    $('detail').innerHTML = `<div class="chips">${tokens(job)}${job.employment === 'full-time' ? chip('全职','dark') : ''}</div>
+      <h2>${esc(job.title)}</h2><p class="sub">${esc([job.company,job.location,hasPostingDate(job) ? '发布于 ' + job.postedAt : '发布日期待核对',job.verifiedAt ? '核对于 ' + formatTime(job.verifiedAt,true) : '尚未核对原帖'].filter(Boolean).join(' · '))}</p>
+      <div class="detail-actions">${job.url ? `<a class="primary link-button" href="${esc(job.url)}" target="_blank" rel="noopener noreferrer">打开招聘原帖 ↗</a>` : ''}
+        ${readOnly ? '' : `<select id="stage" class="status-select" aria-label="申请进度">${opt(stages,job.stage)}</select><button id="edit">编辑资料</button>`}</div>
+      <div class="metrics">${[['招聘广告薪资',job.salary],['底薪',job.basic],['佣金',job.commission || commissionLabel(job)]].map(([label,value]) =>
+        `<div class="metric"><small>${label}</small><b>${esc(value || '未公开')}</b></div>`).join('')}</div>
+      ${!qualifies(job) && job.listingStatus !== 'closed' ? '<p class="notice">' + esc([
+        !hasPostingDate(job) && '需要核对原帖发布日期',
+        job.region !== 'selangor' && (job.region ? '地区不在雪兰莪' : '地区待确认'),
+        job.employment !== 'full-time' && (job.employment ? '非全职' : '是否全职待确认'),
+        job.role !== 'sales' && (job.role ? '非销售职位' : '职位类型待确认'),
+        !['yes','only'].includes(job.commissionType) && commissionLabel(job)
+      ].filter(Boolean).join(' · ')) + '</p>' : ''}
+      <section class="panel-section"><h3>工作内容</h3><p>${esc(job.summary || '职位简介待补充。可以贴上广告内容，或在下次定时查找时查看链接。')}</p></section>
+      <section class="panel-section"><div class="section-head"><h3>职位要求</h3>${!readOnly && questions.size ? '<button id="answer-facts">回答待确认项</button>' : ''}</div>
+      ${readOnly && job.requirements.length ? '' : job.requirements.length ? `<p class="req-note">${fulfilled(job)} 项符合 · ${unmet(job)} 项不符合 · ${lacking.length} 项待确认　<span>修改会同步到相同要求；加分项单独标注</span></p>` : '<p class="explain">招聘要求待补充。</p>'}
+      ${job.requirements.map((req,index) => {
+        if (readOnly) return `<div class="req"><span>${esc(req.label)}${req.preferred ? ' ' + chip('加分项') : ''}</span></div>`;
+        const status = fit(job,req);
+        return `<div class="req"><label for="req-${index}">${esc(req.label)}${req.preferred ? ' ' + chip('加分项') : ''}</label>
+          <select id="req-${index}" class="${status}" data-req="${index}">
+          ${opt(meanings,status)}</select></div>`;
+      }).join('')}</section>
+      ${readOnly ? '' : `<details class="panel-section notes"${job.notes ? ' open' : ''}><summary>我的备注</summary>
+        <textarea id="job-notes" rows="3" aria-label="我的备注" placeholder="例如：确认实际底薪和佣金计算方式">${esc(job.notes)}</textarea><button id="save-notes">保存备注</button></details>
+      ${job.original ? `<details class="panel-section notes"><summary>原文备份</summary><pre class="raw">${esc(job.original)}</pre></details>` : ''}`}`;
+    if (readOnly) return;
+    $('stage').onchange = event => editJob(job,{ stage:event.target.value });
+    $('edit').onclick = () => showEditor(job);
+    $('save-notes').onclick = () => editJob(job,{ notes:$('job-notes').value });
+    if ($('answer-facts')) $('answer-facts').onclick = () => showProfile([...questions]);
+    $('detail').querySelectorAll('[data-req]').forEach(select => select.onchange = () => editJob(job,{label:job.requirements[Number(select.dataset.req)].label,answer:select.value}));
+  }
+  async function json(url, init) {
+    const response = await fetch(url, init);
+    const value = await response.json();
+    if (!response.ok) throw Error(value.error || '读取失败。');
+    return value;
+  }
+  async function refresh(force = false) {
+    const version = ++refreshVersion;
+    const result = await json('/api/desk');
+    if (version !== refreshVersion || saving) return;
+    const snapshot = JSON.stringify(result);
+    if (force || snapshot !== lastSnapshot) {
+      if (!force && $('job-notes') && $('job-notes').value !== (desk.jobs.find(job => job.id === selected)?.notes || '')) return;
+      desk = result;
+      lastSnapshot = snapshot;
+      render();
+    }
+  }
+  async function mutate(route, input) {
+    ++refreshVersion;
+    saving++;
+    try {
+      return await json('/api/' + route, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(input) });
+    } finally {
+      saving--;
+    }
+  }
+  function useResult(result, focusJob = false) {
+    const { selected:target, ...data } = result;
+    desk = data;
+    lastSnapshot = JSON.stringify(data);
+    if (focusJob) {
+      selected = target;
+      const job = desk.jobs.find(item => item.id === selected);
+      setTab(job && qualifies(job) ? 'match' : 'review');
+    } else render();
+  }
+  async function editJob(job, changes) {
+    try {
+      useResult(await mutate('edit',{id:job.id,...changes}));
+      const updated = desk.jobs.find(item => item.id === job.id);
+      if (changes.answer !== undefined && updated && exceedsUnmetLimit(updated)) {
+        notify('不符合的必需条件超过 30%，此职位已隐藏。');
+      } else if (changes.answer !== undefined) notify('已同步到其他职位的相同要求。');
+      else if (changes.notes !== undefined) notify('已保存备注。');
+    } catch (error) { notify(error.message); }
+  }
+  function modal(title, contents) {
+    $('modal-title').textContent = title;
+    $('modal-body').innerHTML = contents;
+    if (!$('modal').open) $('modal').showModal();
+  }
+  function showProfile(keys = Object.keys(known)) {
+    modal('我的条件', `<p class="explain">修改后会应用到使用相同条件的所有职位。你也可以在单个职位调整判断。</p><form id="profile-form">
+      ${keys.map(key => `<label class="fact"><span>${esc(known[key])}</span><select name="${esc(key)}">${opt(meanings,desk.facts[key] || 'unknown')}</select></label>`).join('')}
+      <div class="form-actions"><button class="primary">保存条件</button></div></form>`);
+    $('profile-form').onsubmit = async event => {
+      event.preventDefault();
+      try {
+        useResult(await mutate('facts',Object.fromEntries(new FormData(event.target))));
+        $('modal').close();
+        notify('已更新职位匹配。');
+      } catch (error) { notify(error.message); }
+    };
+  }
+  const fieldsMap = {
+    title:'职位名称', company:'公司', location:'工作地区', postedAt:'原帖发布日期', expiresAt:'截止日期（如有）', salary:'招聘广告薪资', basic:'明确写出的底薪', commission:'佣金说明',
+    employment:{'':'待确认','full-time':'全职','other':'非全职'},region:{'':'待确认',selangor:'雪兰莪',other:'其他地区'},
+    role:{'':'待确认',sales:'销售',other:'其他职位'},commissionType:{'':'待确认',yes:'有佣金',only:'零底薪 · 纯佣金',no:'无佣金'},sector:{'':'待确认',energy:'能源 / Solar',other:'其他行业'}
+  };
+  const fieldLabels = { employment:'工作性质',region:'州属',role:'职位类别',commissionType:'佣金类型',sector:'行业' };
+  function extract(raw) {
+    const lines = raw.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+    const title = lines.find(line => /^(?:title|job title|jawatan|职位)\s*[:：]/i.test(line))?.replace(/^[^:：]+[:：]\s*/, '')
+      || lines.find(line => /(?:sales|business development|jualan|销售)/i.test(line) && line.length <= 140);
+    const company = lines.find(line => /^(?:company|syarikat|公司)\s*[:：]/i.test(line))?.replace(/^[^:：]+[:：]\s*/, '');
+    const location = lines.find(line => /\bselangor\b|雪兰莪/i.test(line) && line.length <= 100);
+    const salaries = raw.match(/(?:from |up to |starting at )?(?:RM|MYR)\s*[\d,.]+\s*(?:(?:[–—-]|to)\s*(?:RM|MYR)?\s*[\d,.]+)?(?:\s*(?:per month|\/month|monthly|sebulan))?/i);
+    const basic = lines.find(line => /(?:basic salary|base salary|gaji asas|底薪)/i.test(line) && /(?:RM|MYR)\s*\d/i.test(line) && !/(?:commission|komisen|佣金)/i.test(line));
+    const sections = {};
+    let active = '';
+    for (const line of lines) {
+      const header = line.match(/^(?:#+\s*)?(requirements?|qualifications?|what we (?:look for|need)|syarat(?: kelayakan)?|kelayakan|要求|任职要求|responsibilities|job description|job scope|duties|tanggungjawab|skop kerja|工作内容|职责|benefits|perks|about us|faedah|福利)\s*[:：]?\s*$/i);
+      if (header) {
+        active = /requirements?|qualifications?|what we|syarat|kelayakan|要求/i.test(header[1]) ? 'requirements'
+          : /responsibilities|job description|job scope|duties|tanggungjawab|skop kerja|工作内容|职责/i.test(header[1]) ? 'summary' : '';
+      } else if (active) {
+        (sections[active] ||= []).push(line.replace(/^(?:[-•*]|\d+\.)\s*/,''));
+      }
+    }
+    const negative = /\b(?:no|without)\s+(?:sales\s+)?commission\b|tiada komisen|无佣金/i.test(raw);
+    const positive = /\bcommission(?:s|-based)?\b|\bkomisen\b|佣金/i.test(raw);
+    const only = /\b(?:commission[- ]only|no (?:fixed )?(?:basic|base) salary)\b|komisen sahaja|纯佣金/i.test(raw);
+    const full = /\bfull[- ]time\b|sepenuh masa|全职/i.test(raw);
+    const part = /\bpart[- ]time\b|separuh masa|兼职/i.test(raw);
+    return {
+      title, company, location, salary:salaries?.[0].trim(), basic:basic?.slice(0,150),
+      commissionType:negative ? (positive && /\b(?:plus|with|and)\s+(?:sales\s+)?commission\b/i.test(raw) ? '' : 'no') : only ? 'only' : positive ? 'yes' : '',
+      employment:full && !part ? 'full-time' : part && !full ? 'other' : '',
+      region:/\bselangor\b|雪兰莪/i.test(location || '') ? 'selangor' : '',
+      role:title && /sales|business development|jualan|销售/i.test(title) ? 'sales' : '',
+      sector:/\bsolar\b|\brenewable energy\b|太阳能/i.test(raw) ? 'energy' : '',
+      summary:sections.summary?.slice(0,4).join('\n'),
+      requirements:sections.requirements?.slice(0,15).join('\n')
+    };
+  }
+  const inferKey = label => {
+    const exact = label.trim().toLowerCase().replace(/[.!。]$/,'');
+    const lookup = {
+      'driving licence':'drive','valid driving licence':'drive','valid driving license':'drive','驾照':'drive',
+      'own transport':'vehicle','own transportation':'vehicle','自备交通工具':'vehicle',
+      'mandarin':'mandarin','english':'english','bahasa malaysia':'malay','bahasa melayu':'malay','cantonese':'cantonese',
+      'sales experience':'sales','retail sales experience':'retail','b2b sales experience':'b2b','diploma in business':'diploma'
+    };
+    return lookup[exact] || '';
+  };
+  function showEditor(job) {
+    modal(job ? '编辑职位资料' : '加入职位', `<form class="fields" id="job-form">
+      ${job ? '' : '<label>招聘链接<input name="url" type="url" placeholder="https://…"></label><label>上传职位资料<input id="upload" type="file" accept=".txt,.md,.json,text/plain,application/json"></label>'}
+      <label>招聘广告原文<textarea name="original" rows="4" placeholder="可贴上职位介绍、薪资和要求">${esc(job?.original)}</textarea></label>
+      <div class="form-actions"><button type="button" id="extract">提取可识别资料</button><span class="explain" id="extract-note">只加链接也可以保存。</span></div>
+      <details id="edit-fields"${job ? ' open' : ''}><summary>职位资料与要求</summary><div class="grid-fields">
+      ${Object.entries(fieldsMap).map(([key,labels]) => typeof labels === 'string'
+        ? `<label>${labels}<input name="${key}" value="${esc(job?.[key])}"${['postedAt','expiresAt'].includes(key) ? ' type="date"' : ''}></label>`
+        : `<label>${fieldLabels[key]}<select name="${key}">${opt(labels,job?.[key] || '')}</select></label>`).join('')}
+      </div><div class="grid-fields"><label>工作内容<textarea name="summary" rows="4">${esc(job?.summary)}</textarea></label>
+      <label>职位要求 · 每行一条<textarea name="requirements" rows="4">${esc(job?.requirements.map(req => (req.preferred ? '＋ ' : '') + req.label).join('\n'))}</textarea><small>加分项可用「＋ 」开头。</small></label></div></details>
+      <div class="form-actions"><button class="primary" type="submit">保存职位</button></div></form>`);
+    const form = $('job-form');
+    const autofill = () => {
+      const raw = form.elements.original.value.trim();
+      if (!raw) return false;
+      for (const [key,value] of Object.entries(extract(raw))) {
+        if (value && !form.elements[key].value) form.elements[key].value = value;
+      }
+      return true;
+    };
+    $('extract').onclick = () => {
+      if (!autofill()) return notify('请先贴上广告原文或上传文字档。');
+      $('edit-fields').open = true;
+      $('extract-note').textContent = '请核对提取字段，缺失资料会保留待确认。';
+    };
+    if ($('upload')) $('upload').onchange = async event => {
+      const file = event.target.files[0];
+      if (!file) return;
+      try {
+        if (file.size > 700000) throw Error('请选择小于 700 KB 的文件。');
+        const raw = await file.text();
+        if (/\.json$/i.test(file.name)) {
+          useResult(await mutate('import',JSON.parse(raw)),true);
+          $('modal').close();
+          notify('已导入职位资料。');
+        } else {
+          form.elements.original.value = raw;
+          $('extract').click();
+        }
+      } catch (error) { notify(error.message); }
+    };
+    form.onsubmit = async event => {
+      event.preventDefault();
+      if (!job && !$('edit-fields').open) autofill();
+      const input = Object.fromEntries(new FormData(form));
+      input.requirements = input.requirements.split(/\r?\n/).flatMap(line => {
+        const preferred = line.trim().startsWith('＋') || line.trim().startsWith('+');
+        const label = line.trim().replace(/^[＋+]\s*/,'');
+        if (!label) return [];
+        return [{ label, preferred, key:job?.requirements.find(row => row.label === label)?.key || inferKey(label) }];
+      });
+      try {
+        useResult(await mutate(job ? 'edit' : 'add',job ? {id:job.id,fields:input} : input),!job || !matchesTab({...job,...input},tab));
+        $('modal').close();
+        notify('已保存职位。');
+      } catch (error) { notify(error.message); $('edit-fields').open = true; }
+    };
+  }
+  function showSources() {
+    modal('更新与来源', `<p class="explain">${readOnly ? '职位资料来自以下招聘网站，可打开原站查找。' : '每天约 9:00（马来西亚时间）查找职位。本页打开时每两分钟读取新结果。'}</p>
+      <p>${desk.feedError ? esc(desk.feedError) : desk.checkedAt ? '最近查找 · ' + formatTime(desk.checkedAt) : '尚无定时查找记录'}</p>
+      <p class="explain">初始职位核对 · ${esc(formatTime(desk.seedCheckedAt,true) || '—')}</p>
+      ${boards.map(([name,url]) => `<div class="source-line"><div><b>${esc(name)}</b><small>${esc(desk.sources[name]?.status || '可打开原站查找')}${desk.sources[name]?.checkedAt ? ' · ' + formatTime(desk.sources[name].checkedAt) : ''}</small></div>
+      <a href="${url}" target="_blank" rel="noopener noreferrer">打开搜寻 ↗</a></div>`).join('')}
+      ${readOnly ? '' : '<div class="form-actions"><button id="reload" class="primary">读取最新结果</button></div>'}`);
+    if (readOnly) return;
+    $('reload').onclick = async () => {
+      try { await refresh(true); showSources(); notify('已读取本地职位结果。'); }
+      catch (error) { notify(error.message); }
+    };
+  }
+  $('close').onclick = () => $('modal').close();
+  if (!readOnly) {
+    $('add').onclick = () => showEditor();
+    $('profile').onclick = () => showProfile();
+  } else {
+    $('public-sources').onclick = showSources;
+    $('share').onclick = async () => {
+      try { await navigator.clipboard.writeText(location.href); notify('已复制分享链接。'); }
+      catch { notify('请从浏览器地址栏复制链接。'); }
+    };
+  }
+  $('sources').onclick = showSources;
+  $('browse-industries').onclick = () => {
+    setTab('match');
+    $('industries').querySelector('button').focus();
+  };
+  $('industries').onclick = event => {
+    const button = event.target.closest('[data-industry]');
+    if (!button) return;
+    industry = button.dataset.industry;
+    render();
+    $('industries').querySelector('[aria-pressed=true]')?.focus();
+  };
+  $('list').onclick = event => {
+    const button = event.target.closest('[data-id]');
+    if (!button) return;
+    selected = button.dataset.id;
+    render();
+    if (matchMedia('(max-width:680px)').matches) $('detail').scrollIntoView({ block:'start' });
+  };
+  document.querySelectorAll('[data-tab]').forEach(button => button.onclick = () => setTab(button.dataset.tab));
+  $('search').oninput = render;
+  ['source','commission-filter','sort'].forEach(id => $(id).onchange = render);
+  if (readOnly) {
+    const snapshot = JSON.parse(publicData.textContent);
+    const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0,10);
+    const cutoff = Date.parse(today) - 30 * 86400000;
+    desk = {
+      ...desk, today, checkedAt:snapshot.checkedAt, seedCheckedAt:snapshot.seedCheckedAt,
+      jobs:snapshot.jobs.filter(job => Date.parse(job.postedAt) >= cutoff
+        && job.postedAt <= today && (!job.expiresAt || job.expiresAt >= today))
+        .map(job => ({ ...job, id:job.url, answers:{}, stage:'new', employment:'full-time',
+          role:'sales', region:'selangor', listingStatus:'active' }))
+    };
+    render();
+  } else {
+    refresh(true).catch(error => notify(error.message));
+    setInterval(() => { if (!$('modal').open && !saving) refresh().catch(error => notify(error.message)); },120000);
+  }
+})();
+</script>
+</body>
+</html>
