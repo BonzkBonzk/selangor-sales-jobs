@@ -237,8 +237,8 @@
       : (sc.get(b.url).score - sc.get(a.url).score) || (b.postedAt || '').localeCompare(a.postedAt || ''));
     if (tab === 'fav' || tab === 'prac') rows.sort((a,b) => (p[tab][b.url]?.at || '').localeCompare(p[tab][a.url]?.at || ''));
 
-    const latest = data.jobs.reduce((m, j) => j.firstSeen > m ? j.firstSeen : m, '');
-    const seenBefore = p.prevVisit || '';
+    const latest = data.jobs.reduce((m, j) => (j.batch || '') > m ? j.batch : m, '');
+    const isNewJob = j => !!latest && j.batch === latest;
     const per = f.per ?? 20, pages = per ? Math.max(1, Math.ceil(rows.length / per)) : 1;
     if (jumpTo && per) { const ix = rows.findIndex(j => j.url === selected); if (ix >= 0) page = Math.floor(ix / per); }
     jumpTo = false; if (page >= pages) page = pages - 1; if (page < 0) page = 0;
@@ -248,7 +248,7 @@
     const pagerBot = pages > 1 ? `<div class="pager"><button data-pg="-1"${page ? '' : ' disabled'}>‹ 上一页</button><span>${page + 1} / ${pages}</span><button data-pg="1"${page < pages - 1 ? '' : ' disabled'}>下一页 ›</button></div>` : '';
     $('list').innerHTML = pagerTop + (rows.length ? view.map(j => {
       const r = sc.get(j.url), a = ageDays(j.postedAt);
-      const isNew = seenBefore ? j.firstSeen > seenBefore.slice(0,10) : j.firstSeen === latest;
+      const isNew = isNewJob(j);
       const expired = (tab === 'fav' || tab === 'prac') && (a !== null && a > 30 || !byUrl.has(j.url));
       const st = (tab === 'fav' || tab === 'prac') ? p[tab][j.url]?.stage : '';
       return `<button class="item${j.url === selected ? ' sel' : ''}" data-url="${esc(j.url)}">
@@ -273,9 +273,10 @@
 
     const upd = data.updatedAt ? new Date(data.updatedAt).toLocaleString('zh-MY', { timeZone:'Asia/Kuala_Lumpur', month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit' }) : '—';
     $('meta').innerHTML = `<span id="sync-badge" title="${esc(syncStatus)}">${syncCfg ? (syncStatus.startsWith('已同步') ? '⟳ 已同步' + (syncCfg.owner ? '（我是 ' + syncCfg.owner + '）' : '') : '⚠ 未同步') : ''}</span><span>资料更新：${esc(upd)}</span><span>每 3 天更新${data.nextUpdate ? ' · 下次约 ' + esc(data.nextUpdate) : ''}</span>`;
-    const newCount = g.list.filter(j => seenBefore ? j.firstSeen > seenBefore.slice(0,10) : j.firstSeen === latest).length;
+    const newCount = g.list.filter(isNewJob).length;
+    const latestTxt = latest ? new Date(latest).toLocaleDateString('zh-MY', { timeZone:'Asia/Kuala_Lumpur', month:'numeric', day:'numeric' }) : '';
     $('news').hidden = !newCount;
-    $('news').innerHTML = newCount ? `<b>${newCount}</b> 个职位是${seenBefore ? '你上次来访之后' : '最近一次更新'}新增的，列表里标了 NEW。` : '';
+    $('news').innerHTML = newCount ? `<b>${newCount}</b> 个职位是最近一次更新（${esc(latestTxt)}）新增的，列表里标了 NEW。` : '';
   }
 
   function renderDetail(j) {
