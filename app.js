@@ -52,7 +52,7 @@
   const readOnly = () => { try { const c = JSON.parse(localStorage.getItem('ssd.sync')); return !!(c && c.owner && c.owner !== store.profile); } catch { return false; } };
 
   /* ---------- 数据 ---------- */
-  let data = { jobs:[] }, byUrl = new Map(), tab = 'list', selected = '', page = 0, jumpTo = false;
+  let data = { jobs:[] }, latestBatch = '', byUrl = new Map(), tab = 'list', selected = '', page = 0, jumpTo = false;
 
   const CATS = {
     KH: { '':'所有方向', energy:'能源 / Solar', b2b:'企业销售 / B2B', retail:'门店 / 展厅', property:'房地产', auto:'汽车', digital:'数码 / 科技', finance:'金融 / 保险', education:'教育 / 招生', other:'其他销售' },
@@ -164,6 +164,7 @@
     if (f.area === 'other' && inKLV) return false;
     if (f.cat && classify(j) !== f.cat) return false;
     if (f.src && j.source !== f.src) return false;
+    if (f.latest && !(latestBatch && j.batch === latestBatch)) return false;
     if (!isJW() && f.only && j.commissionType !== 'only') return false;
     if (f.min || f.max) {
       const r = payRange(j.salary);
@@ -225,6 +226,7 @@
     $('f-sort').value = f.sort || 'score';
     $('f-min').value = f.min || ''; $('f-max').value = f.max || '';
     $('f-only').checked = !!f.only;
+    $('f-latest').checked = !!f.latest;
     $('q').value = f.q || '';
 
     const g = groups();
@@ -237,7 +239,7 @@
       : (sc.get(b.url).score - sc.get(a.url).score) || (b.postedAt || '').localeCompare(a.postedAt || ''));
     if (tab === 'fav' || tab === 'prac') rows.sort((a,b) => (p[tab][b.url]?.at || '').localeCompare(p[tab][a.url]?.at || ''));
 
-    const latest = data.jobs.reduce((m, j) => (j.batch || '') > m ? j.batch : m, '');
+    const latest = latestBatch;
     const isNewJob = j => !!latest && j.batch === latest;
     const per = f.per ?? 20, pages = per ? Math.max(1, Math.ceil(rows.length / per)) : 1;
     if (jumpTo && per) { const ix = rows.findIndex(j => j.url === selected); if (ix >= 0) page = Math.floor(ix / per); }
@@ -272,11 +274,11 @@
     renderCal();
 
     const upd = data.updatedAt ? new Date(data.updatedAt).toLocaleString('zh-MY', { timeZone:'Asia/Kuala_Lumpur', month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit' }) : '—';
-    $('meta').innerHTML = `<span id="sync-badge" title="${esc(syncStatus)}">${syncCfg ? (syncStatus.startsWith('已同步') ? '⟳ 已同步' + (syncCfg.owner ? '（我是 ' + syncCfg.owner + '）' : '') : '⚠ 未同步') : ''}</span><span>资料更新：${esc(upd)}</span><span>每 3 天更新${data.nextUpdate ? ' · 下次约 ' + esc(data.nextUpdate) : ''}</span>`;
+    $('meta').innerHTML = `<span id="sync-badge" title="${esc(syncStatus)}">${syncCfg ? (syncStatus.startsWith('已同步') ? '⟳ 已同步' + (syncCfg.owner ? '（我是 ' + syncCfg.owner + '）' : '') : '⚠ 未同步') : ''}</span><span>资料更新：${esc(upd)}</span><span>手动更新（不定期）</span>`;
     const newCount = g.list.filter(isNewJob).length;
     const latestTxt = latest ? new Date(latest).toLocaleDateString('zh-MY', { timeZone:'Asia/Kuala_Lumpur', month:'numeric', day:'numeric' }) : '';
     $('news').hidden = !newCount;
-    $('news').innerHTML = newCount ? `<b>${newCount}</b> 个职位是最近一次更新（${esc(latestTxt)}）新增的，列表里标了 NEW。` : '';
+    $('news').innerHTML = newCount ? `<b>${newCount}</b> 个职位是最近一次更新（${esc(latestTxt)}）新增的，列表里标了 NEW。 <button class="linkbtn" data-latest="${f.latest ? '0' : '1'}">${f.latest ? '显示全部职位' : '只看这些 →'}</button>` : '';
   }
 
   function renderDetail(j) {
@@ -507,6 +509,8 @@
   bindF('q','q'); bindF('f-cat','cat'); bindF('f-area','area'); bindF('f-src','src'); bindF('f-sort','sort');
   bindF('f-min','min', e => +e.target.value || 0); bindF('f-max','max', e => +e.target.value || 0);
   bindF('f-only','only', e => e.target.checked);
+  bindF('f-latest','latest', e => e.target.checked);
+  $('news').addEventListener('click', e => { const b = e.target.closest('[data-latest]'); if (!b) return; P().f.latest = b.dataset.latest === '1'; tab = 'list'; page = 0; save(); render(); });
   document.querySelectorAll('[data-profile]').forEach(b => b.onclick = () => { store.profile = b.dataset.profile; save(); selected = ''; page = 0; purge(); render(); });
   document.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; selected = ''; page = 0; render(); });
   $('list').addEventListener('click', e => {
@@ -664,7 +668,7 @@
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') syncNow(); });
 
   fetch('jobs.json', { cache:'no-cache' }).then(r => r.json()).then(d => {
-    data = d; byUrl = new Map(d.jobs.map(j => [j.url, j]));
+    data = d; byUrl = new Map(d.jobs.map(j => [j.url, j])); latestBatch = d.jobs.reduce((m, j) => (j.batch || '') > m ? j.batch : m, '');
     const srcs = [...new Set(d.jobs.map(j => j.source))].sort();
     $('f-src').innerHTML = '<option value="">所有来源</option>' + srcs.map(s => `<option>${esc(s)}</option>`).join('');
     for (const pr of ['KH','JW']) { const keep = store.profile; store.profile = pr; const p = P(); if (!p.lastVisit || Date.now() - Date.parse(p.lastVisit) > 6 * 3600000) { p.prevVisit = p.lastVisit || ''; p.lastVisit = new Date().toISOString(); } purge(); store.profile = keep; }
