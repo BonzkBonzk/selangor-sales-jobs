@@ -89,6 +89,7 @@
     if (/最高|up to/i.test(s) && n.length === 1) lo = 0;
     return [lo, hi];
   };
+  const hasPay = j => !!payRange(j.salary);
 
   /* ---------- 条件匹配 ---------- */
   // 把不同写法的同一个条件归成同一个 key，改一次就同步到所有职位
@@ -134,10 +135,11 @@
       if (classify(j) === 'jp_service') { s += 3; out.push(['客服类', 'good']); }
       if (pay && pay[0] >= 8000) { s += 3; out.push(['底线 ≥ RM8k', 'good']); }
       else if (pay && pay[1] >= 8000) { s += 2; out.push(['最高可达 RM8k+', 'good']); }
-      else if (!pay) { s += 0.5; out.push(['薪资未公开', '']); }
+      else if (!pay) { out.push(['原帖没写薪资', '']); }
       else out.push(['低于 RM8k', 'warn']);
       if (/native|母语/i.test(t + (j.requirements || []).map(r => r.label).join(' '))) { s -= 1; out.push(['要求母语级', 'warn']); }
     } else {
+      if (!pay) out.push(['没写底薪数字', '']);
       if (j.commissionType === 'only') { s += 1; out.push(['纯佣金', 'gold']); }
       if (/uncapped|unlimited|无上限|不封顶|no limit|高佣金|high commission/i.test(t)) { s += 2; out.push(['佣金不封顶 / 高佣金', 'good']); }
       if (/b2b|project|项目|大客户|key account|solar|太阳能|property|房地产|equipment|设备/i.test(t)) { s += 1; out.push(['能学开发客户／谈大单', 'good']); }
@@ -166,6 +168,8 @@
     if (f.src && j.source !== f.src) return false;
     if (f.latest && !(latestBatch && j.batch === latestBatch)) return false;
     if (!isJW() && f.only && j.commissionType !== 'only') return false;
+    if (f.pay === 'yes' && !hasPay(j)) return false;
+    if (f.pay === 'no' && hasPay(j)) return false;
     if (f.min || f.max) {
       const r = payRange(j.salary);
       if (!r) return false;
@@ -218,13 +222,14 @@
     document.querySelectorAll('[data-profile]').forEach(b => b.classList.toggle('on', b.dataset.profile === store.profile));
     document.querySelectorAll('[data-tab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
     $('title').textContent = isJW() ? '日语职位' : '销售职位';
-    $('subtitle').textContent = isJW() ? '雪兰莪 + 吉隆坡 · 全职 · 写明薪资 · 日语客服、月薪 RM8,000 以上排前面' : '雪兰莪 + 吉隆坡 · 全职 · 写明薪资 · 原帖写明有佣金';
+    $('subtitle').textContent = isJW() ? '雪兰莪 + 吉隆坡 · 全职 · 原帖要求日语 · 日语客服、月薪 RM8,000 以上排前面 · 没写薪资的另列在后面' : '雪兰莪 + 吉隆坡 · 全职 · 原帖写明有佣金 · 佣金不封顶排前面 · 没写底薪数字的另列在后面';
     $('only-comm-wrap').hidden = isJW();
     $('f-cat').innerHTML = Object.entries(CATS[store.profile]).map(([k,v]) => `<option value="${k}"${k === (f.cat || '') ? ' selected' : ''}>${v}</option>`).join('');
     $('f-area').value = f.area ?? 'klv';
     $('f-src').value = f.src || '';
     $('f-sort').value = f.sort || 'score';
     $('f-min').value = f.min || ''; $('f-max').value = f.max || '';
+    $('f-pay').value = f.pay || '';
     $('f-only').checked = !!f.only;
     $('f-latest').checked = !!f.latest;
     $('q').value = f.q || '';
@@ -238,6 +243,11 @@
       : sort === 'pay' ? ((payRange(b.salary) || [0,0])[1] - (payRange(a.salary) || [0,0])[1])
       : (sc.get(b.url).score - sc.get(a.url).score) || (b.postedAt || '').localeCompare(a.postedAt || ''));
     if (tab === 'fav' || tab === 'prac') rows.sort((a,b) => (p[tab][b.url]?.at || '').localeCompare(p[tab][a.url]?.at || ''));
+    const splitPay = tab !== 'fav' && tab !== 'prac' && !f.pay;
+    if (splitPay) rows = rows.filter(hasPay).concat(rows.filter(j => !hasPay(j)));
+    const firstNoPay = splitPay ? rows.findIndex(j => !hasPay(j)) : -1;
+    const noPayCount = firstNoPay >= 0 ? rows.length - firstNoPay : 0;
+    const noPayLabel = isJW() ? '原帖没写薪资' : '没写底薪／薪资数字（多为只写佣金、uncapped）';
 
     const latest = latestBatch;
     const isNewJob = j => !!latest && j.batch === latest;
@@ -248,15 +258,17 @@
     const perSel = `<select class="f-per" aria-label="每页显示">${[[20,'每页 20'],[50,'每页 50'],[0,'全部显示']].map(([v,t]) => `<option value="${v}"${v === per ? ' selected' : ''}>${t}</option>`).join('')}</select>`;
     const pagerTop = rows.length ? `<div class="pager top">共 ${rows.length} 个${pages > 1 ? ` · 第 ${page + 1}/${pages} 页` : ''}${perSel}</div>` : '';
     const pagerBot = pages > 1 ? `<div class="pager"><button data-pg="-1"${page ? '' : ' disabled'}>‹ 上一页</button><span>${page + 1} / ${pages}</span><button data-pg="1"${page < pages - 1 ? '' : ' disabled'}>下一页 ›</button></div>` : '';
-    $('list').innerHTML = pagerTop + (rows.length ? view.map(j => {
+    const viewStart = per ? page * per : 0;
+    $('list').innerHTML = pagerTop + (rows.length ? view.map((j, vi) => {
       const r = sc.get(j.url), a = ageDays(j.postedAt);
+      const divider = viewStart + vi === firstNoPay ? `<div class="paysplit">以下 ${noPayCount} 个职位${esc(noPayLabel)}</div>` : '';
       const isNew = isNewJob(j);
       const expired = (tab === 'fav' || tab === 'prac') && (a !== null && a > 30 || !byUrl.has(j.url));
       const st = (tab === 'fav' || tab === 'prac') ? p[tab][j.url]?.stage : '';
-      return `<button class="item${j.url === selected ? ' sel' : ''}" data-url="${esc(j.url)}">
+      return `${divider}<button class="item${j.url === selected ? ' sel' : ''}" data-url="${esc(j.url)}">
         <span class="row1">${isNew ? '<em class="new">NEW</em>' : ''}${p.fav[j.url] ? '<em class="heart">❤</em>' : ''}${p.prac[j.url] ? '<em class="prac">🎯</em>' : ''}<strong>${esc(j.title)}</strong></span>
         <span class="co">${esc(j.company)} · ${esc(j.location || '')}</span>
-        <span class="row3"><b>${esc(j.salary || '薪资未公开')}</b><i>${esc(when(j))}</i></span>
+        <span class="row3"><b${j.salary ? '' : ' class="nopay"'}>${esc(j.salary || (j.commission ? '没写底薪 · ' + j.commission : '原帖没写薪资'))}</b><i>${esc(when(j))}</i></span>
         <span class="tags">${tab === 'hidden' ? required(j).filter(x => fit(x) === 'no').map(x => chip('× ' + x.label.slice(0, 18), 'warn')).join('') : ''}${chip(j.source)}${j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${st ? chip(st + ((tab === 'fav' || tab === 'prac') && p[tab][j.url]?.appliedAt && st !== '想申请' ? ' · ' + fmtD(p[tab][j.url].appliedAt) + ' 申请' : ''),'green') : ''}${expired ? chip('已超过 30 天','warn') : ''}${tab === 'list' ? r.tags.slice(0,2).map(t => chip(t[0], t[1])).join('') : ''}</span>
       </button>`;
     }).join('') : `<p class="empty">${tab === 'fav' ? '还没有收藏。点职位右边的 ❤ 收藏。' : tab === 'prac' ? '还没有练习的职位。<br>想把某个职位的面试当练习，就在职位右边点「🎯 练习」。和收藏一样可以记已申请、面试中和备注，超过 30 天也会保留。' : tab === 'ni' ? '没有标记无兴趣的职位。' : tab === 'hidden' ? '目前没有职位被移到这里。<br>在「我的条件」把做不到的条件标 ×（例如「日语母语级」「有效汽车驾照」），必需条件里 × 超过 20% 的职位就会自动移到这里，不会删掉。<br><button class="primary" id="go-set">打开我的条件</button>' : '没有符合筛选的职位，试试放宽地区或薪资。'}</p>`) + pagerBot;
@@ -309,7 +321,7 @@
         </div>
       </div>
       <div class="money">
-        <div><span>广告薪资</span><b>${esc(j.salary || '未公开')}</b></div>
+        <div><span>广告薪资</span><b>${esc(j.salary || '原帖没写')}</b></div>
         <div><span>底薪</span><b>${esc(j.basic || '原帖未单独写')}</b></div>
         <div><span>佣金</span><b>${esc(j.commission || (j.role === 'japanese' ? '—' : '有佣金'))}</b></div>
       </div>
@@ -507,7 +519,7 @@
   /* ---------- 事件 ---------- */
   const bindF = (id, key, fn = e => e.target.value) => $(id).addEventListener(id === 'q' ? 'input' : 'change', e => { P().f[key] = fn(e); page = 0; save(); render(); });
   bindF('q','q'); bindF('f-cat','cat'); bindF('f-area','area'); bindF('f-src','src'); bindF('f-sort','sort');
-  bindF('f-min','min', e => +e.target.value || 0); bindF('f-max','max', e => +e.target.value || 0);
+  bindF('f-pay','pay'); bindF('f-min','min', e => +e.target.value || 0); bindF('f-max','max', e => +e.target.value || 0);
   bindF('f-only','only', e => e.target.checked);
   bindF('f-latest','latest', e => e.target.checked);
   $('news').addEventListener('click', e => { const b = e.target.closest('[data-latest]'); if (!b) return; P().f.latest = b.dataset.latest === '1'; tab = 'list'; page = 0; save(); render(); });
