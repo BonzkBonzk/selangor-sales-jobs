@@ -200,7 +200,8 @@
     const p = P(), all = data.jobs.filter(forProfile);
     const list = [], hidden = [];
     for (const j of all) {
-      if (!fresh(j) || p.ni[j.url]) continue;
+      // 已收藏、练习、无兴趣的职位只放在各自的分组，不再出现在「职位」
+      if (!fresh(j) || p.ni[j.url] || p.fav[j.url] || p.prac[j.url]) continue;
       (tooFar(j) ? hidden : list).push(j);
     }
     const fav = Object.values(p.fav).map(v => byUrl.get(v.job.url) || v.job).filter(forProfile);
