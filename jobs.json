@@ -1,7 +1,4017 @@
 {
-"updatedAt": "2026-11-19T21:30:00+08:00",
-"nextUpdate": "2026-11-22",
+"updatedAt": "2026-11-23T01:30:00+08:00",
+"nextUpdate": "",
 "jobs": [
+{
+"url": "https://my.jobstreet.com/job/95526317",
+"source": "JobStreet",
+"title": "Cloud Specialist Engineer (Japanese Speaker)",
+"company": "DXC Technology Malaysia",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-10-28",
+"salary": "",
+"summary": "云平台（Azure/AWS/GCP）工程师，用日语服务日本客户。同公司另有 Midrange 工程师帖。",
+"requirements": [
+{
+"label": "日语 JLPT N1 或 BJT J2",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.jobstreet.com/job/95552105",
+"source": "JobStreet",
+"title": "Midrange Specialist Engineer (Japanese Speaker)",
+"company": "DXC Technology Malaysia",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-10-29",
+"salary": "",
+"summary": "Windows/Linux/VMware 等中端系统工程师，用日语沟通。",
+"requirements": [
+{
+"label": "日语 JLPT N1 或 BJT J2",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.jobstreet.com/job/95528263",
+"source": "JobStreet",
+"title": "AI Model Reinforcement Japanese Speaking Graduate (Platform Responsibility)",
+"company": "TikTok Pte. Ltd.",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-10-28",
+"salary": "",
+"summary": "TikTok AI 数据／模型评估，日常要和日本市场团队用日语联络；应届生可。",
+"requirements": [
+{
+"label": "日语能力（原文 mandatory）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.jobstreet.com/job/95547704",
+"source": "JobStreet",
+"title": "Expression of Interest - Japanese & Korean Speaker - WPP SSC MY",
+"company": "WPP Business Services",
+"location": "Mutiara Damansara, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-10-29",
+"salary": "RM4,500–RM6,500 / 月",
+"summary": "WPP 共享服务中心的日／韩语人才库登记（之后有空缺再联系），不是单一职位。",
+"requirements": [
+{
+"label": "日语流利（JLPT N1/N2 优先）或韩语流利",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.jobstreet.com/job/95601742",
+"source": "JobStreet",
+"title": "Troubleshooting Agent (Community Manager) – JP Speaker",
+"company": "Cognizant",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-10-31",
+"salary": "",
+"summary": "用日语管理国际用户社群、处理疑难和用户反馈（客服类）。",
+"requirements": [
+{
+"label": "日语双语、市场支援语言",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.jobstreet.com/job/95643682",
+"source": "JobStreet",
+"title": "Accounting / Finance Analyst (Japanese/Korean) - Hybrid - KL - Package up to RM14k",
+"company": "Agensi Pekerjaan Asia Recruit（猎头）",
+"location": "Kuala Lumpur（混合办公）",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-03",
+"salary": "最高 RM14,000 / 月（标题写 package）",
+"summary": "P2P、R2R 等会计分析岗位，日或韩语，母语与非母语都可。",
+"requirements": [
+{
+"label": "会说写日语或韩语",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.jobstreet.com/job/96039100",
+"source": "JobStreet",
+"title": "Japanese Speaking L&D Team Manager [BPO Operations]",
+"company": "Good Job Creations（猎头）",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-23",
+"salary": "RM15,000 / 月",
+"summary": "BPO 培训与发展团队经理，用日语对接客户和团队。同猎头 11 月初另有一则同岗位帖。",
+"requirements": [
+{
+"label": "日语能力，用于对接日语客户",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.jobstreet.com/job/95695971",
+"source": "JobStreet",
+"title": "Quality Assurance Manager (Japanese Speaker)",
+"company": "Tech Mahindra ICT Services (Malaysia)",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-05",
+"salary": "",
+"summary": "质量保证经理，7–10 年经验，Lean Six Sigma 优先。",
+"requirements": [
+{
+"label": "日语 JLPT N2 或母语级",
+"preferred": false
+},
+{
+"label": "7–10 年经验",
+"preferred": false
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.jobstreet.com/job/95732659",
+"source": "JobStreet",
+"title": "Business Services Payroll Consultant [New Headcount]",
+"company": "weConnect Global",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-07",
+"salary": "RM4,300–RM4,800 / 月",
+"summary": "薪资核算顾问，要求日语能力。",
+"requirements": [
+{
+"label": "日语能力",
+"preferred": false
+},
+{
+"label": "薪资／会计经验",
+"preferred": false
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.jobstreet.com/job/95734208",
+"source": "JobStreet",
+"title": "Customer Project Manager - Japanese Language Support",
+"company": "Cisco",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-07",
+"salary": "",
+"summary": "客户项目经理，服务日语客户和持份者；PMP 优先。",
+"requirements": [
+{
+"label": "日语能力（原文 required）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.jobstreet.com/job/95755501",
+"source": "JobStreet",
+"title": "PGA Associate Business Development Manager - Japanese",
+"company": "Expedia Group",
+"location": "Petaling, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-07",
+"salary": "",
+"summary": "Expedia 酒店伙伴业务开发（日本市场）。同公司另有一则日语 Partner Growth 帖。",
+"requirements": [
+{
+"label": "日语母语级",
+"preferred": false
+},
+{
+"label": "商务英语流利",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.jobstreet.com/job/95755969",
+"source": "JobStreet",
+"title": "HR Service Delivery Associate (Japanese / Korean Speaking)",
+"company": "Accenture",
+"location": "Bangsar South, Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-08",
+"salary": "",
+"summary": "人事服务支援（日或韩语）。Accenture 本轮还有多则不同的日语岗位。",
+"requirements": [
+{
+"label": "日语或韩语流利（must）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.jobstreet.com/job/95812408",
+"source": "JobStreet",
+"title": "Sr. Associate, Promotional Regulatory Affairs (Japanese Speaker)",
+"company": "Alcon Laboratories Malaysia",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-11",
+"salary": "",
+"summary": "眼科医疗器械推广法规审核，用日语。",
+"requirements": [
+{
+"label": "日语和英语流利（读写说）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.jobstreet.com/job/95830426",
+"source": "JobStreet",
+"title": "JAPANESE SPEAKING PROJECT COORDINATOR [FRESH GRADUATE WELCOME] (REF: AC)",
+"company": "Agensi Pekerjaan Pasona（猎头）",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-12",
+"salary": "",
+"summary": "日系 IT 公司项目协调：用日英语向马来西亚和日本团队汇报；应届生可。",
+"requirements": [
+{
+"label": "日语沟通（汇报用）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.jobstreet.com/job/95833825",
+"source": "JobStreet",
+"title": "Record-to-Report Ops Senior Analyst (Japanese Speaking)",
+"company": "Accenture",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-12",
+"salary": "",
+"summary": "R2R 会计运营高级分析，用日英语，SAP 经验。",
+"requirements": [
+{
+"label": "日语读写说",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.jobstreet.com/job/95920381",
+"source": "JobStreet",
+"title": "Customer Care & Content Executive (Japanese Speaker) – Japan Market",
+"company": "CaterSpot Malaysia",
+"location": "KL Eco City, Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-17",
+"salary": "",
+"summary": "一半客服（日本客户和餐饮伙伴，电话／聊天／邮件）一半内容维护，混合工作。",
+"requirements": [
+{
+"label": "日语和英语沟通",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.jobstreet.com/job/95948990",
+"source": "JobStreet",
+"title": "Japanese Translator",
+"company": "UNIQLO (Malaysia)",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-18",
+"salary": "",
+"summary": "日英马笔译和会议口译，支援日本和本地同事。",
+"requirements": [
+{
+"label": "日语笔译和口译",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "能用马来语沟通",
+"preferred": false,
+"key": "malay"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.jobstreet.com/job/95968218",
+"source": "JobStreet",
+"title": "Quality Assurance & Quality Control",
+"company": "Mikuro Metal",
+"location": "Kajang/Bangi/Serdang",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-19",
+"salary": "",
+"summary": "金属厂 QA/QC，用日语和华语联络海外客户。",
+"requirements": [
+{
+"label": "日语流利",
+"preferred": false
+},
+{
+"label": "会普通话",
+"preferred": false,
+"key": "mandarin"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.jobstreet.com/job/96004318",
+"source": "JobStreet",
+"title": "Japanese Customer Service Agent",
+"company": "IntersoftTeams SRL",
+"location": "Kuala Lumpur（在家工作）",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-20",
+"salary": "",
+"summary": "在家工作的日语旅游订房客服。Indeed 上 Wibit、Twentoo 有同类帖（可能是同一客户）。",
+"requirements": [
+{
+"label": "日语母语",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.jobstreet.com/job/96006402",
+"source": "JobStreet",
+"title": "Japanese Speaker-Travel Consultant (日本語スピーカー/トラベルコンサルタント職)",
+"company": "TASKAL RESOURCES",
+"location": "KL Sentral, Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-21",
+"salary": "RM5,000–RM7,500 / 月",
+"summary": "日语旅游顾问：处理日本客人的行程咨询和预订；日语学校应届毕业生可。",
+"requirements": [
+{
+"label": "日语 JLPT N1/N2 或母语",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.hiredly.com/jobs/jobs-malaysia-roche-services-asia-pacific-sdn-bhd-job-accounts-payable-analyst-japanese-speaker-2",
+"source": "Hiredly",
+"title": "Accounts Payable Analyst (Japanese Speaker)",
+"company": "Roche Services (Asia Pacific)",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-21",
+"salary": "",
+"summary": "应付账款：发票、付款、对账，用日语。",
+"requirements": [
+{
+"label": "日语（职称写明 Japanese Speaker）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.hiredly.com/jobs/jobs-malaysia-tricor-group-job-banking-japanese-mandarin-speaker",
+"source": "Hiredly",
+"title": "Banking (Japanese/Mandarin Speaker)",
+"company": "Tricor Group (Vistra)",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-13",
+"salary": "",
+"summary": "基金／企业付款处理和现金管理，管理日本客户。",
+"requirements": [
+{
+"label": "英语和日语（原文 must）",
+"preferred": false
+},
+{
+"label": "会普通话",
+"preferred": false,
+"key": "mandarin"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.hiredly.com/jobs/jobs-malaysia-schneider-electric-job-senior-associate-people-operations-japanese-speaker",
+"source": "Hiredly",
+"title": "Senior Associate, People Operations (Japanese Speaker)",
+"company": "Schneider Electric",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-21",
+"salary": "",
+"summary": "为东亚员工提供人事服务。Indeed 也有同一职位。",
+"requirements": [
+{
+"label": "日语（职称写明）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.hiredly.com/jobs/jobs-malaysia-accenture-malaysia-job-capital-market-operation-analyst-japanese-mandarin-speaking-open-to-fresh-graduates",
+"source": "Hiredly",
+"title": "Capital Market Operation Analyst (Japanese & Mandarin Speaking) - Open to Fresh Graduates",
+"company": "Accenture",
+"location": "Subang Jaya, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-07",
+"salary": "",
+"summary": "资本市场运营分析，应届生可。",
+"requirements": [
+{
+"label": "日语（职称写明）",
+"preferred": false
+},
+{
+"label": "会普通话",
+"preferred": false,
+"key": "mandarin"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.hiredly.com/jobs/jobs-malaysia-merck-sharp-dohme-job-specialist-meeting-services-support-japanese-speaker",
+"source": "Hiredly",
+"title": "Specialist, Meeting Services Support (Japanese Speaker)",
+"company": "Merck Sharp & Dohme",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-02",
+"salary": "",
+"summary": "会议行政和相关财务支援（日本区）。",
+"requirements": [
+{
+"label": "日语（职称写明）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.hiredly.com/jobs/jobs-malaysia-accenture-malaysia-job-it-customer-service-associate-japanese-speaker",
+"source": "Hiredly",
+"title": "IT Customer Service Associate (Japanese Speaker)",
+"company": "Accenture",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-10-30",
+"salary": "",
+"summary": "合作伙伴支援台（邮件客服），从注册到上线全程支援。",
+"requirements": [
+{
+"label": "日语（职称写明）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.hiredly.com/jobs/jobs-malaysia-accenture-malaysia-job-order-to-cash-ops-analyst-japanese-speaking",
+"source": "Hiredly",
+"title": "Order-To-Cash Ops Analyst (Japanese Speaking)",
+"company": "Accenture",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-10-27",
+"salary": "",
+"summary": "订单到收款流程运营，管理 SLA 和客户满意度。",
+"requirements": [
+{
+"label": "日语（职称写明）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.hiredly.com/jobs/jobs-malaysia-accenture-malaysia-job-sales-operations-support-japanese-speaking-0",
+"source": "Hiredly",
+"title": "Sales Operations Support - Japanese Speaking",
+"company": "Accenture",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-22",
+"salary": "",
+"summary": "管理重点客户订单、供需、库存和物流问题。",
+"requirements": [
+{
+"label": "日语（职称写明）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.hiredly.com/jobs/jobs-malaysia-sanofi-aventis-job-credit-and-collection-senior-analyst-japanese-speaker",
+"source": "Hiredly",
+"title": "Credit and Collection Senior Analyst (Japanese Speaker)",
+"company": "Sanofi",
+"location": "TRX, Kuala Lumpur（混合办公）",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-10-25",
+"salary": "",
+"summary": "信用与收款高级分析，支援日本业务。",
+"requirements": [
+{
+"label": "日语和英语流利（原文 mandatory）",
+"preferred": false
+},
+{
+"label": "会计／财务学历",
+"preferred": false
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://my.hiredly.com/jobs/jobs-malaysia-accenture-malaysia-job-intel-collection-associate-trust-safety-geopolitical-support-japan-market",
+"source": "Hiredly",
+"title": "Intel Collection Associate | Trust & Safety (Geopolitical) - Support Japan Market",
+"company": "Accenture",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "2026-11-07",
+"salary": "",
+"summary": "信任与安全团队，用日语做公开情报搜集（日本市场）。",
+"requirements": [
+{
+"label": "日语（原文 Japanese-speaking）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=74e17c0d8d71f7b4",
+"source": "Indeed",
+"title": "Deal Desk Associate - Japanese Speaker",
+"company": "PERSOL（猎头）",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"salary": "RM6,000 / 月",
+"summary": "为软件公司处理续约合同请求，从请求到可签合同。",
+"requirements": [
+{
+"label": "日语（职称写明）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=671de60c2190d956",
+"source": "Indeed",
+"title": "Japanese-speaking Customer Service Agent | Work from Home, Malaysia",
+"company": "Twentoo Consulting（猎头）",
+"location": "Kuala Lumpur（在家工作）",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"salary": "RM7,500–RM9,150 / 月",
+"summary": "在家工作的日语旅游订房客服（酒店、机票、活动）。",
+"requirements": [
+{
+"label": "会日语",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=2f57e124beafe801",
+"source": "Indeed",
+"title": "Customer Experience Lead (Japanese Speaker)",
+"company": "Agensi Pekerjaan Randstad（猎头）",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"salary": "",
+"summary": "食品制造商的客户体验主管：多渠道投诉处理、带团队、数据分析。",
+"requirements": [
+{
+"label": "日语（职称写明）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=73df4c69ca441c30",
+"source": "Indeed",
+"title": "Customer Service Agent (Japanese) | Remote in Malaysia",
+"company": "Wibit Consulting & Services（猎头）",
+"location": "Kuala Lumpur（在家工作）",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"salary": "",
+"summary": "在家工作的日语旅游订房客服，含周末。",
+"requirements": [
+{
+"label": "日语母语",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=7e05bae67b6553a2",
+"source": "Indeed",
+"title": "Japanese Speaker- B2B Sales+Digital Marketing",
+"company": "MindPec Solutions（猎头）",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"salary": "RM9,500–RM9,800 / 月",
+"summary": "用日语联系代理商和广告主，推荐广告方案、管理中小客户组合。",
+"requirements": [
+{
+"label": "日语（职称写明）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=0a1dde0e315778ce",
+"source": "Indeed",
+"title": "Japanese speaker COE Customer Support",
+"company": "MindPec Solutions（猎头）",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"salary": "RM9,000–RM9,500 / 月",
+"summary": "自动驾驶网约车 COE 客服：接听 EMEA 市场来电。",
+"requirements": [
+{
+"label": "日语母语",
+"preferred": false
+},
+{
+"label": "英语 B2",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=fa5f9cf47146c2b7",
+"source": "Indeed",
+"title": "Customer Service Analyst",
+"company": "fixaire service",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"salary": "RM9,000–RM9,500 / 月",
+"summary": "日本市场客服（烟草行业项目），轮班含周末；只收本地人。",
+"requirements": [
+{
+"label": "日语（Indeed 写 Required）",
+"preferred": false
+},
+{
+"label": "1 年日本市场客服经验",
+"preferred": false
+},
+{
+"label": "马来西亚人",
+"preferred": false
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=d031103040fd5ca1",
+"source": "Indeed",
+"title": "Project Manager",
+"company": "fixaire service",
+"location": "Bangsar, Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"salary": "RM24,500–RM25,000 / 月",
+"summary": "项目经理：章程、计划、执行与监控。",
+"requirements": [
+{
+"label": "日语（Indeed 写 Required）",
+"preferred": false
+},
+{
+"label": "3 年项目管理经验",
+"preferred": false
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=59d57610efedc385",
+"source": "Indeed",
+"title": "People Operations, HR Associate",
+"company": "Hunters International（猎头）",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"salary": "RM5,000–RM6,500 / 月",
+"summary": "区域员工人事服务，用日语和英语做第一线 HR 支援。",
+"requirements": [
+{
+"label": "日语和英语 HR 支援",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=ccd45c5c34422e01",
+"source": "Indeed",
+"title": "Partner Growth & Agility, Associate Competitiveness Agility Team - Japanese Language (Kuala Lumpur)",
+"company": "Expedia Group",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"salary": "",
+"summary": "Expedia 合作伙伴竞争力团队（日语）。",
+"requirements": [
+{
+"label": "日语（职称写明）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=46771a20a44ad2fd",
+"source": "Indeed",
+"title": "KERING Accountant - P2P (Japanese Speaker)",
+"company": "Kering Corporate",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"salary": "",
+"summary": "奢侈品集团 P2P 会计。",
+"requirements": [
+{
+"label": "日语（职称写明）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=d364241d8d9506e1",
+"source": "Indeed",
+"title": "Procurement Operation Support Lead (Japanese speaker)",
+"company": "Air Liquide",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"salary": "",
+"summary": "亚太采购运营支援主管。同公司另有日语财务分析帖。",
+"requirements": [
+{
+"label": "日语（职称写明）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=776506f9167c08d7",
+"source": "Indeed",
+"title": "Finance Senior Analyst/Analyst - Japanese Speaker",
+"company": "Air Liquide",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"salary": "",
+"summary": "财务分析（共享服务中心）。",
+"requirements": [
+{
+"label": "日语（职称写明）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23"
+},
+{
+"url": "https://www.michaelpage.com.my/job-detail/quality-assurance-lead-japanese-speaker/ref/jn-112026-7145198",
+"source": "Michael Page",
+"title": "Quality Assurance Lead (Japanese Speaker)",
+"company": "Michael Page（猎头）",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"salary": "RM100,000–RM120,000 / 年",
+"summary": "快消品公司客服质量主管：用日语做客服质量监控和改善（个人岗位，不带团队）。2026 年 11 月发布（编号看出），确切日期未显示。",
+"requirements": [
+{
+"label": "日语（职称写明）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23"
+},
+{
+"url": "https://www.michaelpage.com.my/job-detail/senior-p2p-japanese-speaker/ref/jn-112026-7145234",
+"source": "Michael Page",
+"title": "Senior P2P (Japanese Speaker)",
+"company": "Michael Page（猎头）",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"salary": "RM80,000–RM120,000 / 年",
+"summary": "采购到付款流程高级岗。同猎头另有 4 则 P2P/AP 日语帖（年薪约 5–12 万）。11 月发布。",
+"requirements": [
+{
+"label": "日语（职称写明）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23"
+},
+{
+"url": "https://www.michaelpage.com.my/job-detail/senior-accountant-r2r-japanese-speaker/ref/jn-112026-7145231",
+"source": "Michael Page",
+"title": "Senior Accountant, R2R (Japanese Speaker)",
+"company": "Michael Page（猎头）",
+"location": "Kuala Lumpur（混合办公）",
+"region": "kl",
+"role": "japanese",
+"sector": "other",
+"postedAt": "",
+"salary": "RM80,000–RM120,000 / 年",
+"summary": "日本区 R2R 会计。11 月发布。",
+"requirements": [
+{
+"label": "日语（职称写明）",
+"preferred": false
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23"
+},
+{
+"url": "https://my.jobstreet.com/job/93544321",
+"source": "JobStreet",
+"title": "Jewellery Sales Consultant (Malaysia) 珠寶銷售顧問",
+"company": "Luk Fook Prestige (Malaysia)",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-21",
+"salary": "",
+"summary": "六福珠宝门店销售，轮班含周末，每月休 10–12 天。",
+"requirements": [
+{
+"label": "会普通话",
+"preferred": false,
+"key": "mandarin"
+},
+{
+"label": "会广东话",
+"preferred": false,
+"key": "cantonese"
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "有销售佣金（另有勤工奖、花红）",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95477056",
+"source": "JobStreet",
+"title": "SALES EXECUTIVE 销售员（欢迎应届毕业生）",
+"company": "Monzone Manufacturing",
+"location": "Shah Alam, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-25",
+"salary": "RM3,500–RM5,000 / 月",
+"summary": "冷链运输车厢和保温箱的 B2B 销售。",
+"requirements": [
+{
+"label": "会普通话",
+"preferred": false,
+"key": "mandarin"
+},
+{
+"label": "有自己的交通工具",
+"preferred": false,
+"key": "vehicle"
+},
+{
+"label": "驾照",
+"preferred": false,
+"key": "drive"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 高佣金 + 毛利分成 + 车贴",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95489004",
+"source": "JobStreet",
+"title": "Sales Representative (Frozen Seafood)",
+"company": "Asia Aquaculture (M)",
+"location": "Setapak, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-27",
+"salary": "RM4,000–RM6,000 / 月",
+"summary": "冷冻海鲜销售，开发餐饮和批发客户。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 奖金 + 佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95489763",
+"source": "JobStreet",
+"title": "SALES EXECUTIVE",
+"company": "V.A.B. Industries",
+"location": "Kajang, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-27",
+"salary": "RM3,400–RM5,000 / 月",
+"summary": "工业产品销售，五天工作；应届生可。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "月薪 + 销售佣金 + 车贴",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95499012",
+"source": "JobStreet",
+"title": "Sales Executive (Luxury Watches)",
+"company": "Swiss Connection Watches",
+"location": "KLCC, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-27",
+"salary": "RM4,000–RM6,000 / 月",
+"summary": "名表展厅销售，长期客户关系。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "会普通话",
+"preferred": true,
+"key": "mandarin"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 每笔佣金 + 年度奖金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95512793",
+"source": "JobStreet",
+"title": "Sales Executive",
+"company": "All About Gifts",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-28",
+"salary": "RM6,000–RM9,000 / 月",
+"summary": "企业礼品和定制宣传品 B2B 销售，能学开发企业客户。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "B2B 销售经验",
+"preferred": true,
+"key": "b2b"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金不封顶（称月入 RM6,000–12,000+）",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95525925",
+"source": "JobStreet",
+"title": "Sales Executive",
+"company": "SmartHire by SEEK（客户 Chong Lek Engineering）",
+"location": "Shah Alam, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-28",
+"salary": "RM4,000–RM5,000 / 月",
+"summary": "工程公司销售。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "高底薪 + 奖励 + 佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95526975",
+"source": "JobStreet",
+"title": "Sales Executive",
+"company": "Best Parts Trading",
+"location": "Kota Damansara, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-28",
+"salary": "RM5,500 / 月",
+"summary": "汽车零件 B2B 销售。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 奖励 + 佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95527014",
+"source": "JobStreet",
+"title": "Corporate Sales Executive – Professional Training",
+"company": "Semarak Solutions",
+"location": "KLCC, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-28",
+"salary": "RM3,500–RM5,000 / 月",
+"summary": "能源与专业培训课程卖给企业客户。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "B2B 销售经验",
+"preferred": true,
+"key": "b2b"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 销售佣金 + 绩效奖金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95539090",
+"source": "JobStreet",
+"title": "Client Engagement Executive, Puchong",
+"company": "HSBC Bank Malaysia",
+"location": "Puchong, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-29",
+"salary": "",
+"summary": "汇丰分行客户经营，推介理财产品；大专／应届可，轮班。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "能用马来语沟通",
+"preferred": false,
+"key": "malay"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "佣金和薪酬配套（原文 attractive commissions）",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95542209",
+"source": "JobStreet",
+"title": "Sales Representative Executive/ Product Specialist Executive",
+"company": "OMX Nutrition (Pro Health Medics)",
+"location": "Subang Jaya, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-29",
+"salary": "RM4,000–RM6,000 / 月",
+"summary": "进口保健品销售给药房和诊所。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "愿意出差／外勤",
+"preferred": false,
+"key": "travel"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 销售佣金 + 收款佣金，不封顶",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95543092",
+"source": "JobStreet",
+"title": "Airport Retail Consultant – Duty-Free Wines & Spirits",
+"company": "Core Culture International",
+"location": "KLIA, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-29",
+"salary": "RM3,000–RM4,000 / 月",
+"summary": "机场免税店洋酒品牌顾问，含周末。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 每月销售佣金 + 个人奖励",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95545450",
+"source": "JobStreet",
+"title": "Sales & Business Development Executive",
+"company": "Mnb Studios",
+"location": "Puchong, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-29",
+"salary": "RM3,500–RM5,000 / 月",
+"summary": "开发新客户、参加业界活动。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 销售佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95548122",
+"source": "JobStreet",
+"title": "INDOOR SALES EXECUTIVE",
+"company": "Ferco Seating Systems (M)",
+"location": "Shah Alam, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-29",
+"salary": "RM3,300–RM3,800 / 月",
+"summary": "办公座椅内勤销售，2 年经验。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "有销售佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95551099",
+"source": "JobStreet",
+"title": "Sales Executive",
+"company": "Cari Makan 揾到食",
+"location": "Sri Petaling, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-29",
+"salary": "RM3,800–RM5,000 / 月",
+"summary": "向餐厅卖社媒营销服务（B2B），有续约收入。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "会普通话",
+"preferred": true,
+"key": "mandarin"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金 + 续约奖励",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95553926",
+"source": "JobStreet",
+"title": "Executive - Sales (Building Materials)",
+"company": "Sunway Marketing",
+"location": "Bandar Sunway, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-29",
+"salary": "",
+"summary": "建材销售，应届生可。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "佣金不封顶（原文 uncapped commission）",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95565761",
+"source": "JobStreet",
+"title": "SALES EXECUTIVE (PUCHONG)",
+"company": "Maxi Stone Marketing",
+"location": "Bandar Puteri Puchong, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-30",
+"salary": "RM3,000–RM4,500 / 月",
+"summary": "大理石、石英石等石材销售，开发新客户。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "会普通话",
+"preferred": true,
+"key": "mandarin"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金，不封顶（称 RM3,000–12,000++）",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95577047",
+"source": "JobStreet",
+"title": "Advertising Sales Account Manager/Executive",
+"company": "HIQ Media (Malaysia)",
+"location": "Damansara Perdana, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-30",
+"salary": "RM7,000–RM10,500 / 月",
+"summary": "户外广告合约销售，对接广告公司和企业。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "B2B 销售经验",
+"preferred": true,
+"key": "b2b"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金 + 奖励（广告薪资含佣金）",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95580695",
+"source": "JobStreet",
+"title": "Sales & Marketing Executive (Kuala Lumpur)",
+"company": "Omniraise",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-30",
+"salary": "RM3,000–RM4,500 / 月",
+"summary": "为慈善机构做面对面募捐推广。同公司另有 2 则同类帖（Shah Alam、Subang）。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "能用马来语沟通",
+"preferred": false,
+"key": "malay"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 RM3,000 + 佣金不封顶",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95593399",
+"source": "JobStreet",
+"title": "Telesales Executive/Customer Service",
+"company": "Glow International Malaysia",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-31",
+"salary": "RM3,000–RM4,500 / 月",
+"summary": "美容医美集团电话销售兼客服。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "有佣金和奖励",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95593402",
+"source": "JobStreet",
+"title": "Sales Executive",
+"company": "Tanasa Flooring (NETWOOD)",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-31",
+"salary": "",
+"summary": "高档木地板销售，对接经销商、建筑师和设计师。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金 + 奖金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95597447",
+"source": "JobStreet",
+"title": "Property Sales & Business Relationship Executive",
+"company": "Magma Group Berhad",
+"location": "Bukit Bintang, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-31",
+"salary": "RM3,000–RM4,500 / 月",
+"summary": "WOLO Mont Kiara 项目房产销售。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "按销售表现发佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95599878",
+"source": "JobStreet",
+"title": "Business Development Executive (FMCG)",
+"company": "JH Infinity",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-31",
+"salary": "RM4,000–RM6,000 / 月",
+"summary": "零食和干货品牌开拓零售和经销渠道。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "能用马来语沟通",
+"preferred": false,
+"key": "malay"
+},
+{
+"label": "会普通话",
+"preferred": true,
+"key": "mandarin"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "佣金 + 绩效奖励",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95603387",
+"source": "JobStreet",
+"title": "EXECUTIVE, KEY ACCOUNT",
+"company": "Federlite",
+"location": "Puchong, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-31",
+"salary": "",
+"summary": "重点客户管理，扩大销售和利润。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金 + 油卡",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95608318",
+"source": "JobStreet",
+"title": "Business Development Executive",
+"company": "Red Leaves Solution (DR ISO Malaysia)",
+"location": "Subang Jaya, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-31",
+"salary": "RM90,500–RM106,500 / 年",
+"summary": "ISO 认证顾问服务的业务开发。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "以佣金为主（原文 commission-based），有无底薪 ～ 待确认",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95641571",
+"source": "JobStreet",
+"title": "Key Account Executive - Sales (Fresh Grad are Welcome)",
+"company": "UMR Strategic",
+"location": "Subang Jaya, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-03",
+"salary": "RM3,800–RM5,000 / 月",
+"summary": "重点客户销售，应届生可。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "驾照",
+"preferred": false,
+"key": "drive"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 高佣金 + 车贴",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95663822",
+"source": "JobStreet",
+"title": "CHANNEL EXECUTIVE (Insidesales)",
+"company": "SecureOne Distribution",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-04",
+"salary": "RM3,500–RM5,000 / 月",
+"summary": "IT 安全产品分销，管理渠道伙伴。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "B2B 销售经验",
+"preferred": true,
+"key": "b2b"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "有佣金和津贴",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95685366",
+"source": "JobStreet",
+"title": "Medical Sales & Marketing",
+"company": "Synteq Medical",
+"location": "Klang Valley, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-05",
+"salary": "RM3,000–RM4,500 / 月",
+"summary": "向诊所和药房推广药品／医疗产品。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "有自己的交通工具",
+"preferred": false,
+"key": "vehicle"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "佣金和奖金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95694079",
+"source": "JobStreet",
+"title": "Business Development Executive (Digital Marketing)",
+"company": "SG ActivaMedia (M)",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-05",
+"salary": "RM3,500–RM5,250 / 月",
+"summary": "向企业主卖数码营销方案；应届生可，有培训。同公司另有 AI Sales Consultant 同类帖。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "佣金 RM1,000–10,000／月，不封顶 + 奖励最高 RM5,000",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95722273",
+"source": "JobStreet",
+"title": "Sales Associate - Mitsui Outlet Park",
+"company": "Brooks Brothers Retail Malaysia",
+"location": "Sepang, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-06",
+"salary": "RM1,800–RM2,700 / 月",
+"summary": "服装门店销售。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "每月佣金，收入不封顶",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95734548",
+"source": "JobStreet",
+"title": "Senior Sales Executive",
+"company": "Sumi-Tech Industrial Supplies",
+"location": "Shah Alam, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-07",
+"salary": "",
+"summary": "工业用品 B2B 销售，开发新客户。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "B2B 销售经验",
+"preferred": true,
+"key": "b2b"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "奖励和佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95737077",
+"source": "JobStreet",
+"title": "Sales Consultant (Healthcare & Wellness) – Fresh Graduates Welcome",
+"company": "Chris Leong Holdings",
+"location": "Bukit Jalil, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-07",
+"salary": "RM7,000–RM10,000 / 月",
+"summary": "保健服务销售，公司给名单，不用陌生拜访。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 高佣金不封顶",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95739232",
+"source": "JobStreet",
+"title": "Playground Sales Consultant",
+"company": "Park Games Equipment (M)",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-07",
+"salary": "RM4,000–RM5,250 / 月",
+"summary": "游乐设施项目销售，客户为发展商和学校。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "B2B 销售经验",
+"preferred": true,
+"key": "b2b"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "高佣金 + 奖金（称含佣金 RM4,000–10,000）",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95746893",
+"source": "JobStreet",
+"title": "SALES ADVISOR 汽车销售人员",
+"company": "Candour Motors",
+"location": "Kota Damansara, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-07",
+"salary": "RM7,000–RM10,000 / 月",
+"summary": "汽车销售顾问。",
+"requirements": [
+{
+"label": "有自己的交通工具",
+"preferred": false,
+"key": "vehicle"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "薪资 + 佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95750714",
+"source": "JobStreet",
+"title": "Business Development & Sales Executive (Fresh Graduates Welcome)",
+"company": "Star Bao Biotechnology",
+"location": "Mid Valley, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-07",
+"salary": "",
+"summary": "生物科技产品的业务开发，应届生可。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "有销售佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95770023",
+"source": "JobStreet",
+"title": "Forex/CFD Sales Manager – Offshore Markets 外汇及差价合约销售经理",
+"company": "Private Advertiser（外汇经纪商）",
+"location": "Bangsar South, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-10",
+"salary": "RM5,000–RM7,500 / 月",
+"summary": "外汇／差价合约海外市场销售经理，需普通话。",
+"requirements": [
+{
+"label": "会普通话",
+"preferred": false,
+"key": "mandarin"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 销售佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95786211",
+"source": "JobStreet",
+"title": "Sales & Operations Executive",
+"company": "Luxus Digital (M)",
+"location": "Kuchai Lama, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-11",
+"salary": "RM4,700–RM7,000 / 月",
+"summary": "新加坡智能家居品牌（电子锁等）进军马来西亚，销售兼营运。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95795524",
+"source": "JobStreet",
+"title": "Sales Executive",
+"company": "IN-TUNE Business Services",
+"location": "Puchong, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-11",
+"salary": "RM3,500–RM4,500 / 月",
+"summary": "帮企业降本提效的服务销售。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "有自己的交通工具",
+"preferred": false,
+"key": "vehicle"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "佣金不封顶",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95798131",
+"source": "JobStreet",
+"title": "CAR SALES EXECUTIVE",
+"company": "Cruze Auto",
+"location": "Kajang/Bangi/Serdang",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-11",
+"salary": "RM9,800–RM14,700 / 月",
+"summary": "汽车销售，有培训。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "佣金最高 RM20,000",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95799958",
+"source": "JobStreet",
+"title": "Business Development Executive (Academy)",
+"company": "Info-Tech Systems Integrators (M)",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-11",
+"salary": "RM4,000–RM6,000 / 月",
+"summary": "推广学院的培训课程。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "有自己的交通工具",
+"preferred": false,
+"key": "vehicle"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 销售佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95802179",
+"source": "JobStreet",
+"title": "Business Development Executive / Manager (SME Sales)",
+"company": "Links International（猎头）",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-11",
+"salary": "",
+"summary": "全球差旅／商务服务公司的中小企业销售。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "B2B 销售经验",
+"preferred": true,
+"key": "b2b"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金不封顶（原帖薪资栏写 uncapped commission USD）",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95804742",
+"source": "JobStreet",
+"title": "Business development KL/Penang",
+"company": "INFO-TECH SYSTEMS LTD.",
+"location": "KLCC, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-11",
+"salary": "",
+"summary": "云端 HRMS、会计、CRM 软件销售给企业。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "有佣金（原文 hungry for sales/commission）",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95807048",
+"source": "JobStreet",
+"title": "Merchant Acquiring Senior Executive",
+"company": "Simplepay Gateway (senangPay)",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-11",
+"salary": "",
+"summary": "支付网关开发商家客户。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "能用马来语沟通",
+"preferred": false,
+"key": "malay"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95808047",
+"source": "JobStreet",
+"title": "Sales Executive | Indoor | Native Bahasa Melayu",
+"company": "Berkat Kanopi Event",
+"location": "Puchong, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-11",
+"salary": "",
+"summary": "帐篷和活动租赁内勤销售（婚礼、企业活动）。",
+"requirements": [
+{
+"label": "马来语母语",
+"preferred": false,
+"key": "malay"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "按收款发每月佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95821448",
+"source": "JobStreet",
+"title": "Business Development Executive",
+"company": "Lattice Synergy",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-12",
+"salary": "RM3,500–RM5,000 / 月",
+"summary": "向大学、学院开拓业务。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "含津贴和佣金最高约 RM8,000",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95829887",
+"source": "JobStreet",
+"title": "Senior Sales Executive 销售 (Flow-control solutions for Manufacturing)",
+"company": "Dawell Fluid and Control",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-12",
+"salary": "RM4,000–RM6,000 / 月",
+"summary": "阀门等流体控制方案卖给工厂、能源、水务项目。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "会普通话",
+"preferred": true,
+"key": "mandarin"
+},
+{
+"label": "B2B 销售经验",
+"preferred": true,
+"key": "b2b"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金不封顶",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95835034",
+"source": "JobStreet",
+"title": "Exhibition Project Executive/ Project Manager",
+"company": "The Floorplan",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-12",
+"salary": "RM5,500–RM8,250 / 月",
+"summary": "展台设计搭建项目，开发新客户并管理项目。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "高底薪 + 高佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95851103",
+"source": "JobStreet",
+"title": "Telemarketing excutive | WELCOME FRESH GRAD TO APPLY",
+"company": "Elite United Marketing",
+"location": "Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-13",
+"salary": "RM5,000–RM6,500 / 月",
+"summary": "电话销售，应届生可。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 津贴 + 佣金不封顶",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95852442",
+"source": "JobStreet",
+"title": "Medical Device Sales Representative",
+"company": "Berry Medical Healthcare",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-13",
+"salary": "RM3,600–RM5,000 / 月",
+"summary": "医疗器械销售给医院和诊所。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "愿意出差／外勤",
+"preferred": false,
+"key": "travel"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "薪资 + 佣金不封顶",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95853467",
+"source": "JobStreet",
+"title": "Business Development Executive",
+"company": "AICA Adtek",
+"location": "Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-13",
+"salary": "RM4,000–RM5,000 / 月",
+"summary": "业务开发，有第 13 个月薪金。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "每月佣金，不封顶",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95856310",
+"source": "JobStreet",
+"title": "Business Development Executive (Open to Fresh Graduates)",
+"company": "Vista Global Market",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-13",
+"salary": "RM3,500–RM5,000 / 月",
+"summary": "为数字金融平台开拓合作伙伴。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 每月销售佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95868423",
+"source": "JobStreet",
+"title": "Business Development Executive (Automotive)",
+"company": "AIMotion",
+"location": "TRX, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-14",
+"salary": "RM4,000–RM6,000 / 月",
+"summary": "AI 汽车内容公司，开发汽车品牌客户。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "会普通话",
+"preferred": false,
+"key": "mandarin"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 津贴 + 佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95871280",
+"source": "JobStreet",
+"title": "BUSINESS DEVELOPMENT EXECUTIVE",
+"company": "Prestar Precision Tube",
+"location": "Rawang, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-18",
+"salary": "",
+"summary": "上市公司子公司，汽车管件 B2B 业务开发。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "B2B 销售经验",
+"preferred": true,
+"key": "b2b"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "佣金不封顶 + 车辆保养津贴",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95877583",
+"source": "JobStreet",
+"title": "Medical Sales Executive Snr/Jnr - Surgical Devices - HQ & Johor",
+"company": "Syno Medical",
+"location": "Ara Damansara, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-14",
+"salary": "RM3,400–RM5,000 / 月",
+"summary": "外科器械销售给医生和医院采购。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "愿意出差／外勤",
+"preferred": false,
+"key": "travel"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95879455",
+"source": "JobStreet",
+"title": "Sales Executive 销售执行员 (E-Commerce ERP Solutions)",
+"company": "BigSeller Technology (Malaysia)",
+"location": "Bandar Puteri Puchong, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-14",
+"salary": "RM3,000–RM4,500 / 月",
+"summary": "电商 ERP 软件卖给网店卖家。",
+"requirements": [
+{
+"label": "会普通话",
+"preferred": false,
+"key": "mandarin"
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "有佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95882124",
+"source": "JobStreet",
+"title": "Telesales Executive (Fresh Graduates Welcome)",
+"company": "IBPO Group Berhad",
+"location": "KL Eco City, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-14",
+"salary": "RM2,500–RM3,500 / 月",
+"summary": "电话销售，近 LRT。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 津贴 + 佣金不封顶",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95882413",
+"source": "JobStreet",
+"title": "Property Agent/Real Estate Negotiator 房地产经纪 (HQ) - FULL TIME",
+"company": "Polygon Properties",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-14",
+"salary": "RM15,000–RM20,000 / 月（多为佣金）",
+"summary": "房地产经纪，公司给潜在客户；有无底薪 ～ 待确认。",
+"requirements": [
+{
+"label": "会普通话",
+"preferred": false,
+"key": "mandarin"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "每笔交易佣金 RM10,000–30,000，成交 48 小时内发",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95883940",
+"source": "JobStreet",
+"title": "Business Development / Marketing Executive",
+"company": "JFF Associates Property Management（Private Advertiser）",
+"location": "Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-17",
+"salary": "",
+"summary": "物业管理公司的项目开发。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 项目成交奖励或佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95884727",
+"source": "JobStreet",
+"title": "Sales Advisor 销售专员",
+"company": "Concentrix",
+"location": "Cheras, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-14",
+"salary": "RM3,500–RM5,250 / 月",
+"summary": "说服外卖平台商家购买广告配套。",
+"requirements": [
+{
+"label": "会普通话",
+"preferred": false,
+"key": "mandarin"
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 RM3,500 + 佣金最高 RM5,000",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95911538",
+"source": "JobStreet",
+"title": "Sales Executive",
+"company": "Pathgreen Energy",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-17",
+"salary": "RM3,000–RM4,500 / 月",
+"summary": "太阳能 PV 销售，开发新客户。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "驾照",
+"preferred": false,
+"key": "drive"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "佣金不封顶 + KPI 津贴",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95915510",
+"source": "JobStreet",
+"title": "Sales Executive in HORECA Industry up to RM6000",
+"company": "Job Express Services（猎头）",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-17",
+"salary": "RM4,500–RM6,000 / 月",
+"summary": "食品服务业（酒店、餐厅）销售。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 RM2,800 + 津贴 RM1,000 + 佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95915842",
+"source": "JobStreet",
+"title": "Property Advisor / Sales Executive",
+"company": "Private Advertiser（房地产）",
+"location": "Taman Tun Dr Ismail, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-17",
+"salary": "RM2,800–RM4,000 / 月",
+"summary": "房产顾问。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "1% 佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95917433",
+"source": "JobStreet",
+"title": "Retail Assistant - 2 Days Off a week, Basic RM2300 + Commission (Seri Kembangan)",
+"company": "CompAsia",
+"location": "Seri Kembangan, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-17",
+"salary": "RM2,000–RM2,300 / 月",
+"summary": "二手手机门店销售，每周休 2 天。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "能用马来语沟通",
+"preferred": false,
+"key": "malay"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 RM2,300 + 佣金（标题写明）",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95918433",
+"source": "JobStreet",
+"title": "Account Manager (Sales)",
+"company": "Raddish Technology",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-17",
+"salary": "RM4,000–RM6,000 / 月",
+"summary": "企业客户经理，维护和拓展 B2B 客户。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "B2B 销售经验",
+"preferred": true,
+"key": "b2b"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "销售佣金 + 绩效奖金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95919809",
+"source": "JobStreet",
+"title": "Senior Sales & Marketing Executive",
+"company": "GQ Projects",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-17",
+"salary": "RM4,000–RM6,000 / 月",
+"summary": "项目销售与营销。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "有佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95921452",
+"source": "JobStreet",
+"title": "Business Development Executive - Industrial Solutions",
+"company": "L&T Industries",
+"location": "Shah Alam, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-17",
+"salary": "",
+"summary": "工业方案 B2B 销售，应届生可，有培训。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "有自己的交通工具",
+"preferred": false,
+"key": "vehicle"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金 + 奖励 + 奖金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95922600",
+"source": "JobStreet",
+"title": "Sales Executive / Sales Manager –Premium Outdoor Furniture(Triconville Malaysia)",
+"company": "Tranzakt Global",
+"location": "Glenmarie, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-17",
+"salary": "RM6,000–RM8,000 / 月",
+"summary": "高端户外家具销售，客户包括住宅、酒店和项目。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "超过个人月目标部分 3% 佣金，按季发",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95923446",
+"source": "JobStreet",
+"title": "TELEMARKETING EXECUTIVE (MANDARIN SPEAKER)",
+"company": "Uprime Advisory",
+"location": "Wangsa Maju, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-17",
+"salary": "RM3,333–RM5,000 / 月",
+"summary": "电话销售，应届生可。",
+"requirements": [
+{
+"label": "会普通话",
+"preferred": false,
+"key": "mandarin"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "有佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95923607",
+"source": "JobStreet",
+"title": "SALES EXECUTIVE — KL360 / Menara GD, Kuala Lumpur",
+"company": "GD Pavilion（GD Properties）",
+"location": "KLCC, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-17",
+"salary": "RM3,000–RM4,500 / 月",
+"summary": "发展商自售房产项目销售。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "会普通话",
+"preferred": false,
+"key": "mandarin"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "每卖一个单位有佣金 + 季度奖励",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95925601",
+"source": "JobStreet",
+"title": "High Pay Vacancy - Sales Manager",
+"company": "Private Advertiser",
+"location": "Puchong, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-17",
+"salary": "RM12,000–RM18,000 / 月",
+"summary": "销售经理（同帖也招销售主任、组长、初级销售）。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "高佣金和奖金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95937964",
+"source": "JobStreet",
+"title": "Tour Consultant",
+"company": "2290TRAVEL (M)",
+"location": "Cheras, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-18",
+"salary": "RM3,500–RM4,500 / 月",
+"summary": "推广和销售旅游配套，五天工作。",
+"requirements": [
+{
+"label": "会普通话",
+"preferred": false,
+"key": "mandarin"
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95946442",
+"source": "JobStreet",
+"title": "Chemical Sales Executive (Mandarin speaker)",
+"company": "Eternity Recruitment（猎头）",
+"location": "Puchong, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-18",
+"salary": "RM4,000–RM5,500 / 月",
+"summary": "工业和特种化学品 B2B 外勤销售；应届生可。",
+"requirements": [
+{
+"label": "会普通话",
+"preferred": false,
+"key": "mandarin"
+},
+{
+"label": "B2B 销售经验",
+"preferred": true,
+"key": "b2b"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金 + 绩效奖金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95968953",
+"source": "JobStreet",
+"title": "Social Media Sales Executive",
+"company": "Carguru Technology",
+"location": "Puchong, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-19",
+"salary": "",
+"summary": "用 TikTok 内容卖车。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 每卖一辆车佣金（最高 RM8K）",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95972776",
+"source": "JobStreet",
+"title": "Sales Executive/Sales Manager (Building Material Division)",
+"company": "PCG Global System",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-19",
+"salary": "",
+"summary": "建材销售，开发和维护客户。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "愿意出差／外勤",
+"preferred": false,
+"key": "travel"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金 + 车贴",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95981430",
+"source": "JobStreet",
+"title": "Marketing & Admissions Executive",
+"company": "Red Dragonfly",
+"location": "Puchong, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-20",
+"salary": "RM3,700–RM5,500 / 月",
+"summary": "教育机构招生销售。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "佣金不封顶",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95988463",
+"source": "JobStreet",
+"title": "Sales and Marketing Executive (IT Training Solutions)",
+"company": "Elitez（猎头）",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-20",
+"salary": "",
+"summary": "IT 培训方案卖给企业；应届生可。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/95999811",
+"source": "JobStreet",
+"title": "Enterprise Sales Account Manager",
+"company": "Exabytes Network",
+"location": "Puchong, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-20",
+"salary": "",
+"summary": "云端／主机服务企业销售。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "B2B 销售经验",
+"preferred": true,
+"key": "b2b"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "薪资 + 佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/96003312",
+"source": "JobStreet",
+"title": "Sales And Marketing Executive",
+"company": "Plasma Color (K.L.)",
+"location": "Shah Alam, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-20",
+"salary": "RM5,000–RM7,500 / 月",
+"summary": "涂料／色彩产品销售（Shah Alam、Puchong、Ipoh）。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "有自己的交通工具",
+"preferred": false,
+"key": "vehicle"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 保底佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/96004565",
+"source": "JobStreet",
+"title": "Senior Business Development & Account Executive",
+"company": "Unseen Matters",
+"location": "Kuchai Lama, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-20",
+"salary": "RM5,000–RM7,500 / 月",
+"summary": "企业礼品工作室的 B2B 开发与客户管理。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "B2B 销售经验",
+"preferred": true,
+"key": "b2b"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 RM4,000–5,000 + 佣金不封顶（达标月入 RM6–8K）",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/96011150",
+"source": "JobStreet",
+"title": "Sales Advisor (Automotive)",
+"company": "Proauto Drive",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-21",
+"salary": "RM1,700 / 月",
+"summary": "汽车销售顾问。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 奖励 + 佣金（称可赚 RM5,000–10,000）",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/96012992",
+"source": "JobStreet",
+"title": "SALES EXECUTIVE",
+"company": "Akar Security Services (M)",
+"location": "Shah Alam, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-21",
+"salary": "RM3,000–RM4,500 / 月",
+"summary": "保安服务 B2B 销售，五天工作。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "能用马来语沟通",
+"preferred": false,
+"key": "malay"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金 + 奖励（含佣金 RM3,500–6,000）",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/96016638",
+"source": "JobStreet",
+"title": "Business Development Executive",
+"company": "Tazte Technology",
+"location": "Puchong, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-21",
+"salary": "RM4,000–RM5,000 / 月",
+"summary": "开发餐饮合作商家。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "佣金不封顶 + 绩效奖金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/96017352",
+"source": "JobStreet",
+"title": "Project Sales Executive (Attractive Sales Commission)",
+"company": "Berjaya CKE Group",
+"location": "Cheras, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-21",
+"salary": "RM5,000–RM7,500 / 月",
+"summary": "项目销售。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "有销售佣金（标题写明）",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/96021349",
+"source": "JobStreet",
+"title": "Sales Executive (Financial)",
+"company": "Zikay Factoring",
+"location": "Kampung Baru, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-21",
+"salary": "RM3,500–RM5,000 / 月",
+"summary": "保理融资，开发中小企业客户。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "薪酬含佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/96022273",
+"source": "JobStreet",
+"title": "SALES AND MARKETING CONSULTANT",
+"company": "Auto Prima Technology Training",
+"location": "Shah Alam, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-21",
+"salary": "RM2,800–RM3,500 / 月",
+"summary": "跟进学生询问，招生（技职课程）。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "能用马来语沟通",
+"preferred": false,
+"key": "malay"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "每成功报名一人 RM300–500 佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/96023198",
+"source": "JobStreet",
+"title": "Sales Advisor — HOMEs Addition",
+"company": "Eco & Green Exhibition",
+"location": "Mid Valley, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-21",
+"salary": "RM65,000–RM96,000 / 年",
+"summary": "家居卖场门店销售。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 RM4,000 + 高佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/96033578",
+"source": "JobStreet",
+"title": "Sales Executive",
+"company": "Ensure Machinery",
+"location": "Klang, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-22",
+"salary": "RM3,300–RM4,500 / 月",
+"summary": "五金机械批发销售。",
+"requirements": [
+{
+"label": "会普通话",
+"preferred": false,
+"key": "mandarin"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "销售佣金 + 收款佣金 + 目标奖金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/96035301",
+"source": "JobStreet",
+"title": "Property Agent / Real Estate Negotiator /Sales Person/ Real Estate Consultant",
+"company": "ALLY IQI",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-22",
+"salary": "RM15,000–RM20,000 / 月（多为佣金）",
+"summary": "房地产经纪（同帖也招兼职）；有无底薪 ～ 待确认。",
+"requirements": [
+{
+"label": "会普通话",
+"preferred": false,
+"key": "mandarin"
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "100% 佣金政策",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/96035404",
+"source": "JobStreet",
+"title": "Interior Sales Consultant",
+"company": "360 Infinity Design and Build",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-22",
+"salary": "RM3,400–RM5,000 / 月",
+"summary": "装修配套销售，公司提供客户名单。",
+"requirements": [
+{
+"label": "会普通话",
+"preferred": false,
+"key": "mandarin"
+},
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 销售佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://my.jobstreet.com/job/96037421",
+"source": "JobStreet",
+"title": "SALES EXECUTIVE (Mandarin Speaking)",
+"company": "FEPA",
+"location": "Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-22",
+"salary": "RM3,500–RM4,500 / 月",
+"summary": "销售执行员，需普通话。",
+"requirements": [
+{
+"label": "会普通话",
+"preferred": false,
+"key": "mandarin"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金 + 奖金",
+"commissionType": "yes"
+},
+{
+"url": "https://www.maukerja.my/en/job/244m8ShzNo-sales-executive",
+"source": "Maukerja",
+"title": "Sales Executive",
+"company": "Agensi Pekerjaan Eternity（猎头）",
+"location": "Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-21",
+"salary": "RM3,000–RM4,000 / 月",
+"summary": "销售 Canon 打印机、复印机、Epson 等给企业和机构。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "愿意出差／外勤",
+"preferred": false,
+"key": "travel"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 津贴 + 佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://www.maukerja.my/en/job/5ccJwus0dR-sales-engineer-conveying-belt",
+"source": "Maukerja",
+"title": "Sales Engineer - Conveying Belt",
+"company": "Agensi Pekerjaan Nala（猎头）",
+"location": "Puchong, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-16",
+"salary": "RM4,000–RM6,000 / 月",
+"summary": "输送带销售工程师，开发和维护工厂客户。同猎头另有 7 则同内容帖。",
+"requirements": [
+{
+"label": "学士学位",
+"preferred": false,
+"key": "bachelor"
+},
+{
+"label": "B2B 销售经验",
+"preferred": true,
+"key": "b2b"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "佣金 RM1,000–1,500 + 车贴 RM500",
+"commissionType": "yes"
+},
+{
+"url": "https://www.maukerja.my/en/job/466xTWqQGl-used-car-sales-manager-basic-high-commission",
+"source": "Maukerja",
+"title": "Used Car Sales Manager- Basic + High Commission",
+"company": "Saujana Erat",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-16",
+"salary": "RM3,000–RM4,000 / 月",
+"summary": "二手／进口车销售。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "能用马来语沟通",
+"preferred": false,
+"key": "malay"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 高佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://www.maukerja.my/en/job/wNF2yDPC4x-business-development-executive",
+"source": "Maukerja",
+"title": "Business Development Executive",
+"company": "Deltafrontier",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-22",
+"salary": "RM4,000–RM6,000 / 月",
+"summary": "机电（M&E）产品业务开发，有负责区域。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "B2B 销售经验",
+"preferred": true,
+"key": "b2b"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金不封顶（按营收和新客户）",
+"commissionType": "yes"
+},
+{
+"url": "https://www.maukerja.my/en/job/DHHd1uBLT6-sales-consultant",
+"source": "Maukerja",
+"title": "Sales Consultant",
+"company": "Ming Heng Motor",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-16",
+"salary": "",
+"summary": "二手认证车销售顾问。同公司另有 Sales Advisor 同内容帖。",
+"requirements": [
+{
+"label": "驾照",
+"preferred": false,
+"key": "drive"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 高佣金（称月入 RM5k–8k+）",
+"commissionType": "yes"
+},
+{
+"url": "https://my.hiredly.com/jobs/jobs-malaysia-sbs-digital-holdings-sdn-bhd-job-b2b-advertising-media-sales-executive-basic-salary-commission-up-to-rm10k-0",
+"source": "Hiredly",
+"title": "(B2B Advertising | Media) Sales Executive (Basic Salary +Commission up to RM10K)",
+"company": "SBS Digital Holdings",
+"location": "Bandar Sri Damansara, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-20",
+"salary": "RM3,000–RM6,000 / 月",
+"summary": "上市广告营销公司的 B2B 广告销售，五天工作。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "B2B 销售经验",
+"preferred": true,
+"key": "b2b"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金（标题写最高 RM10K）",
+"commissionType": "yes"
+},
+{
+"url": "https://my.hiredly.com/jobs/jobs-malaysia-ewa-asia-sdn-bhd-job-associate-business-venture-2",
+"source": "Hiredly",
+"title": "Associate, Business Venture",
+"company": "EWA Asia",
+"location": "Puchong, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-11-20",
+"salary": "RM2,000–RM6,000 / 月",
+"summary": "理财／保险规划顾问销售，有 1 个月培训。同公司另有 Personal Financial Associate 帖。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "佣金和奖励分级",
+"commissionType": "yes"
+},
+{
+"url": "https://my.hiredly.com/jobs/jobs-malaysia-nexea-venture-capital-angel-investment-network-job-business-development-executive-7",
+"source": "Hiredly",
+"title": "Business Development Executive",
+"company": "NEXEA Venture Capital & Angel Investment Network",
+"location": "Subang Jaya, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "2026-10-29",
+"salary": "",
+"summary": "为企业家课程招募创办人（外联、筛选），混合办公。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"commission": "底薪 + 佣金",
+"commissionType": "yes"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=8b49d7ce748379be",
+"source": "Indeed",
+"title": "SALES EXECUTIVE (KL AREA)",
+"company": "South East Asia Frozen Food",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "",
+"salary": "RM4,000–RM6,000 / 月",
+"summary": "冷冻食品销售，开发 KL 客户。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23",
+"commission": "有佣金 + 车贴 + 头 6 个月薪资支持",
+"commissionType": "yes"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=a15040d06414fc4f",
+"source": "Indeed",
+"title": "Retail Sales - iTworld (Apple Authorised Store), Midvalley",
+"company": "SNS Network (M)",
+"location": "Mid Valley, Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "",
+"salary": "",
+"summary": "Apple 授权店门店销售；应届可。同公司 Digital Mall PJ 店另有同类帖。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23",
+"commission": "底薪 + 佣金 + 奖励",
+"commissionType": "yes"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=0201328df71a665a",
+"source": "Indeed",
+"title": "Business Development Manager",
+"company": "Shivintech Solutions",
+"location": "Kuala Lumpur",
+"region": "kl",
+"role": "sales",
+"sector": "other",
+"postedAt": "",
+"salary": "RM4,500–RM5,500 / 月",
+"summary": "科技方案业务开发经理。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "B2B 销售经验",
+"preferred": true,
+"key": "b2b"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23",
+"commission": "底薪 + 佣金不封顶 + 季度奖金",
+"commissionType": "yes"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=c43703b4a9efb30e",
+"source": "Indeed",
+"title": "Medical Sales Representative",
+"company": "VIGA Gemilang",
+"location": "Rawang, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "",
+"salary": "从 RM3,500 / 月",
+"summary": "快速检测试剂（人用、兽用）卖给医护人员；应届可。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23",
+"commission": "底薪 + 佣金（称 RM3,500–5,000+++）",
+"commissionType": "yes"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=315d698ba29e48c6",
+"source": "Indeed",
+"title": "Business Development Executive (Printing Solution) in Puchong",
+"company": "Polymorph Enterprise（猎头）",
+"location": "Puchong, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "",
+"salary": "RM3,500–RM4,500 / 月",
+"summary": "打印复印方案的企业销售。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+},
+{
+"label": "有自己的交通工具",
+"preferred": false,
+"key": "vehicle"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23",
+"commission": "底薪 RM4,000 + 佣金（称最高 RM8,000–10,000）",
+"commissionType": "yes"
+},
+{
+"url": "https://malaysia.indeed.com/viewjob?jk=88d988b8540a313a",
+"source": "Indeed",
+"title": "Promoter (Midea- Home Appliances)",
+"company": "Midea Group",
+"location": "Petaling Jaya, Selangor",
+"region": "selangor",
+"role": "sales",
+"sector": "other",
+"postedAt": "",
+"salary": "RM3,500–RM4,500 / 月",
+"summary": "家电门店推广销售。",
+"requirements": [
+{
+"label": "能用英语沟通",
+"preferred": false,
+"key": "english"
+}
+],
+"firstSeen": "2026-11-23",
+"batch": "2026-11-23T01:30:00+08:00",
+"datePending": true,
+"checkedAt": "2026-11-23",
+"commission": "佣金和奖励",
+"commissionType": "yes"
+},
 {
 "url": "https://my.jobstreet.com/job/95850768",
 "source": "JobStreet",
@@ -1874,7 +5884,7 @@
 "sector": "other",
 "postedAt": "",
 "datePending": true,
-"checkedAt": "2026-11-19",
+"checkedAt": "2026-11-23",
 "summary": "新车销售：接待到店客人、安排试驾、跟进和成交，鼓励回头客与转介绍。",
 "requirements": [
 {
@@ -7056,496 +11066,6 @@
 "commission": "底薪 RM4,800–7,200 + 销售佣金",
 "basic": "RM4,800–RM7,200",
 "commissionType": "yes"
-},
-{
-"region": "selangor",
-"role": "sales",
-"sector": "energy",
-"url": "https://www.maukerja.my/en/job/teejDKIGqL-sales-executive",
-"source": "Maukerja",
-"title": "Sales Executive（太阳能）",
-"company": "Green Fox Sdn. Bhd.",
-"location": "Petaling Jaya, Selangor",
-"postedAt": "2026-10-23",
-"summary": "太阳能与可再生能源 B2B 销售，开发新商机。同公司另有两则同类帖。",
-"commission": "底薪 RM6,000 起 + 销售佣金",
-"commissionType": "yes",
-"requirements": [
-{
-"label": "商业、营销、工程 Diploma／学位",
-"preferred": true,
-"key": "diploma"
-},
-{
-"label": "有 B2B 或顾问式销售经验",
-"preferred": true,
-"key": "b2b"
-},
-{
-"label": "太阳能或电气相关经验",
-"preferred": true,
-"key": "solar"
-}
-],
-"salary": "RM6,000–RM8,000 / 月",
-"basic": "RM6,000 起",
-"firstSeen": "2026-11-19"
-},
-{
-"title": "Bilingual Sales Specialist (English & Japanese)",
-"company": "PTC Systems",
-"location": "Petaling Jaya, Selangor",
-"region": "selangor",
-"role": "japanese",
-"url": "https://my.jobstreet.com/job/95427639",
-"source": "JobStreet",
-"postedAt": "2026-10-23",
-"salary": "RM10,000–RM12,999 / 月",
-"basic": "RM10,000 起，视经验与能力",
-"commission": "按项目成功计算佣金",
-"summary": "向在马来西亚运营的日本企业销售 IT 系统集成方案，负责拓客、提案、谈判和签单。",
-"sector": "other",
-"requirements": [
-{
-"label": "资讯科技、商业、市场营销或相关学士",
-"preferred": false
-},
-{
-"label": "接近母语水平的日语",
-"preferred": false
-},
-{
-"label": "接近母语水平的英语",
-"preferred": false
-},
-{
-"label": "至少 5 年 IT 系统集成或同类销售／业务开发经验",
-"preferred": false
-},
-{
-"label": "有复杂 IT 项目销售达标记录",
-"preferred": false
-},
-{
-"label": "有效驾照",
-"key": "drive",
-"preferred": false
-},
-{
-"label": "可出差拜访客户",
-"key": "travel",
-"preferred": false
-}
-],
-"firstSeen": "2026-11-18"
-},
-{
-"region": "selangor",
-"role": "sales",
-"sector": "other",
-"url": "https://my.jobstreet.com/job/95437000",
-"source": "JobStreet",
-"title": "Sales Consultant (Basic + Comm)",
-"company": "MAYANG SIMFONI SDN BHD",
-"location": "Petaling Jaya, Selangor（混合办公）",
-"postedAt": "2026-10-23",
-"summary": "金融服务与方案顾问销售，开发及维护客户，提供咨询。无需销售经验，有培训。",
-"requirements": [
-{
-"label": "SPM 或同等学历",
-"preferred": false
-},
-{
-"label": "会普通话或当地其他方言",
-"preferred": false,
-"key": "mandarin"
-},
-{
-"label": "能用英语沟通",
-"preferred": false,
-"key": "english"
-},
-{
-"label": "沟通及时间管理能力良好",
-"preferred": false
-}
-],
-"salary": "RM6,000–RM9,000 / 月",
-"basic": "RM4,500–RM10,000",
-"commission": "每月销售佣金",
-"commissionType": "yes",
-"firstSeen": "2026-11-19"
-},
-{
-"region": "selangor",
-"role": "sales",
-"sector": "other",
-"url": "https://my.jobstreet.com/job/95448939",
-"source": "JobStreet",
-"title": "Sales Executive",
-"company": "ICCO Marketing (M) Sdn Bhd",
-"location": "Shah Alam, Selangor（混合办公）",
-"postedAt": "2026-10-23",
-"summary": "文具／快消品销售，接手现有客户并开发新户，冷拨、拜访与跟进。",
-"requirements": [
-{
-"label": "文具、快消或相关行业经验",
-"preferred": true
-},
-{
-"label": "沟通与客户服务能力良好",
-"preferred": false
-},
-{
-"label": "愿意拜访客户与勘察现场",
-"preferred": false,
-"key": "travel"
-}
-],
-"salary": "RM3,400–RM5,000 / 月",
-"commission": "每月佣金最高 2%，无上限；另有车贴、油费过路费",
-"commissionType": "yes",
-"firstSeen": "2026-11-19"
-},
-{
-"region": "selangor",
-"role": "sales",
-"sector": "other",
-"url": "https://www.maukerja.my/en/job/XxxYsOG9p6-junior-sales-executive",
-"source": "Maukerja",
-"title": "Junior Sales Executive（办公设备）",
-"company": "Agensi Pekerjaan Eternity（猎头）",
-"location": "Puchong, Selangor",
-"postedAt": "2026-10-22",
-"summary": "办公设备／打印机 B2B 外勤销售。同猎头另有两则同客户帖。",
-"commission": "底薪 + 津贴 + 佣金",
-"commissionType": "yes",
-"requirements": [
-{
-"label": "Diploma 或以上",
-"preferred": false
-},
-{
-"label": "至少 1 年销售经验",
-"preferred": false,
-"key": "sales"
-},
-{
-"label": "可使用自己的交通工具",
-"preferred": false,
-"key": "vehicle"
-},
-{
-"label": "有效汽车驾照",
-"preferred": false,
-"key": "drive"
-}
-],
-"salary": "RM3,000–RM4,000 / 月",
-"firstSeen": "2026-11-19"
-},
-{
-"region": "selangor",
-"role": "sales",
-"sector": "other",
-"commissionType": "yes",
-"url": "https://my.jobstreet.com/job/95442213",
-"source": "JobStreet",
-"title": "Junior Digital Marketing Sales Consultant",
-"company": "INNO HUB (MY) SDN. BHD.",
-"location": "Petaling Jaya, Selangor",
-"salary": "RM2,900–RM4,350 / 月",
-"basic": "RM2,500 / 月",
-"commission": "广告写有机会达到 RM2,500+ / 月，另列符合条件的报销",
-"summary": "向中小企业销售数码营销方案，预约客户、了解需求、准备提案和报价，再用 CRM 跟进机会。提供培训。",
-"requirements": [
-{
-"label": "任何领域的 Diploma 或学士",
-"key": "diploma",
-"preferred": false
-},
-{
-"label": "欢迎应届毕业生及有 0–2 年经验者",
-"key": "",
-"preferred": false
-},
-{
-"label": "善于沟通，愿意接触新客户",
-"key": "",
-"preferred": false
-},
-{
-"label": "能独立工作并与团队合作",
-"key": "",
-"preferred": false
-},
-{
-"label": "销售经验",
-"key": "sales",
-"preferred": true
-},
-{
-"label": "有自己的交通工具拜访客户",
-"key": "vehicle",
-"preferred": true
-}
-],
-"postedAt": "2026-10-22",
-"firstSeen": "2026-11-18"
-},
-{
-"region": "selangor",
-"role": "sales",
-"sector": "other",
-"url": "https://my.jobstreet.com/job/95428068",
-"source": "JobStreet",
-"title": "Sales & Marketing (AM/Executive)",
-"company": "EITA Power System Sdn. Bhd.",
-"location": "Subang Jaya, Selangor",
-"postedAt": "2026-10-22",
-"summary": "通过简报、谈判完成项目销售，开发 B2B 客户，参与展会和推广活动。",
-"requirements": [
-{
-"label": "商业、营销、电机工程或相关学位",
-"preferred": false
-},
-{
-"label": "1–2 年销售或业务开发经验",
-"preferred": true
-},
-{
-"label": "欢迎应届毕业生",
-"preferred": true
-},
-{
-"label": "有 B2B 或顾问式销售经验",
-"preferred": true,
-"key": "b2b"
-},
-{
-"label": "可使用自己的交通工具",
-"preferred": false,
-"key": "vehicle"
-},
-{
-"label": "愿意拜访客户与勘察现场",
-"preferred": false,
-"key": "travel"
-}
-],
-"salary": "RM4,000–RM6,000 / 月",
-"commission": "底薪 + 销售佣金、奖励、油卡及车贴",
-"commissionType": "yes",
-"firstSeen": "2026-11-19"
-},
-{
-"region": "selangor",
-"role": "sales",
-"sector": "other",
-"url": "https://my.jobstreet.com/job/95440702",
-"source": "JobStreet",
-"title": "Sales Engineer",
-"company": "HPH Industries Sdn Bhd",
-"location": "Subang Jaya, Selangor（混合办公）",
-"postedAt": "2026-10-22",
-"summary": "工业自动化产品分销：拜访客户、开发新客户、跟进询价与销售漏斗。",
-"requirements": [
-{
-"label": "电气电子或机电工程 Diploma／学位",
-"preferred": false
-},
-{
-"label": "1–3 年相关经验",
-"preferred": true
-},
-{
-"label": "可使用自己的交通工具",
-"preferred": false,
-"key": "vehicle"
-}
-],
-"salary": "RM3,800–RM5,500 / 月",
-"commission": "销售团队佣金计划",
-"commissionType": "yes",
-"firstSeen": "2026-11-19"
-},
-{
-"region": "selangor",
-"role": "japanese",
-"sector": "other",
-"url": "https://my.jobstreet.com/job/95428775",
-"source": "JobStreet",
-"title": "Customer Service Specialist - Native Japanese and Taiwanese",
-"company": "Mango Global Technologies",
-"location": "Cyberjaya, Selangor",
-"postedAt": "2026-10-22",
-"summary": "日语／台湾客户客服：电话、邮件或聊天处理询问与投诉。",
-"requirements": [
-{
-"label": "日语母语级（标题写 Native Japanese）",
-"preferred": false
-},
-{
-"label": "至少 6 个月客服经验",
-"preferred": false
-},
-{
-"label": "沟通与解决问题能力",
-"preferred": false
-}
-],
-"salary": "RM8,800–RM9,500 / 月",
-"firstSeen": "2026-11-19"
-},
-{
-"region": "selangor",
-"role": "sales",
-"sector": "other",
-"url": "https://www.maukerja.my/en/job/k59GWjSsy4-sales-executive",
-"source": "Maukerja",
-"title": "Sales Executive",
-"company": "Homesphere Property Management Sdn. Bhd.",
-"location": "Jaya One, Petaling Jaya, Selangor",
-"postedAt": "2026-10-21",
-"summary": "跟进公司提供的业主线索，推销装修、出租与物业管理配套。",
-"commission": "以佣金为主要激励（广告写明）",
-"commissionType": "yes",
-"requirements": [
-{
-"label": "能承受拒绝并坚持跟进",
-"preferred": false
-}
-],
-"salary": "RM3,000–RM4,000 / 月",
-"firstSeen": "2026-11-19"
-},
-{
-"region": "selangor",
-"role": "sales",
-"sector": "other",
-"url": "https://my.jobstreet.com/job/95395717",
-"source": "JobStreet",
-"title": "Sales Executive (Selangor & KL)",
-"company": "RIEGEN MARKETING SDN. BHD.",
-"location": "Selangor",
-"postedAt": "2026-10-21",
-"summary": "在雪兰莪和吉隆坡推广公司产品，开发新客户并维护客户关系，达成销售目标。",
-"requirements": [
-{
-"label": "可使用自己的交通工具",
-"preferred": false,
-"key": "vehicle"
-},
-{
-"label": "愿意拜访客户与勘察现场",
-"preferred": false,
-"key": "travel"
-},
-{
-"label": "至少两年销售经验",
-"preferred": false,
-"key": "retail2"
-},
-{
-"label": "家电销售经验",
-"preferred": true,
-"key": "appliances"
-},
-{
-"label": "沟通与人际能力良好",
-"preferred": false
-}
-],
-"salary": "RM5,000–RM7,000 / 月",
-"commission": "底薪 + 佣金 + 津贴；另有达标销售奖励",
-"commissionType": "yes",
-"firstSeen": "2026-11-19"
-},
-{
-"region": "selangor",
-"role": "sales",
-"sector": "other",
-"url": "https://my.jobstreet.com/job/95400798",
-"source": "JobStreet",
-"title": "Business Development Executive",
-"company": "Fuji Koki Resources (M) Sdn Bhd",
-"location": "Petaling Jaya, Selangor",
-"postedAt": "2026-10-21",
-"summary": "开发新客户和商机，跟进询价报价，准备方案并达成销售目标。",
-"requirements": [
-{
-"label": "沟通与谈判能力良好",
-"preferred": false
-},
-{
-"label": "能独立工作并达成目标",
-"preferred": false
-}
-],
-"salary": "RM3,000–RM3,500 / 月",
-"commission": "底薪 + 佣金 + 津贴",
-"commissionType": "yes",
-"firstSeen": "2026-11-19"
-},
-{
-"region": "selangor",
-"role": "sales",
-"sector": "other",
-"url": "https://my.jobstreet.com/job/95400935",
-"source": "JobStreet",
-"title": "Sales Executive",
-"company": "Heliography Industry (M) Sdn. Bhd.",
-"location": "Kapar, Selangor",
-"postedAt": "2026-10-21",
-"summary": "开发新市场和客户，维护老客户，跟进订单交付并回报市场信息。",
-"requirements": [
-{
-"label": "STPM 或以上学历",
-"preferred": false
-},
-{
-"label": "对销售有兴趣、愿意学习",
-"preferred": false
-},
-{
-"label": "愿意拜访客户与勘察现场",
-"preferred": false,
-"key": "travel"
-}
-],
-"salary": "RM3,200–RM4,800 / 月",
-"commission": "底薪 + 销售佣金 + 年终花红",
-"commissionType": "yes",
-"firstSeen": "2026-11-19"
-},
-{
-"url": "https://my.jobstreet.com/job/95412980",
-"source": "JobStreet",
-"title": "Admin/HR/General Affairs (Japanese, JLPT N2)",
-"company": "PERSOL Malaysia",
-"location": "Kuala Lumpur Sentral",
-"region": "kl",
-"role": "japanese",
-"sector": "other",
-"postedAt": "2026-10-21",
-"salary": "RM5,500–RM7,000 / 月",
-"summary": "行政、HR 和总务，兼销售支援和与日本总部的报表联络。近 MRT/LRT。",
-"requirements": [
-{
-"label": "JLPT N2",
-"preferred": false,
-"key": "jlptn2"
-},
-{
-"label": "至少 3 年后勤工作经验",
-"preferred": false
-},
-{
-"label": "会用 Microsoft Office",
-"preferred": false
-}
-],
-"firstSeen": "2026-11-19"
 }
 ]
 }
