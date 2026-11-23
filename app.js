@@ -156,7 +156,9 @@
 
   /* ---------- 职位过滤 ---------- */
   const forProfile = j => isJW() ? j.role === 'japanese' : j.role !== 'japanese';
-  const fresh = j => j.postedAt ? ageDays(j.postedAt) <= 30 : (j.checkedAt ? ageDays(j.checkedAt) <= 7 : true);
+  // 没写发布日期的职位：当作第一次抓到那天发布，30 天后自动移出列表
+  const dateOf = j => (j && (j.postedAt || j.firstSeen)) || '';
+  const fresh = j => dateOf(j) ? ageDays(dateOf(j)) <= 30 : true;
   const passFilters = j => {
     const f = P().f;
     const inKLV = j.region === 'selangor' || j.region === 'kl';
@@ -213,7 +215,7 @@
   /* ---------- 渲染 ---------- */
   const chip = (t, v = '') => `<span class="chip ${v}">${esc(t)}</span>`;
   const when = j => {
-    if (!j.postedAt) return j.source === 'Indeed' ? '30 天内发布（Indeed 未显示日期）' : '发布日期待核对';
+    if (!j.postedAt) { const f = ageDays(j.firstSeen); return f === null ? '发布日期待核对' : (f === 0 ? '今天' : f + ' 天前') + '首次看到（原帖没写日期）'; }
     const a = ageDays(j.postedAt);
     return a === 0 ? '今天发布' : a === 1 ? '昨天发布' : `${a} 天前发布`;
   };
@@ -240,9 +242,9 @@
     let rows = (g[tab] || []).filter(j => tab === 'fav' || tab === 'prac' || tab === 'ni' ? true : passFilters(j));
     const sc = new Map(rows.map(j => [j.url, reasons(j)]));
     const sort = f.sort || 'score';
-    rows.sort((a, b) => sort === 'new' ? (b.postedAt || '').localeCompare(a.postedAt || '')
+    rows.sort((a, b) => sort === 'new' ? dateOf(b).localeCompare(dateOf(a))
       : sort === 'pay' ? ((payRange(b.salary) || [0,0])[1] - (payRange(a.salary) || [0,0])[1])
-      : (sc.get(b.url).score - sc.get(a.url).score) || (b.postedAt || '').localeCompare(a.postedAt || ''));
+      : (sc.get(b.url).score - sc.get(a.url).score) || dateOf(b).localeCompare(dateOf(a)));
     if (tab === 'fav' || tab === 'prac') rows.sort((a,b) => (p[tab][b.url]?.at || '').localeCompare(p[tab][a.url]?.at || ''));
     const splitPay = tab !== 'fav' && tab !== 'prac' && !f.pay;
     if (splitPay) rows = rows.filter(hasPay).concat(rows.filter(j => !hasPay(j)));
@@ -261,7 +263,7 @@
     const pagerBot = pages > 1 ? `<div class="pager"><button data-pg="-1"${page ? '' : ' disabled'}>‹ 上一页</button><span>${page + 1} / ${pages}</span><button data-pg="1"${page < pages - 1 ? '' : ' disabled'}>下一页 ›</button></div>` : '';
     const viewStart = per ? page * per : 0;
     $('list').innerHTML = pagerTop + (rows.length ? view.map((j, vi) => {
-      const r = sc.get(j.url), a = ageDays(j.postedAt);
+      const r = sc.get(j.url), a = ageDays(dateOf(j));
       const divider = viewStart + vi === firstNoPay ? `<div class="paysplit">以下 ${noPayCount} 个职位${esc(noPayLabel)}</div>` : '';
       const isNew = isNewJob(j);
       const expired = (tab === 'fav' || tab === 'prac') && (a !== null && a > 30 || !byUrl.has(j.url));
@@ -297,7 +299,7 @@
   function renderDetail(j) {
     const box = $('detail');
     if (!j) { box.innerHTML = '<p class="empty">选择左边的职位查看详情。</p>'; return; }
-    const p = P(), r = reasons(j), a = ageDays(j.postedAt);
+    const p = P(), r = reasons(j), a = ageDays(dateOf(j));
     const fav = p.fav[j.url], prac = p.prac[j.url], ni = p.ni[j.url];
     const gone = !byUrl.has(j.url) || (a !== null && a > 30);
     const reqs = (j.requirements || []);
