@@ -130,8 +130,8 @@
   const unmetRatio = j => { const rq = required(j); return rq.length ? rq.filter(r => fit(r) === 'no').length / rq.length : 0; };
   const tooFar = j => unmetRatio(j) > 0.2;
 
-  /* ---------- 通勤（从 Taman Equine 出发，按地区粗分，实际以 Google Maps 为准） ---------- */
-  const NEAR = /seri kembangan|serdang|equine|puchong|bukit jalil|sri petaling|kuchai|old klang|jalan klang lama|taman desa|mid ?valley|bangsar south|sungai besi|salak|cheras|balakong|kajang|bangi|cyberjaya|putrajaya|subang jaya|usj|sunway|trx|tun razak|klcc|kuala lumpur city centre|bukit bintang|conlay|ampang park|chan sow lin|taman oug|maluri|pudu|eco city|远程|在家工作|remote/i;
+  /* ---------- 通勤（按地区粗分，实际以 Google Maps 为准；新地区加进 NEAR / FAR） ---------- */
+  const NEAR = /seri kembangan|serdang|puchong|bukit jalil|sri petaling|kuchai|old klang|jalan klang lama|taman desa|mid ?valley|bangsar south|sungai besi|salak|cheras|balakong|kajang|bangi|cyberjaya|putrajaya|subang jaya|usj|sunway|trx|tun razak|klcc|kuala lumpur city centre|bukit bintang|conlay|ampang park|chan sow lin|taman oug|maluri|pudu|eco city|远程|在家工作|remote/i;
   const FAR = /kota damansara|damansara perdana|ara damansara|sri damansara|mont ?kiara|kepong|rawang|klang|kapar|setia alam|shah alam|kota kemuning|sepang|klia|gombak|setapak|selayang|batu caves|johor|penang|pulau pinang|perak|ipoh|melaka|negeri sembilan|seremban|sungai buloh|damansara damai|puncak alam|tun dr ismail|ttdi|segambut|glenmarie|wangsa maju/i;
   const commute = j => { const l = j.location || ''; if (NEAR.test(l)) return 'near'; if (FAR.test(l)) return 'far'; return 'check'; };
 
