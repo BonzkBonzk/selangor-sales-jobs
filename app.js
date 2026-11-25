@@ -214,6 +214,8 @@
     return true;
   };
 
+  // 无兴趣只存精简资料（列表用 jobs.json 的完整资料），省同步空间：Google Sheet 一格上限 50,000 字
+  const lite = j => ({ url:j.url, title:j.title, company:j.company, location:j.location, region:j.region, role:j.role, source:j.source, postedAt:j.postedAt, firstSeen:j.firstSeen, salary:j.salary });
   const snapshot = j => ({ url:j.url, title:j.title, company:j.company, location:j.location, region:j.region, role:j.role, source:j.source,
     postedAt:j.postedAt, salary:j.salary, basic:j.basic, commission:j.commission, commissionType:j.commissionType, summary:j.summary, sector:j.sector, requirements:j.requirements });
 
@@ -387,7 +389,7 @@
     });
     $('b-ni').onclick = () => {
       if (ni) { drop(p, 'ni', j.url); toast('已恢复到列表'); }
-      else { put(p, 'ni', j.url, { job: snapshot(j), at: new Date().toISOString() }); drop(p, 'fav', j.url); drop(p, 'prac', j.url); toast('已移到「无兴趣」，职位发布满 30 天后自动清除'); selected = ''; }
+      else { put(p, 'ni', j.url, { job: lite(j), at: new Date().toISOString() }); drop(p, 'fav', j.url); drop(p, 'prac', j.url); toast('已移到「无兴趣」，职位发布满 30 天后自动清除'); selected = ''; }
       save(); render();
     };
     if ($('b-del')) $('b-del').onclick = () => confirmDelete(j, prac && !fav ? 'prac' : (tab === 'prac' ? 'prac' : 'fav'));
@@ -655,7 +657,7 @@
   let syncCfg = null, syncStatus = '未连接', syncTimer, syncing = false, syncAgain = false;
   try { syncCfg = JSON.parse(localStorage.getItem(SYNC_KEY)) || null; } catch {}
   const KINDS = ['fav','prac','ni'];
-  const pick = p => ({ fav:p.fav||{}, prac:p.prac||{}, ni:p.ni||{}, tomb:p.tomb||{}, facts:p.facts||{}, answers:p.answers||{}, factsAt:p.factsAt||0 });
+  const pick = p => ({ fav:p.fav||{}, prac:p.prac||{}, ni:Object.fromEntries(Object.entries(p.ni||{}).map(([u, e]) => [u, { ...e, job: lite(e.job || { url:u }) }])), tomb:p.tomb||{}, facts:p.facts||{}, answers:p.answers||{}, factsAt:p.factsAt||0 });
   const stamp = e => e.upd || Date.parse(e.at) || 0;
   function mergeProfile(a = {}, b = {}) {
     const out = { tomb:{ ...(a.tomb||{}) } };
@@ -694,6 +696,8 @@
       }
       saveLocal();
       if (JSON.stringify(mine) !== JSON.stringify(remote[owner] ? mergeProfile(remote[owner], {}) : null)) {
+        const total = JSON.stringify({ ...remote, [owner]: mine }).length;
+        if (total > 45000) toast('同步资料快满了（' + Math.round(total / 1000) + 'k／50k 字），请清掉一些不需要的收藏或无兴趣，或请 Claude 改同步方式');
         await fetch(syncCfg.url, { method:'POST', headers:{ 'Content-Type':'text/plain;charset=utf-8' }, body: JSON.stringify({ t: syncCfg.t, data: mine }) });
       }
       syncStatus = '已同步 · ' + new Date().toLocaleTimeString('zh-MY', { hour:'2-digit', minute:'2-digit' });
