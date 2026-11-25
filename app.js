@@ -55,7 +55,7 @@
   let data = { jobs:[] }, latestBatch = '', byUrl = new Map(), tab = 'list', selected = '', page = 0, jumpTo = false;
 
   const CATS = {
-    KH: { '':'所有方向', energy:'能源 / Solar', b2b:'企业销售 / B2B', retail:'门店 / 展厅', property:'房地产', auto:'汽车', digital:'数码 / 科技', finance:'金融 / 保险', education:'教育 / 招生', other:'其他销售' },
+    KH: { '':'所有方向', energy:'能源 / Solar', b2b:'企业销售 / B2B', design:'家装 / 设计（高单价）', retail:'门店（备胎）', property:'房地产', auto:'汽车', digital:'数码 / 科技', finance:'金融 / 保险', education:'教育 / 招生', other:'其他销售' },
     JW: { '':'所有类型', jp_service:'日语客服 / 支援', jp_sales:'日语销售 / 业务', jp_translation:'翻译 / 口译', jp_office:'行政 / 财务 / HR', jp_tech:'IT / 技术', jp_other:'其他' }
   };
   const classify = j => {
@@ -70,11 +70,15 @@
     }
     if (j.sector === 'energy' || /solar|太阳能|储能|renewable/i.test(t)) return 'energy';
     if (/property|real estate|房地产|楼盘|物业/i.test(t)) return 'property';
-    if (/car |automotive|汽车|EV |motor|tyre|轮胎/i.test(t)) return 'auto';
+    if (/car |automotive|汽车|\bEV\b|XPENG|BYD|proton|perodua|motor|tyre|轮胎/i.test(t)) return 'auto';
     if (/financ|insurance|wealth|mortgage|理财|保险|金融|房贷/i.test(t)) return 'finance';
     if (/educat|student|招生|升学|课程|school/i.test(t)) return 'education';
     if (/digital|software|saas|erp|AI |IT |科技|软件|数码/i.test(t)) return 'digital';
-    if (/retail|showroom|store|门店|展厅|零售/i.test(t)) return 'retail';
+    // 先排除被误判成门店的：业务开发、渠道、分销、B2B
+    if (/business develop|channel|distribut|分销|经销|B2B|FMCG/i.test(j.title)) return 'b2b';
+    // 家装、厨房、室内设计：要量房、谈方案、跟进，比较接近谈大单
+    if (/kitchen|interior|renovat|sales designer|design consultant|厨房|室内设计|装修|家装/i.test(t)) return 'design';
+    if (/retail|showroom|store|outlet|门店|展厅|零售|promoter|mall/i.test(t)) return 'retail';
     if (/b2b|industrial|engineer|工业|企业|distribut|经销|dealer|logistic|物流|chemical|化工|equipment|设备/i.test(t)) return 'b2b';
     return 'other';
   };
@@ -126,6 +130,11 @@
   const unmetRatio = j => { const rq = required(j); return rq.length ? rq.filter(r => fit(r) === 'no').length / rq.length : 0; };
   const tooFar = j => unmetRatio(j) > 0.2;
 
+  /* ---------- 通勤（从 Taman Equine 出发，按地区粗分，实际以 Google Maps 为准） ---------- */
+  const NEAR = /seri kembangan|serdang|equine|puchong|bukit jalil|sri petaling|kuchai|old klang|jalan klang lama|taman desa|mid ?valley|bangsar south|sungai besi|salak|cheras|balakong|kajang|bangi|cyberjaya|putrajaya|subang jaya|usj|sunway|trx|tun razak|klcc|kuala lumpur city centre|bukit bintang|conlay|ampang park|chan sow lin|taman oug|maluri|pudu|eco city|远程|在家工作|remote/i;
+  const FAR = /kota damansara|damansara perdana|ara damansara|sri damansara|mont ?kiara|kepong|rawang|klang|kapar|setia alam|shah alam|kota kemuning|sepang|klia|gombak|setapak|selayang|batu caves|johor|penang|pulau pinang|perak|ipoh|melaka|negeri sembilan|seremban|sungai buloh|damansara damai|puncak alam|tun dr ismail|ttdi|segambut|glenmarie|wangsa maju/i;
+  const commute = j => { const l = j.location || ''; if (NEAR.test(l)) return 'near'; if (FAR.test(l)) return 'far'; return 'check'; };
+
   /* ---------- 推荐分（软性，只用来排序和提示） ---------- */
   const reasons = j => {
     const t = [j.title, j.summary, j.commission, j.salary, j.basic].join(' ');
@@ -139,13 +148,34 @@
       else out.push(['低于 RM8k', 'warn']);
       if (/native|母语/i.test(t + (j.requirements || []).map(r => r.label).join(' '))) { s -= 1; out.push(['要求母语级', 'warn']); }
     } else {
+      const reqs = j.requirements || [];
+      const reqTxt = reqs.map(r => r.label).join(' ');
+      const cat = classify(j), cm = commute(j);
+      // 通勤：底线单程 1 小时以内
+      if (cm === 'near') { s += 1; out.push(['通勤近', 'good']); }
+      else if (cm === 'far') { s -= 1.5; out.push(['通勤远（可能超过 1 小时）', 'warn']); }
+      else out.push(['通勤要查', '']);
+      // 商场门店：你要离开的那种，留着当备胎
+      if (cat === 'retail') { s -= 2; out.push(['门店（备胎）', 'warn']); }
+      // 有人带：你不放宽的条件
+      if (/train|培训|mentor|coach|guidance|带新人|手把手/i.test(t)) { s += 1.5; out.push(['有提培训', 'good']); }
+      else out.push(['没提培训：面试问有没有人带', '']);
+      // 行业：房地产、太阳能先，汽车其次
+      if (cat === 'property' || cat === 'energy') { s += 1; out.push(['第一批行业', 'good']); }
+      else if (cat === 'auto') s += 0.5;
       if (!pay) out.push(['没写底薪数字', '']);
       if (j.commissionType === 'only') { s += 1; out.push(['纯佣金', 'gold']); }
       if (/uncapped|unlimited|无上限|不封顶|no limit|高佣金|high commission/i.test(t)) { s += 2; out.push(['佣金不封顶 / 高佣金', 'good']); }
-      if (/b2b|project|项目|大客户|key account|solar|太阳能|property|房地产|equipment|设备/i.test(t)) { s += 1; out.push(['能学开发客户／谈大单', 'good']); }
+      if (/group commission|team commission|shared commission|团体佣金|团队佣金/i.test(t)) { s -= 1.5; out.push(['团体佣金', 'warn']); }
+      if (/project|项目|大客户|solar|太阳能|property|房地产|kitchen|interior|室内设计|厨房/i.test(t)) { s += 1; out.push(['能学开发客户／谈大单', 'good']); }
       if (/referr|renew|recurring|续约|转介绍|售后|after-sales|长期关系|portfolio/i.test(t)) { s += 1; out.push(['客户能累积', 'good']); }
-      if (/train|培训|mentor|coach/i.test(t)) { s += 0.5; out.push(['有培训', '']); }
-      if (/6 天|six \(6\)|6 days|周末须上班|每周工作 6/i.test(t + (j.requirements || []).map(r => r.label).join(' '))) { s -= 0.5; out.push(['每周 6 天', 'warn']); }
+      // B2B 经验：你没有，有写的往后排
+      if (reqs.some(r => r.key === 'b2b' && !/顾问式/.test(r.label))) { s -= 1; out.push(['要 B2B 经验（加分项）', 'warn']); }
+      // 语言：华语是强项；英语流利／马来语母语可能吃力
+      if (reqs.some(r => canon(r) === 'mandarin')) { s += 0.5; out.push(['要华语（你的强项）', 'good']); }
+      if (reqs.some(r => ['english', 'malay'].includes(canon(r)) && /流利|fluent|母语|native|简报|presentation|excellent|优秀/i.test(r.label))) out.push(['英语／马来语要求高，可能吃力', 'warn']);
+      if (/6 天|six \(6\)|6 days|周末须上班|每周工作 6/i.test(t + reqTxt)) { s -= 0.5; out.push(['每周 6 天', 'warn']); }
+      out.push(['面试问：佣金是个人还是团体', '']);
     }
     const rq = required(j);
     if (rq.length) { const ok = rq.filter(r => fit(r) === 'yes').length; s += 2 * ok / rq.length; }
@@ -272,7 +302,7 @@
         <span class="row1">${isNew ? '<em class="new">NEW</em>' : ''}${p.fav[j.url] ? '<em class="heart">❤</em>' : ''}${p.prac[j.url] ? '<em class="prac">🎯</em>' : ''}<strong>${esc(j.title)}</strong></span>
         <span class="co">${esc(j.company)} · ${esc(j.location || '')}</span>
         <span class="row3"><b${j.salary ? '' : ' class="nopay"'}>${esc(j.salary || (j.commission ? '没写底薪 · ' + j.commission : '原帖没写薪资'))}</b><i>${esc(when(j))}</i></span>
-        <span class="tags">${tab === 'hidden' ? required(j).filter(x => fit(x) === 'no').map(x => chip('× ' + x.label.slice(0, 18), 'warn')).join('') : ''}${chip(j.source)}${j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${st ? chip(st + ((tab === 'fav' || tab === 'prac') && p[tab][j.url]?.appliedAt && st !== '想申请' ? ' · ' + fmtD(p[tab][j.url].appliedAt) + ' 申请' : ''),'green') : ''}${expired ? chip('已超过 30 天','warn') : ''}${tab === 'list' ? r.tags.slice(0,2).map(t => chip(t[0], t[1])).join('') : ''}</span>
+        <span class="tags">${tab === 'hidden' ? required(j).filter(x => fit(x) === 'no').map(x => chip('× ' + x.label.slice(0, 18), 'warn')).join('') : ''}${chip(j.source)}${j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${st ? chip(st + ((tab === 'fav' || tab === 'prac') && p[tab][j.url]?.appliedAt && st !== '想申请' ? ' · ' + fmtD(p[tab][j.url].appliedAt) + ' 申请' : ''),'green') : ''}${expired ? chip('已超过 30 天','warn') : ''}${tab === 'list' ? r.tags.slice(0,3).map(t => chip(t[0], t[1])).join('') : ''}</span>
       </button>`;
     }).join('') : `<p class="empty">${tab === 'fav' ? '还没有收藏。点职位右边的 ❤ 收藏。' : tab === 'prac' ? '还没有练习的职位。<br>想把某个职位的面试当练习，就在职位右边点「🎯 练习」。和收藏一样可以记已申请、面试中和备注，超过 30 天也会保留。' : tab === 'ni' ? '没有标记无兴趣的职位。' : tab === 'hidden' ? '目前没有职位被移到这里。<br>在「我的条件」把做不到的条件标 ×（例如「日语母语级」「有效汽车驾照」），必需条件里 × 超过 20% 的职位就会自动移到这里，不会删掉。<br><button class="primary" id="go-set">打开我的条件</button>' : '没有符合筛选的职位，试试放宽地区或薪资。'}</p>`) + pagerBot;
     $('list').querySelectorAll('.f-per').forEach(el => el.onchange = () => { P().f.per = +el.value; page = 0; save(); render(); });
