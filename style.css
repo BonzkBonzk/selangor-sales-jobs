@@ -323,8 +323,8 @@ h1{font-size:24px}
 /* 双栏 35／65 */
 .split{grid-template-columns:minmax(320px,35%) 1fr;gap:var(--sp-5)}
 .item{padding:10px 12px}
-.item.sel{background:var(--brand-2);box-shadow:inset 3px 0 0 var(--brand)}
-.item.sel:hover{background:var(--brand-2)}
+.item.sel{background:#e2efe7;box-shadow:inset 3px 0 0 var(--brand)}
+.item.sel:hover{background:#e2efe7}
 /* 详情 */
 .detail h2{margin:0 0 4px}
 .detail .co b{font-weight:600;color:var(--ink-2)}
