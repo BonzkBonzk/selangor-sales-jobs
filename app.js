@@ -517,15 +517,17 @@
     }
     return [...m.values()].sort((a, b) => b.n - a.n);
   }
-  function settings() {
+  function settings(mode = 'cond') {
     const p = P();
     const stats = conditionStats();
     const row = e => { const v = fit(e.sample); return `<li><span class="lbl">${esc(e.label)} <small>${e.n} 个职位</small></span><span class="tri" data-k="${esc(e.k)}">${[['yes','✓'],['no','×'],['unknown','～']].map(([x,t]) => `<button data-v="${x}" class="${v === x ? 'on ' + x : ''}">${t}</button>`).join('')}</span></li>`; };
     const top = stats.filter(e => e.n >= 2), rest = stats.filter(e => e.n < 2);
-    modal(`我的条件（${store.profile}）`, `
-      ${readOnly() ? `<p class="ro">👀 这是 ${store.profile} 的条件，只能看。</p>` : ''}<p class="hint">按出现次数排列。标 × 的条件，在一个职位的必需条件里超过 20%，这个职位就会移到「不太符合」。改一次，所有职位一起更新。</p>
+    modal(`${mode === 'set' ? '设置' : '我的条件'}（${store.profile}）`, `
+      <div id="m-cond"${mode === 'set' ? ' hidden' : ''}>
+      ${readOnly() ? `<p class="ro">👀 这是 ${store.profile} 的条件，只能看。</p>` : ''}<p class="hint">必需条件 × 超过 20% 的职位会移到「不太符合」。</p>
       <ul class="reqs">${top.map(row).join('')}</ul>
       ${rest.length ? `<details><summary>只出现一次的条件（${rest.length}）</summary><ul class="reqs">${rest.map(row).join('')}</ul></details>` : ''}
+      </div><div id="m-set"${mode === 'set' ? '' : ' hidden'}>
       <h3 id="set-sync">和对方同步</h3>
       <p class="hint">每人一个同步码：填自己的码，就能在所有设备同步自己的收藏、练习、无兴趣和勾选；切到对方的档案可以看，但不能改。同步码只存在这个浏览器，不要给别人。</p>
       <div class="sync-row"><input id="m-sync" type="password" placeholder="贴上同步码" value="${esc(syncCfg ? syncCfg.raw : '')}"><button id="m-sync-go">${syncCfg ? '更新' : '连接'}</button>${syncCfg ? '<button id="m-sync-off">停止同步</button>' : ''}</div>
@@ -536,7 +538,7 @@
       <p class="hint">iPhone：设置 → 日历 → 账户 → 添加账户 → 其他 → 添加已订阅的日历 → 贴上链接。<br>Mac：日历 App → 文件 → 新建日历订阅 → 贴上链接，自动刷新选「每 15 分钟」或「每小时」。</p>` : '<p class="hint">先在上面填同步码，才能订阅日历。也可以在每个面试旁边按 🗓 下载单个日历档。</p>'}
       <h3>备份与换设备</h3>
       <p class="hint">收藏、无兴趣和勾选只存在这个浏览器。换手机或电脑前，先导出，再到新设备导入。</p>
-      <div class="actions"><button id="m-exp">导出备份</button><label class="filebtn">导入备份<input id="m-imp" type="file" accept="application/json"></label><button id="m-reset">清除这个档案的勾选</button></div>`);
+      <div class="actions"><button id="m-exp">导出备份</button><label class="filebtn">导入备份<input id="m-imp" type="file" accept="application/json"></label><button id="m-reset">清除这个档案的勾选</button></div></div>`);
     if ($('m-cal-copy')) $('m-cal-copy').onclick = async () => { try { await navigator.clipboard.writeText($('m-cal').value); toast('已复制日历链接'); } catch { $('m-cal').select(); toast('请手动复制'); } };
     $('m-sync-go').onclick = async () => {
       const raw = $('m-sync').value.trim(); const i = raw.lastIndexOf('#');
@@ -670,7 +672,7 @@
     addEventListener('resize', () => renderCal());
   }
   $('open-settings').onclick = () => settings();
-  $('open-prefs').onclick = () => { settings(); $('modal-title').textContent = `设置（${store.profile}）`; $('set-sync')?.scrollIntoView({ block:'start' }); };
+  $('open-prefs').onclick = () => settings('set');
 
   /* ---------- 同步（Google Apps Script） ---------- */
   const SYNC_KEY = 'ssd.sync';
