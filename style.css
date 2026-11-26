@@ -308,3 +308,40 @@ h1{font-size:24px}
   .f-main{flex-wrap:wrap}.f-main .search{flex-basis:100%}
   .money{grid-template-columns:1fr 1fr}
 }
+
+/* ===== v4（2026-11-26 用户版面要求） ===== */
+/* 顶栏：左 Job，右 档案切换／我的条件／设置 */
+.flat.icon{width:34px;padding:6px 0;text-align:center;font-size:15px}
+/* 标题行：标题、新职位、同步同一行 */
+.intro{display:flex;align-items:baseline;gap:var(--sp-3);flex-wrap:wrap;padding:var(--sp-4) 0 0}
+.intro h1{margin:0}
+.intro .news{margin:0}
+.intro .meta{margin-left:auto;flex-direction:row}
+.tabs{margin-top:var(--sp-2)}
+/* 筛选：搜索在左，薪资和排序在旁边，其余在筛选区 */
+.f-main select{flex:none}
+/* 双栏 35／65 */
+.split{grid-template-columns:minmax(320px,35%) 1fr;gap:var(--sp-5)}
+.item{padding:10px 12px}
+.item.sel{background:var(--brand-2);box-shadow:inset 3px 0 0 var(--brand)}
+.item.sel:hover{background:var(--brand-2)}
+/* 详情 */
+.detail h2{margin:0 0 4px}
+.detail .co b{font-weight:600;color:var(--ink-2)}
+.detail .d-head .tags{margin-top:6px}
+.actions{gap:6px;margin:var(--sp-4) 0 0}
+.actions .btn{display:inline-flex;align-items:center;gap:4px;background:var(--soft);color:var(--ink);text-decoration:none;border-radius:10px;padding:7px 12px;font-size:var(--fs-sm)}
+.actions .btn:hover{background:#e6e6ea}
+.actions .agency{font-size:var(--fs-sm);color:var(--mute);padding:7px 4px}
+.actions .act-gap{flex:1 1 8px}
+.actions button,.actions select,.actions .primary{font-size:var(--fs-sm)}
+.facts,.match{margin-top:var(--sp-5)}
+.detail h3{margin-top:0}
+.detail h4{font-size:var(--fs-xs);font-weight:600;color:var(--mute);margin:var(--sp-3) 0 2px;letter-spacing:.02em}
+.match .src i{font-style:normal}.match .src .ok{color:var(--brand)}.match .src .bad{color:var(--warn)}
+.detail section:not(.facts):not(.match){margin-top:var(--sp-5)}
+@media (max-width:860px){
+  .intro .meta{margin-left:0}
+  .split{grid-template-columns:1fr}
+  .actions .act-gap{display:none}
+}

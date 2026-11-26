@@ -139,10 +139,10 @@
   const AGENCY = /猎头|private advertiser|agensi pekerjaan|nexpipo|persol|michael page|randstad|hays|hunters international|mindpec/i;
   const companyLinks = j => {
     const name = String(j.company || '').replace(/（[^）]*）|\([^)]*\)/g, '').trim();
-    if (!name || AGENCY.test(j.company || '')) return '<span class="hint">🕵️ 猎头／未具名公司</span>';
+    if (!name || AGENCY.test(j.company || '')) return '<span class="agency">🕵️ 猎头／未具名公司</span>';
     const g = q => 'https://www.google.com/search?q=' + encodeURIComponent(q);
-    return `<a href="${esc(g('"' + name + '" Malaysia'))}" target="_blank" rel="noopener noreferrer">🔎 查公司</a>`
-      + ` · <a href="${esc(g(name + ' jobstreet company reviews'))}" target="_blank" rel="noopener noreferrer">💬 公司评价</a>`;
+    return `<a class="btn" href="${esc(g('"' + name + '" Malaysia'))}" target="_blank" rel="noopener noreferrer">🔎 查公司</a>`
+      + `<a class="btn" href="${esc(g(name + ' jobstreet company reviews'))}" target="_blank" rel="noopener noreferrer">💬 公司评价</a>`;
   };
 
   /* ---------- 推荐分（软性，只用来排序和提示） ---------- */
@@ -271,7 +271,7 @@
     $('f-pay').value = f.pay || '';
     $('f-only').checked = !!f.only;
     $('f-latest').checked = !!f.latest;
-    { const n = [f.pay, f.min, f.max, f.latest, !isJW() && f.only].filter(Boolean).length; $('adv-n').textContent = n ? ' · ' + n : ''; $('adv-btn').classList.toggle('active', n > 0); }
+    { const n = [f.min, f.max, f.latest, !isJW() && f.only].filter(Boolean).length; $('adv-n').textContent = n ? ' · ' + n : ''; $('adv-btn').classList.toggle('active', n > 0); }
     $('q').value = f.q || '';
 
     const g = groups();
@@ -349,13 +349,14 @@
     const stageSel = (kind, rec) => `<select class="stage" data-kind="${kind}" aria-label="${kind === 'fav' ? '收藏' : '练习'}的跟进状态">${STAGES.map(s => `<option${rec.stage === s ? ' selected' : ''}>${s}</option>`).join('')}</select>`;
     box.innerHTML = `
       <div class="d-head">
-        <div class="tags">${chip(j.source)}${j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${gone ? chip('已超过 30 天／已下架','warn') : ''}</div>
         <h2>${esc(j.title)}</h2>
-        <p class="co">${esc(j.company)} · ${esc(j.location || '')} · ${esc(when(j))}</p>
-        <p class="colinks">${companyLinks(j)}</p>
+        <p class="co"><b>${esc(j.company)}</b> · ${esc(j.location || '')} · ${esc(when(j))} · ${esc(j.source)}</p>
+        ${j.commissionType === 'only' || gone ? `<div class="tags">${j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${gone ? chip('已超过 30 天／已下架','warn') : ''}</div>` : ''}
         ${readOnly() ? `<p class="ro">👀 这是 ${store.profile} 的档案，只能看，不能改。${fav ? ' · ❤ 已收藏' + (fav.stage ? '（' + esc(fav.stage) + '）' : '') : ''}${prac ? ' · 🎯 练习' + (prac.stage ? '（' + esc(prac.stage) + '）' : '') : ''}</p>` : ''}
         <div class="actions${readOnly() ? ' ro-hide' : ''}">
           <a class="primary" href="${esc(j.url)}" target="_blank" rel="noopener noreferrer">打开原帖 ↗</a>
+          ${companyLinks(j)}
+          <span class="act-gap"></span>
           <button data-kind="fav" class="keep ${fav ? 'on' : ''}">${fav ? '❤ 已收藏' : '♡ 收藏'}</button>
           ${fav ? stageSel('fav', fav) : ''}
           <button data-kind="prac" class="keep ${prac ? 'on prac' : ''}">${prac ? '🎯 已加入练习' : '🎯 练习'}</button>
@@ -374,14 +375,15 @@
         </div>
         <p class="verified">✓ 已核对原帖 · ${esc(fmtShort(j.checkedAt || j.firstSeen))}${j.datePending ? ' · 发布日期待核对' : ''}</p>
       </section>
+      <section><h3>工作内容</h3><p>${esc(j.summary || '—')}</p></section>
+      <section class="match">
+        <h3>条件匹配 ${rq.length ? `<span class="src">必需 ${rq.length} 项 · <i class="ok">✓ ${rq.filter(x => fit(x) === 'yes').length}</i> · <i class="bad">× ${rq.filter(x => fit(x) === 'no').length}</i> · ～ ${rq.filter(x => fit(x) === 'unknown').length}</span>` : ''}</h3>
+        ${reqs.length ? [['必需', false], ['加分项', true]].map(([title, pref]) => { const list = reqs.map((x, i) => [x, i]).filter(([x]) => !!x.preferred === pref); return list.length ? `<h4>${title}</h4><ul class="reqs">${list.map(([x, i]) => { const v = fit(x); return `<li><span class="lbl">${esc(x.label)}</span>
+          <span class="tri" data-i="${i}">${[['yes','✓'],['no','×'],['unknown','～']].map(([k,t]) => `<button data-v="${k}" class="${v === k ? 'on ' + k : ''}" aria-label="${k}">${t}</button>`).join('')}</span></li>`; }).join('')}</ul>` : ''; }).join('') : '<p class="unk">原帖没有列出具体条件</p>'}
+      </section>
       <section class="facts">
         <h3>推断 <span class="src">AI 判断，只影响排序</span></h3>
         <div class="why">${chip(CATS[store.profile][classify(j)] || '', 'green')}${r.tags.map(t => chip(t[0], t[1])).join('')}</div>
-      </section>
-      <section><h3>工作内容</h3><p>${esc(j.summary || '—')}</p></section>
-      <section><h3>条件</h3>
-        ${reqs.length ? `<ul class="reqs">${reqs.map((x, i) => { const v = fit(x); return `<li><span class="lbl">${esc(x.label)}${x.preferred ? ' <em>加分项</em>' : ''}</span>
-          <span class="tri" data-i="${i}">${[['yes','✓'],['no','×'],['unknown','～']].map(([k,t]) => `<button data-v="${k}" class="${v === k ? 'on ' + k : ''}" aria-label="${k}">${t}</button>`).join('')}</span></li>`; }).join('')}</ul>` : '<p>原帖没有列出具体条件。</p>'}
       </section>
       ${fav ? `<section><h3>收藏备注</h3><textarea class="note" data-kind="fav"${readOnly() ? ' readonly' : ''} rows="3" placeholder="面试时间、联系人、想问的问题…">${esc(fav.note || '')}</textarea></section>` : ''}
       ${(fav || prac) ? progressHTML(j, fav, prac) : ''}
@@ -524,7 +526,7 @@
       ${readOnly() ? `<p class="ro">👀 这是 ${store.profile} 的条件，只能看。</p>` : ''}<p class="hint">按出现次数排列。标 × 的条件，在一个职位的必需条件里超过 20%，这个职位就会移到「不太符合」。改一次，所有职位一起更新。</p>
       <ul class="reqs">${top.map(row).join('')}</ul>
       ${rest.length ? `<details><summary>只出现一次的条件（${rest.length}）</summary><ul class="reqs">${rest.map(row).join('')}</ul></details>` : ''}
-      <h3>和对方同步</h3>
+      <h3 id="set-sync">和对方同步</h3>
       <p class="hint">每人一个同步码：填自己的码，就能在所有设备同步自己的收藏、练习、无兴趣和勾选；切到对方的档案可以看，但不能改。同步码只存在这个浏览器，不要给别人。</p>
       <div class="sync-row"><input id="m-sync" type="password" placeholder="贴上同步码" value="${esc(syncCfg ? syncCfg.raw : '')}"><button id="m-sync-go">${syncCfg ? '更新' : '连接'}</button>${syncCfg ? '<button id="m-sync-off">停止同步</button>' : ''}</div>
       <p class="hint" id="m-sync-status">${esc(syncStatus)}</p>
@@ -667,7 +669,8 @@
     });
     addEventListener('resize', () => renderCal());
   }
-  $('open-settings').onclick = settings;
+  $('open-settings').onclick = () => settings();
+  $('open-prefs').onclick = () => { settings(); $('modal-title').textContent = `设置（${store.profile}）`; $('set-sync')?.scrollIntoView({ block:'start' }); };
 
   /* ---------- 同步（Google Apps Script） ---------- */
   const SYNC_KEY = 'ssd.sync';
