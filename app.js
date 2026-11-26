@@ -322,7 +322,7 @@
     renderCal();
 
     const upd = data.updatedAt ? new Date(data.updatedAt).toLocaleString('zh-MY', { timeZone:'Asia/Kuala_Lumpur', month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit' }) : '—';
-    $('meta').innerHTML = `<span id="sync-badge" title="${esc(syncStatus)}">${syncCfg ? (syncStatus.startsWith('已同步') ? '⟳ 已同步' + (syncCfg.owner ? '（我是 ' + syncCfg.owner + '）' : '') : '⚠ 未同步') : ''}</span>`;
+    $('meta').innerHTML = `<span id="sync-badge" title="${esc(syncStatus)}">${syncCfg ? (syncStatus.startsWith('已同步') ? '✓ 已同步' : '⚠︎ 未同步') : ''}</span>`;
     const newCount = g.list.filter(isNewJob).length;
     const latestTxt = latest ? new Date(latest).toLocaleDateString('zh-MY', { timeZone:'Asia/Kuala_Lumpur', month:'numeric', day:'numeric' }) : '';
     $('news').hidden = !newCount;
@@ -358,9 +358,9 @@
         </div>
       </div>
       <div class="money">
-        <div><span>薪资</span><b>${esc(j.salary || '—')}</b></div>
-        <div><span>底薪</span><b>${esc(j.basic || '—')}</b></div>
-        <div><span>佣金</span><b>${esc(j.commission || (j.role === 'japanese' ? '—' : '有佣金'))}</b></div>
+        <div><span>💰 薪资</span><b>${esc(j.salary || '—')}</b></div>
+        ${j.basic ? `<div><span>底薪</span><b>${esc(j.basic)}</b></div>` : ''}
+        ${j.role === 'japanese' && !j.commission ? '' : `<div><span>佣金</span><b>${esc(j.commission || '有佣金')}</b></div>`}
       </div>
       ${r.tags.length ? `<div class="why">${r.tags.map(t => chip(t[0], t[1])).join('')}</div>` : ''}
       <section><h3>工作内容</h3><p>${esc(j.summary || '—')}</p></section>
@@ -709,7 +709,7 @@
       if (loud) toast(syncStatus);
     } finally {
       syncing = false;
-      const el = $('sync-badge'); if (el) { el.textContent = syncCfg ? (syncStatus.startsWith('已同步') ? '⟳ 已同步' + (syncCfg.owner ? '（我是 ' + syncCfg.owner + '）' : '') : '⚠ 未同步') : ''; el.title = syncStatus; }
+      const el = $('sync-badge'); if (el) { el.textContent = syncCfg ? (syncStatus.startsWith('已同步') ? '✓ 已同步' : '⚠︎ 未同步') : ''; el.title = syncStatus; }
       if (syncAgain) { syncAgain = false; queueSync(); }
     }
   }
