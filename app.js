@@ -139,7 +139,7 @@
   const AGENCY = /猎头|private advertiser|agensi pekerjaan|nexpipo|persol|michael page|randstad|hays|hunters international|mindpec/i;
   const companyLinks = j => {
     const name = String(j.company || '').replace(/（[^）]*）|\([^)]*\)/g, '').trim();
-    if (!name || AGENCY.test(j.company || '')) return '<span class="hint">🕵️ 招聘方是猎头或未具名，面试前问清楚是哪家公司</span>';
+    if (!name || AGENCY.test(j.company || '')) return '<span class="hint">🕵️ 猎头／未具名公司</span>';
     const g = q => 'https://www.google.com/search?q=' + encodeURIComponent(q);
     return `<a href="${esc(g('"' + name + '" Malaysia'))}" target="_blank" rel="noopener noreferrer">🔎 查公司</a>`
       + ` · <a href="${esc(g(name + ' jobstreet company reviews'))}" target="_blank" rel="noopener noreferrer">💬 公司评价</a>`;
@@ -202,12 +202,7 @@
   const passFilters = j => {
     const f = P().f;
     const inKLV = j.region === 'selangor' || j.region === 'kl';
-    if (f.area === 'klv' && !inKLV) return false;
-    if (f.area === 'selangor' && j.region !== 'selangor') return false;
-    if (f.area === 'kl' && j.region !== 'kl') return false;
-    if (f.area === 'other' && inKLV) return false;
-    if (f.cat && classify(j) !== f.cat) return false;
-    if (f.src && j.source !== f.src) return false;
+    if (!inKLV) return false; // 只看雪兰莪 + 吉隆坡（地区、方向、来源筛选已拿掉）
     if (f.latest && !(latestBatch && j.batch === latestBatch)) return false;
     if (!isJW() && f.only && j.commissionType !== 'only') return false;
     if (f.pay === 'yes' && !hasPay(j)) return false;
@@ -267,11 +262,7 @@
     document.querySelectorAll('[data-profile]').forEach(b => b.classList.toggle('on', b.dataset.profile === store.profile));
     document.querySelectorAll('[data-tab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
     $('title').textContent = isJW() ? '日语职位' : '销售职位';
-    $('subtitle').textContent = isJW() ? '雪兰莪 + 吉隆坡 · 全职 · 原帖要求日语 · 日语客服、月薪 RM8,000 以上排前面 · 没写薪资的另列在后面' : '雪兰莪 + 吉隆坡 · 全职 · 原帖写明有佣金 · 佣金不封顶排前面 · 没写底薪数字的另列在后面';
     $('only-comm-wrap').hidden = isJW();
-    $('f-cat').innerHTML = Object.entries(CATS[store.profile]).map(([k,v]) => `<option value="${k}"${k === (f.cat || '') ? ' selected' : ''}>${v}</option>`).join('');
-    $('f-area').value = f.area ?? 'klv';
-    $('f-src').value = f.src || '';
     $('f-sort').value = f.sort || 'score';
     $('f-min').value = f.min || ''; $('f-max').value = f.max || '';
     $('f-pay').value = f.pay || '';
@@ -331,7 +322,7 @@
     renderCal();
 
     const upd = data.updatedAt ? new Date(data.updatedAt).toLocaleString('zh-MY', { timeZone:'Asia/Kuala_Lumpur', month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit' }) : '—';
-    $('meta').innerHTML = `<span id="sync-badge" title="${esc(syncStatus)}">${syncCfg ? (syncStatus.startsWith('已同步') ? '⟳ 已同步' + (syncCfg.owner ? '（我是 ' + syncCfg.owner + '）' : '') : '⚠ 未同步') : ''}</span><span>资料更新：${esc(upd)}</span><span>手动更新（不定期）</span>`;
+    $('meta').innerHTML = `<span id="sync-badge" title="${esc(syncStatus)}">${syncCfg ? (syncStatus.startsWith('已同步') ? '⟳ 已同步' + (syncCfg.owner ? '（我是 ' + syncCfg.owner + '）' : '') : '⚠ 未同步') : ''}</span>`;
     const newCount = g.list.filter(isNewJob).length;
     const latestTxt = latest ? new Date(latest).toLocaleDateString('zh-MY', { timeZone:'Asia/Kuala_Lumpur', month:'numeric', day:'numeric' }) : '';
     $('news').hidden = !newCount;
@@ -371,12 +362,11 @@
         <div><span>底薪</span><b>${esc(j.basic || '原帖未单独写')}</b></div>
         <div><span>佣金</span><b>${esc(j.commission || (j.role === 'japanese' ? '—' : '有佣金'))}</b></div>
       </div>
-      ${r.tags.length ? `<div class="why"><span>为什么排在这里</span>${r.tags.map(t => chip(t[0], t[1])).join('')}<small>只是参考，不是结论。</small></div>` : ''}
+      ${r.tags.length ? `<div class="why">${r.tags.map(t => chip(t[0], t[1])).join('')}</div>` : ''}
       <section><h3>工作内容</h3><p>${esc(j.summary || '—')}</p></section>
-      <section><h3>条件 <small>${rq.length ? `必需 ${rq.length} 项，× ${pct}%` : ''}</small></h3>
+      <section><h3>条件</h3>
         ${reqs.length ? `<ul class="reqs">${reqs.map((x, i) => { const v = fit(x); return `<li><span class="lbl">${esc(x.label)}${x.preferred ? ' <em>加分项</em>' : ''}</span>
           <span class="tri" data-i="${i}">${[['yes','✓'],['no','×'],['unknown','～']].map(([k,t]) => `<button data-v="${k}" class="${v === k ? 'on ' + k : ''}" aria-label="${k}">${t}</button>`).join('')}</span></li>`; }).join('')}</ul>` : '<p>原帖没有列出具体条件。</p>'}
-        <p class="hint">同一个条件在所有职位同步。必需条件 × 超过 20% 会移到「不太符合」，刚好 20% 仍显示。</p>
       </section>
       ${fav ? `<section><h3>收藏备注</h3><textarea class="note" data-kind="fav"${readOnly() ? ' readonly' : ''} rows="3" placeholder="面试时间、联系人、想问的问题…">${esc(fav.note || '')}</textarea></section>` : ''}
       ${(fav || prac) ? progressHTML(j, fav, prac) : ''}
@@ -564,7 +554,7 @@
 
   /* ---------- 事件 ---------- */
   const bindF = (id, key, fn = e => e.target.value) => $(id).addEventListener(id === 'q' ? 'input' : 'change', e => { P().f[key] = fn(e); page = 0; save(); render(); });
-  bindF('q','q'); bindF('f-cat','cat'); bindF('f-area','area'); bindF('f-src','src'); bindF('f-sort','sort');
+  bindF('q','q'); bindF('f-sort','sort');
   bindF('f-pay','pay'); bindF('f-min','min', e => +e.target.value || 0); bindF('f-max','max', e => +e.target.value || 0);
   bindF('f-only','only', e => e.target.checked);
   bindF('f-latest','latest', e => e.target.checked);
@@ -729,8 +719,6 @@
 
   fetch('jobs.json', { cache:'no-cache' }).then(r => r.json()).then(d => {
     data = d; byUrl = new Map(d.jobs.map(j => [j.url, j])); latestBatch = d.jobs.reduce((m, j) => (j.batch || '') > m ? j.batch : m, '');
-    const srcs = [...new Set(d.jobs.map(j => j.source))].sort();
-    $('f-src').innerHTML = '<option value="">所有来源</option>' + srcs.map(s => `<option>${esc(s)}</option>`).join('');
     for (const pr of ['KH','JW']) { const keep = store.profile; store.profile = pr; const p = P(); if (!p.lastVisit || Date.now() - Date.parse(p.lastVisit) > 6 * 3600000) { p.prevVisit = p.lastVisit || ''; p.lastVisit = new Date().toISOString(); } purge(); store.profile = keep; }
     save(); render(); syncNow();
   }).catch(() => { $('list').innerHTML = '<p class="empty">资料读取失败，请稍后刷新。</p>'; });

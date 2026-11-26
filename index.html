@@ -6,8 +6,8 @@
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#f3f5f1">
 <title>Job</title>
-<link rel="stylesheet" href="style.css?v=20261126">
-<script defer src="app.js?v=20261126"></script>
+<link rel="stylesheet" href="style.css?v=20261126b">
+<script defer src="app.js?v=20261126b"></script>
 </head>
 <body>
 <header class="top"><div class="shell top-inner">
@@ -22,7 +22,6 @@
   <section class="intro">
     <div>
       <h1 id="title">销售职位</h1>
-      <p id="subtitle">雪兰莪优先 · 全职 · 有佣金</p>
     </div>
     <div class="meta" id="meta"></div>
   </section>
@@ -39,10 +38,7 @@
 
   <section class="filters" aria-label="筛选">
     <label class="search"><span aria-hidden="true">⌕</span><input id="q" type="search" placeholder="搜职位、公司、地区、关键词"></label>
-    <select id="f-cat" aria-label="方向"></select>
-    <select id="f-area" aria-label="地区"><option value="klv">雪兰莪 + 吉隆坡</option><option value="selangor">只看雪兰莪</option><option value="kl">只看吉隆坡</option><option value="">全马</option><option value="other">其他州属</option></select>
-    <select id="f-src" aria-label="来源"><option value="">所有来源</option></select>
-    <select id="f-pay" aria-label="薪资"><option value="">薪资：全部（写明的排前面）</option><option value="yes">只看写明薪资</option><option value="no">只看没写薪资</option></select>
+    <select id="f-pay" aria-label="薪资"><option value="">薪资：全部</option><option value="yes">只看写明薪资</option><option value="no">只看没写薪资</option></select>
     <select id="f-sort" aria-label="排序"><option value="score">推荐优先</option><option value="new">最新发布</option><option value="pay">广告薪资高</option></select>
     <div class="pay">
       <span>月薪 RM</span>
@@ -59,11 +55,6 @@
     <article id="detail" class="detail" aria-label="职位详情"></article>
   </section>
 
-  <footer>
-    <span>✓ 符合　× 不符合　～ 待确认 · 必需条件 × 超过 20% 移到「不太符合」</span>
-    <span>只列近 30 天发布的全职职位，没写薪资的另列在后面 · 收藏和练习不会自动删除 · 无兴趣的职位在发布满 30 天后自动清除</span>
-    <span>勾选、收藏、练习、进度记录存在这个浏览器；在「我的条件」填同步码后会自动同步到另一台设备，也能订阅 Apple 日历。</span>
-  </footer>
 </main>
 
 <dialog id="modal"><form method="dialog" class="dialog-head"><h2 id="modal-title"></h2><button class="flat" aria-label="关闭">✕</button></form><div id="modal-body"></div></dialog>
