@@ -135,6 +135,16 @@
   const FAR = /kota damansara|damansara perdana|ara damansara|sri damansara|mont ?kiara|kepong|rawang|klang|kapar|setia alam|shah alam|kota kemuning|sepang|klia|gombak|setapak|selayang|batu caves|johor|penang|pulau pinang|perak|ipoh|melaka|negeri sembilan|seremban|sungai buloh|damansara damai|puncak alam|tun dr ismail|ttdi|segambut|glenmarie|wangsa maju/i;
   const commute = j => { const l = j.location || ''; if (NEAR.test(l)) return 'near'; if (FAR.test(l)) return 'far'; return 'check'; };
 
+  /* ---------- 公司链接：自动生成，不另外查资料 ---------- */
+  const AGENCY = /猎头|private advertiser|agensi pekerjaan|nexpipo|persol|michael page|randstad|hays|hunters international|mindpec/i;
+  const companyLinks = j => {
+    const name = String(j.company || '').replace(/（[^）]*）|\([^)]*\)/g, '').trim();
+    if (!name || AGENCY.test(j.company || '')) return '<span class="hint">🕵️ 招聘方是猎头或未具名，面试前问清楚是哪家公司</span>';
+    const g = q => 'https://www.google.com/search?q=' + encodeURIComponent(q);
+    return `<a href="${esc(g('"' + name + '" Malaysia'))}" target="_blank" rel="noopener noreferrer">🔎 查公司</a>`
+      + ` · <a href="${esc(g(name + ' jobstreet company reviews'))}" target="_blank" rel="noopener noreferrer">💬 公司评价</a>`;
+  };
+
   /* ---------- 推荐分（软性，只用来排序和提示） ---------- */
   const reasons = j => {
     const t = [j.title, j.summary, j.commission, j.salary, j.basic].join(' ');
@@ -344,6 +354,7 @@
         <div class="tags">${chip(j.source)}${chip(CATS[store.profile][classify(j)] || '', 'green')}${j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${gone ? chip('已超过 30 天／已下架','warn') : ''}</div>
         <h2>${esc(j.title)}</h2>
         <p class="co">${esc(j.company)} · ${esc(j.location || '')} · ${esc(when(j))}${j.postedAt ? '（' + esc(j.postedAt) + '）' : ''}</p>
+        <p class="colinks">${companyLinks(j)}</p>
         ${readOnly() ? `<p class="ro">👀 这是 ${store.profile} 的档案，只能看，不能改。${fav ? ' · ❤ 已收藏' + (fav.stage ? '（' + esc(fav.stage) + '）' : '') : ''}${prac ? ' · 🎯 练习' + (prac.stage ? '（' + esc(prac.stage) + '）' : '') : ''}</p>` : ''}
         <div class="actions${readOnly() ? ' ro-hide' : ''}">
           <a class="primary" href="${esc(j.url)}" target="_blank" rel="noopener noreferrer">打开原帖 ↗</a>

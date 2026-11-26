@@ -137,3 +137,4 @@ dialog::backdrop{background:rgba(20,28,24,.4)}
 .linkbtn{background:none;border:0;padding:0 0 0 6px;color:var(--brand,#1a7f5a);font:inherit;font-weight:600;cursor:pointer;text-decoration:underline}
 .paysplit{margin:10px 2px 4px;padding:8px 12px;border-radius:var(--r);background:#f4f1ea;color:var(--mute);font-size:13px;font-weight:600}
 .row3 b.nopay{color:var(--mute);font-weight:600}
+.colinks{margin:4px 0 0;font-size:13px}.colinks a{color:var(--brand);text-decoration:none}.colinks a:hover{text-decoration:underline}
