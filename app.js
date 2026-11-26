@@ -52,7 +52,7 @@
   const readOnly = () => { try { const c = JSON.parse(localStorage.getItem('ssd.sync')); return !!(c && c.owner && c.owner !== store.profile); } catch { return false; } };
 
   /* ---------- 数据 ---------- */
-  let data = { jobs:[] }, latestBatch = '', byUrl = new Map(), tab = 'list', selected = '', page = 0, jumpTo = false;
+  let data = { jobs:[] }, latestBatch = '', byUrl = new Map(), tab = 'list', selected = '', page = 0, jumpTo = false, stick = false;
 
   const CATS = {
     KH: { '':'所有方向', energy:'能源 / Solar', b2b:'企业销售 / B2B', design:'家装 / 设计（高单价）', retail:'门店（备胎）', property:'房地产', auto:'汽车', digital:'数码 / 科技', finance:'金融 / 保险', education:'教育 / 招生', other:'其他销售' },
@@ -319,8 +319,11 @@
     });
 
     if ($('go-set')) $('go-set').onclick = settings;
-    if (!view.find(j => j.url === selected)) selected = view[0]?.url || '';
-    renderDetail(view.find(j => j.url === selected));
+    // 在详情里收藏、练习或改条件后，职位可能移到别的分组；详情先停在这个职位，避免下一下点到别的职位
+    let dj = view.find(j => j.url === selected);
+    if (!dj && stick && selected) dj = byUrl.get(selected) || p.fav[selected]?.job || p.prac[selected]?.job;
+    if (!dj) { stick = false; selected = view[0]?.url || ''; dj = view.find(j => j.url === selected); }
+    renderDetail(dj);
     $('detail').insertAdjacentHTML('afterbegin', '<button class="d-back" id="d-back">← 返回列表</button>');
     $('d-back').onclick = closeDetail;
     renderCal();
@@ -398,7 +401,7 @@
       const kind = b.dataset.kind, name = kind === 'fav' ? '收藏' : '练习';
       if (p[kind][j.url]) { if (gone) return confirmDelete(j, kind); drop(p, kind, j.url); toast('已取消' + name); }
       else { put(p, kind, j.url, { job: snapshot(j), at: new Date().toISOString(), stage:'想申请' }); drop(p, 'ni', j.url); toast('已加入「' + name + '」，超过 30 天也会保留'); }
-      save(); render();
+      stick = true; save(); render();
     });
     $('b-ni').onclick = () => {
       if (ni) { drop(p, 'ni', j.url); toast('已恢复到列表'); }
@@ -417,7 +420,7 @@
     });
     box.querySelectorAll('textarea.note').forEach(el => el.onchange = e => { p[el.dataset.kind][j.url].note = e.target.value; touch(p, el.dataset.kind, j.url); save(); });
     box.querySelectorAll('.tri button').forEach(b => b.onclick = () => {
-      const i = +b.parentElement.dataset.i; setFit(reqs[i], b.dataset.v); render();
+      const i = +b.parentElement.dataset.i; setFit(reqs[i], b.dataset.v); stick = true; render();
     });
   }
 
@@ -572,11 +575,11 @@
   bindF('f-latest','latest', e => e.target.checked);
   $('adv-btn').onclick = () => { const el = $('adv'); el.hidden = !el.hidden; $('adv-btn').setAttribute('aria-expanded', String(!el.hidden)); };
   $('news').addEventListener('click', e => { const b = e.target.closest('[data-latest]'); if (!b) return; P().f.latest = b.dataset.latest === '1'; tab = 'list'; page = 0; save(); render(); });
-  document.querySelectorAll('[data-profile]').forEach(b => b.onclick = () => { store.profile = b.dataset.profile; save(); selected = ''; page = 0; purge(); render(); });
-  document.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; selected = ''; page = 0; render(); });
+  document.querySelectorAll('[data-profile]').forEach(b => b.onclick = () => { store.profile = b.dataset.profile; save(); selected = ''; stick = false; page = 0; purge(); render(); });
+  document.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; selected = ''; stick = false; page = 0; render(); });
   $('list').addEventListener('click', e => {
     const it = e.target.closest('.item'); if (!it) return;
-    selected = it.dataset.url; render(); openDetail();
+    selected = it.dataset.url; stick = false; render(); openDetail();
   });
   /* 手机：职位详情全屏打开，返回时列表停在原来的位置 */
   const mobile = () => matchMedia('(max-width: 860px)').matches;
