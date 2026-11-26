@@ -138,3 +138,65 @@ dialog::backdrop{background:rgba(20,28,24,.4)}
 .paysplit{margin:10px 2px 4px;padding:8px 12px;border-radius:var(--r);background:#f4f1ea;color:var(--mute);font-size:13px;font-weight:600}
 .row3 b.nopay{color:var(--mute);font-weight:600}
 .colinks{margin:4px 0 0;font-size:13px}.colinks a{color:var(--brand);text-decoration:none}.colinks a:hover{text-decoration:underline}
+
+/* ===== 2026-11-26 精简样式：少边框、多留白、层次清楚 ===== */
+:root{--bg:#f7f7f5;--line:#ebebe7;--mute:#7a807c;--soft:#f0f0ec}
+body{font-size:15px;line-height:1.6}
+.top{background:rgba(247,247,245,.94);border-bottom:0}
+.brand-mark{width:24px;height:24px;border-radius:7px;font-size:13px}
+.seg{background:var(--soft)}
+.seg button.on{box-shadow:none}
+.flat{border:0;background:var(--soft)}
+.intro{padding:28px 0 6px}
+h1{font-size:26px;font-weight:650;margin:0}
+.meta{font-size:12px}
+.news{background:none;border:0;padding:0;margin:4px 0 0;font-size:14px;color:var(--mute)}
+.news b{color:var(--ink)}
+.tabs{gap:2px;margin:18px 0 8px;border-bottom:1px solid var(--line)}
+.tabs button{border:0;background:none;border-radius:0;padding:8px 12px;color:var(--mute);border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button b{font-weight:400}
+.tabs button[aria-selected=true]{background:none;color:var(--ink);font-weight:600;border-bottom-color:var(--ink)}
+.tabs button[aria-selected=true] b{color:var(--mute)}
+.filters{background:none;border:0;padding:6px 0;gap:10px}
+.filters select,.filters input,.search{border:0;background:var(--soft);border-radius:9px}
+.pay{font-size:13px}
+.pay label{display:flex;align-items:center;gap:4px}
+.split{gap:28px;margin:18px 0 40px}
+.list{gap:0}
+.item{background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:14px 10px;gap:4px}
+.item:hover{background:#fff;border-color:var(--line)}
+.item.sel{background:#fff;border-color:var(--line);box-shadow:inset 3px 0 0 var(--brand);border-radius:0}
+.row1 strong{font-size:15px;font-weight:600}
+.co{font-size:13px}
+.row3{font-size:14px;align-items:baseline}
+.row3 b{font-weight:600}
+.row3 i{font-size:12px}
+.new{background:none;color:var(--brand);padding:0;font-size:11px;letter-spacing:.04em}
+.tags{gap:10px;margin-top:2px}
+.chip{background:none!important;padding:0;font-size:12px;color:var(--mute)}
+.chip.green,.chip.good{color:var(--brand)}
+.chip.gold{color:var(--gold)}
+.chip.warn{color:var(--warn)}
+.detail{border:0;border-radius:16px;padding:28px 30px}
+.detail h2{font-size:22px;font-weight:650;margin:6px 0 4px}
+.detail .d-head .tags{gap:12px}
+.actions{gap:8px;margin:16px 0 6px}
+.actions button,.actions select{border:0;background:var(--soft)}
+.actions .primary{border:0}
+.actions button.on{background:#fbecef;border:0}
+.actions button.on.prac{background:#eef3fb;border:0}
+.money{gap:24px;margin:22px 0 14px}
+.money div{background:none;padding:0}
+.money b{font-weight:600}
+.why{gap:12px;margin:0 0 6px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.detail h3{font-size:13px;font-weight:600;color:var(--mute);margin:22px 0 8px;letter-spacing:.02em}
+.reqs{gap:0}
+.reqs li{border:0;border-bottom:1px solid var(--line);border-radius:0;padding:9px 0}
+.tri button{border:0;background:var(--soft);width:30px;height:28px}
+.paysplit{background:none;border-top:1px solid var(--line);border-radius:0;margin:18px 0 0;padding:14px 10px 4px;font-size:12px;font-weight:500}
+.pager.top{padding:0 10px 6px;font-size:12px}
+.pager button,.pager select{border:0;background:var(--soft)}
+.colinks{font-size:13px;margin-top:2px}
+.panel{border:0}
+.log li{border:0;background:var(--soft)}
+@media (max-width:860px){.detail{border-radius:0;padding:0 16px 40px}.split{gap:0}}
