@@ -350,3 +350,8 @@ h1{font-size:24px}
   body.dopen .detail{align-self:stretch;height:100%;max-height:none;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
   body.dopen{overflow:hidden}
 }
+/* 修：手机双击快时会放大。关掉双击缩放（两指缩放仍可用）；iPhone 输入框／选单 16px 以下会自动放大，手机上改 16px */
+html,body,button,select,input,a,label,.item{touch-action:manipulation}
+@media (max-width:860px){
+  input,select,textarea,.f-main select,.adv select,.adv input,.pager select{font-size:16px}
+}
