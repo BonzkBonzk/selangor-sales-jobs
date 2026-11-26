@@ -37,6 +37,7 @@
   const P = () => {
     const p = store.profiles[store.profile] ||= {};
     p.facts ||= {}; p.answers ||= {}; p.fav ||= {}; p.prac ||= {}; p.ni ||= {}; p.tomb ||= {}; p.f ||= {};
+    if (!p.f.perV2) { p.f.per = 50; p.f.perV2 = true; }
     if (!('area' in p.f) || (p.f.area === 'selangor' && !p.f.areaV2)) { p.f.area = 'klv'; p.f.areaV2 = true; }
     for (const [k,v] of Object.entries(DEFAULT_FACTS[store.profile])) if (!(k in p.facts)) p.facts[k] = v;
     return p;
@@ -176,7 +177,10 @@
       if (!pay) out.push(['没写底薪', '']);
       if (j.commissionType === 'only') { s += 1; out.push(['纯佣金', 'gold']); }
       if (/uncapped|unlimited|无上限|不封顶|no limit|高佣金|high commission/i.test(t)) { s += 2; out.push(['高佣／不封顶', 'good']); }
-      if (/group commission|team commission|shared commission|团体佣金|团队佣金/i.test(t)) { s -= 1.5; out.push(['团体佣金', 'warn']); }
+      const grp = /group commission|team commission|shared commission|团体佣金|团队佣金/i.test(t);
+      const indiv = /individual commission|personal commission|own commission|individual sales commission|个人佣金|个人提成/i.test(t);
+      if (grp) { s -= 1.5; out.push(['团体佣金', 'warn']); }
+      if (indiv && !grp) out.push(['个人佣金', 'good']);
       if (/project|项目|大客户|solar|太阳能|property|房地产|kitchen|interior|室内设计|厨房/i.test(t)) { s += 1; out.push(['开发客户', 'good']); }
       if (/referr|renew|recurring|续约|转介绍|售后|after-sales|长期关系|portfolio/i.test(t)) { s += 1; out.push(['客户能累积', 'good']); }
       // B2B 经验：你没有，有写的往后排
@@ -185,13 +189,28 @@
       if (reqs.some(r => canon(r) === 'mandarin')) { s += 0.5; out.push(['要华语', 'good']); }
       if (reqs.some(r => ['english', 'malay'].includes(canon(r)) && /流利|fluent|母语|native|简报|presentation|excellent|优秀/i.test(r.label))) out.push(['英/马语要求高', 'warn']);
       if (/6 天|six \(6\)|6 days|周末须上班|每周工作 6/i.test(t + reqTxt)) { s -= 0.5; out.push(['每周 6 天', 'warn']); }
-      out.push(['问：个人／团体佣金', '']);
+      if (!grp && !indiv) out.push(['问：个人／团体佣金', '']);
     }
     const rq = required(j);
     if (rq.length) { const ok = rq.filter(r => fit(r) === 'yes').length; s += 2 * ok / rq.length; }
     s -= 3 * unmetRatio(j);
     const a = ageDays(j.postedAt); if (a !== null && a <= 3) { s += 0.5; }
+    // 旧帖往后排：超过 14 天 −1，超过 21 天 −2
+    if (a !== null && a > 21) { s -= 2; out.push(['发布超过 21 天', '']); }
+    else if (a !== null && a > 14) { s -= 1; out.push(['发布超过 14 天', '']); }
     return { score: s, tags: out };
+  };
+
+  /* ---------- 列表卡片标签：坏信号 → 关键好信号 → 其他，最多 3 个，不重复 ---------- */
+  const BAD = new Set(['团体佣金', '通勤远', '要B2B经验', '每周 6 天', '门店']);
+  const KEYGOOD = new Set(['个人佣金', '通勤近', '有培训']);
+  const NOCARD = /^(高佣／不封顶|没写底薪|没写薪资|发布超过)/; // 太常见或卡片上已显示，只留在详情「推断」
+  const cardTags = r => {
+    const seen = new Set(), list = [];
+    for (const [t, c] of r.tags) { if (NOCARD.test(t) || seen.has(t)) continue; seen.add(t); list.push([t, c]); }
+    const rank = ([t, c]) => BAD.has(t) ? 0 : c === 'warn' ? 1 : KEYGOOD.has(t) || (isJW() && c === 'good') ? 2 : c ? 3 : 4;
+    return list.map((x, i) => [x, i]).sort((a, b) => rank(a[0]) - rank(b[0]) || a[1] - b[1]).slice(0, 3)
+      .map(([[t, c]]) => chip(t, c === 'good' ? 'good' : c === 'warn' ? 'bad' : c || 'neutral')).join('');
   };
 
   /* ---------- 职位过滤 ---------- */
@@ -241,6 +260,7 @@
     for (const j of all) {
       // 已收藏、练习、无兴趣的职位只放在各自的分组，不再出现在「职位」
       if (!fresh(j) || p.ni[j.url] || p.fav[j.url] || p.prac[j.url]) continue;
+      if (j.region !== 'selangor' && j.region !== 'kl') continue; // 和列表一样只算雪兰莪＋吉隆坡，分组数字才对得上
       (tooFar(j) ? hidden : list).push(j);
     }
     const fav = Object.values(p.fav).map(v => byUrl.get(v.job.url) || v.job).filter(forProfile);
@@ -291,11 +311,11 @@
 
     const latest = latestBatch;
     const isNewJob = j => !!latest && j.batch === latest;
-    const per = f.per ?? 20, pages = per ? Math.max(1, Math.ceil(rows.length / per)) : 1;
+    const per = f.per ?? 50, pages = per ? Math.max(1, Math.ceil(rows.length / per)) : 1;
     if (jumpTo && per) { const ix = rows.findIndex(j => j.url === selected); if (ix >= 0) page = Math.floor(ix / per); }
     jumpTo = false; if (page >= pages) page = pages - 1; if (page < 0) page = 0;
     const view = per ? rows.slice(page * per, page * per + per) : rows;
-    const perSel = `<select class="f-per" aria-label="每页显示">${[[20,'20 个'],[50,'50 个'],[0,'全部']].map(([v,t]) => `<option value="${v}"${v === per ? ' selected' : ''}>${t}</option>`).join('')}</select>`;
+    const perSel = `<select class="f-per" aria-label="每页显示">${[[50,'50 个'],[100,'100 个'],[0,'全部']].map(([v,t]) => `<option value="${v}"${v === per ? ' selected' : ''}>${t}</option>`).join('')}</select>`;
     const pagerTop = rows.length ? `<div class="pager top">${rows.length} 个${pages > 1 ? ` · ${page + 1}/${pages}` : ''}${perSel}</div>` : '';
     const pagerBot = pages > 1 ? `<div class="pager"><button data-pg="-1"${page ? '' : ' disabled'}>‹ 上一页</button><span>${page + 1} / ${pages}</span><button data-pg="1"${page < pages - 1 ? '' : ' disabled'}>下一页 ›</button></div>` : '';
     const viewStart = per ? page * per : 0;
@@ -309,7 +329,7 @@
         <span class="row1">${isNew ? '<em class="new">NEW</em>' : ''}${p.fav[j.url] ? '<em class="heart">❤</em>' : ''}${p.prac[j.url] ? '<em class="prac">🎯</em>' : ''}<strong>${esc(j.title)}</strong></span>
         <span class="co">${esc(j.company)} · ${esc(j.location || '')}</span>
         <span class="row3"><b${j.salary ? '' : ' class="nopay"'}>${esc(j.salary || (j.commission ? '没写底薪' : '没写薪资'))}</b><i>${esc(when(j))}</i></span>
-        <span class="tags">${tab === 'hidden' ? required(j).filter(x => fit(x) === 'no').map(x => chip('× ' + x.label.slice(0, 18), 'warn')).join('') : ''}${j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${st ? chip(st + ((tab === 'fav' || tab === 'prac') && p[tab][j.url]?.appliedAt && st !== '想申请' ? ' · ' + fmtD(p[tab][j.url].appliedAt) + ' 申请' : ''),'green') : ''}${expired ? chip('已超过 30 天','warn') : ''}${tab === 'list' ? r.tags.filter(t => t[1]).slice(0,3).map(t => chip(t[0], t[1])).join('') : ''}</span>
+        <span class="tags">${tab === 'hidden' ? required(j).filter(x => fit(x) === 'no').map(x => chip('× ' + x.label.slice(0, 18), 'warn')).join('') : ''}${tab !== 'list' && j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${st ? chip(st + ((tab === 'fav' || tab === 'prac') && p[tab][j.url]?.appliedAt && st !== '想申请' ? ' · ' + fmtD(p[tab][j.url].appliedAt) + ' 申请' : ''),'green') : ''}${expired ? chip('已超过 30 天','warn') : ''}${tab === 'list' ? cardTags(r) : ''}</span>
       </button>`;
     }).join('') : `<p class="empty">${tab === 'fav' ? '还没有收藏' : tab === 'prac' ? '还没有练习' : tab === 'ni' ? '没有' : tab === 'hidden' ? '没有<br><button class="primary" id="go-set">我的条件</button>' : '没有符合的职位'}</p>`) + pagerBot;
     $('list').querySelectorAll('.f-per').forEach(el => el.onchange = () => { P().f.per = +el.value; page = 0; save(); render(); });
@@ -347,6 +367,11 @@
     const pct = rq.length ? Math.round(100 * rq.filter(x => fit(x) === 'no').length / rq.length) : 0;
     const STAGES = ['想申请','已申请','准备面试','面试完','等结果','已拿 offer','没通过','不考虑'];
     const stageSel = (kind, rec) => `<select class="stage" data-kind="${kind}" aria-label="${kind === 'fav' ? '收藏' : '练习'}的跟进状态">${STAGES.map(s => `<option${rec.stage === s ? ' selected' : ''}>${s}</option>`).join('')}</select>`;
+    const btnFav = `<button data-kind="fav" class="keep ${fav ? 'on' : ''}">${fav ? '❤ 已收藏' : '♡ 收藏'}</button>`;
+    const btnPrac = `<button data-kind="prac" class="keep ${prac ? 'on prac' : ''}">${prac ? '🎯 已练习' : '🎯 练习'}</button>`;
+    const btnNi = `<button class="b-ni ${ni ? 'on' : ''}">${ni ? '↩ 恢复' : '🚫 无兴趣'}</button>`;
+    const btnDel = (fav || prac) && gone ? '<button class="b-del danger" title="删除">✕ 删除</button>' : '';
+    const mStage = (fav ? `<label>收藏 ${stageSel('fav', fav)}</label>` : '') + (prac ? `<label>练习 ${stageSel('prac', prac)}</label>` : '');
     box.innerHTML = `
       <div class="d-head">
         <h2>${esc(j.title)}</h2>
@@ -357,14 +382,10 @@
           <a class="primary" href="${esc(j.url)}" target="_blank" rel="noopener noreferrer">打开原帖 ↗</a>
           ${companyLinks(j)}
           <span class="act-gap"></span>
-          <button data-kind="fav" class="keep ${fav ? 'on' : ''}">${fav ? '❤ 已收藏' : '♡ 收藏'}</button>
-          ${fav ? stageSel('fav', fav) : ''}
-          <button data-kind="prac" class="keep ${prac ? 'on prac' : ''}">${prac ? '🎯 已加入练习' : '🎯 练习'}</button>
-          ${prac ? stageSel('prac', prac) : ''}
-          <button id="b-ni" class="${ni ? 'on' : ''}">${ni ? '↩ 恢复到列表' : '🚫 无兴趣'}</button>
-          ${(fav || prac) && gone ? '<button id="b-del" class="danger" title="删除">✕ 删除</button>' : ''}
+          <span class="keeps">${btnFav}${fav ? stageSel('fav', fav) : ''}${btnPrac}${prac ? stageSel('prac', prac) : ''}${btnNi}${btnDel}</span>
         </div>
       </div>
+      ${readOnly() ? '' : `<div class="mbar">${btnFav}${btnPrac}${btnNi}${btnDel}</div>`}
       <section class="facts">
         <h3>薪酬 <span class="src">招聘广告 · 不是保证收入</span></h3>
         <div class="money">
@@ -386,7 +407,7 @@
         <div class="why">${chip(CATS[store.profile][classify(j)] || '', 'green')}${r.tags.map(t => chip(t[0], t[1])).join('')}</div>
       </section>
       ${fav ? `<section><h3>收藏备注</h3><textarea class="note" data-kind="fav"${readOnly() ? ' readonly' : ''} rows="3" placeholder="面试时间、联系人、想问的问题…">${esc(fav.note || '')}</textarea></section>` : ''}
-      ${(fav || prac) ? progressHTML(j, fav, prac) : ''}
+      ${(fav || prac) ? progressHTML(j, fav, prac, mStage) : ''}
       ${prac ? `<section><h3>练习备注</h3><textarea class="note" data-kind="prac"${readOnly() ? ' readonly' : ''} rows="3" placeholder="想练什么、被问了什么、下次怎么答更好…">${esc(prac.note || '')}</textarea></section>` : ''}`;
 
     box.querySelectorAll('.log-ics').forEach(b => b.onclick = () => {
@@ -394,6 +415,7 @@
     });
     if (readOnly()) {
       box.querySelectorAll('.log-add, .log-del').forEach(el => el.remove());
+      box.querySelectorAll('.m-stage').forEach(el => el.remove());
       box.querySelectorAll('.actions button, .actions select, .tri button').forEach(el => { if (!el.closest('a')) el.disabled = true; });
       box.querySelector('.actions').classList.remove('ro-hide');
       box.querySelectorAll('.actions button, .actions select').forEach(el => el.style.display = 'none');
@@ -405,12 +427,12 @@
       else { put(p, kind, j.url, { job: snapshot(j), at: new Date().toISOString(), stage:'想申请' }); drop(p, 'ni', j.url); toast('已加入「' + name + '」，超过 30 天也会保留'); }
       stick = true; save(); render();
     });
-    $('b-ni').onclick = () => {
+    box.querySelectorAll('.b-ni').forEach(b => b.onclick = () => {
       if (ni) { drop(p, 'ni', j.url); toast('已恢复到列表'); }
       else { put(p, 'ni', j.url, { job: lite(j), at: new Date().toISOString() }); drop(p, 'fav', j.url); drop(p, 'prac', j.url); toast('已移到「无兴趣」，职位发布满 30 天后自动清除'); selected = ''; }
       save(); render();
-    };
-    if ($('b-del')) $('b-del').onclick = () => confirmDelete(j, prac && !fav ? 'prac' : (tab === 'prac' ? 'prac' : 'fav'));
+    });
+    box.querySelectorAll('.b-del').forEach(b => b.onclick = () => confirmDelete(j, prac && !fav ? 'prac' : (tab === 'prac' ? 'prac' : 'fav')));
     box.querySelectorAll('select.stage').forEach(el => el.onchange = e => stageModal(j, el.dataset.kind, e.target.value));
     box.querySelectorAll('.log-add').forEach(b => b.onclick = () => stageModal(j, b.dataset.kind, p[b.dataset.kind][j.url]?.stage || '已申请', true));
     box.querySelectorAll('.log-del').forEach(b => b.onclick = () => {
@@ -429,12 +451,12 @@
   /* ---------- 申请与面试进度 ---------- */
   const fmtD = d => { const [y, m, dd] = d.split('-'); return `${+m}/${+dd}`; };
   const VERB = { '已申请':'申请了', '准备面试':'面试', '面试完':'面试完', '等结果':'等结果', '已拿 offer':'拿到 offer', '没通过':'没通过', '不考虑':'决定不考虑', '想申请':'想申请' };
-  function progressHTML(j, fav, prac) {
+  function progressHTML(j, fav, prac, mStage = '') {
     const rows = [];
     for (const [kind, rec] of [['fav', fav], ['prac', prac]]) if (rec) for (const e of (rec.log || [])) rows.push({ kind, e });
     rows.sort((a, b) => (a.e.d + (a.e.t || '')).localeCompare(b.e.d + (b.e.t || '')));
     const today = todayMY();
-    return `<section class="progress"><h3>进度记录</h3>
+    return `<section class="progress"><h3>进度记录</h3>${mStage ? `<div class="m-stage">${mStage}</div>` : ''}
       ${rows.length ? `<ul class="log">${rows.map(({ kind, e }) => `<li class="${e.s === '准备面试' && e.d >= today ? 'up' : ''}">
         <span><b>${fmtD(e.d)}${e.t ? ' ' + esc(e.t) : ''}</b> ${esc(e.s)}${kind === 'prac' ? ' <em class="tagp">练习</em>' : ''}${e.where ? ' · ' + esc(e.where) : ''}${e.note ? '<br><small>' + esc(e.note) + '</small>' : ''}</span>
         <span class="log-btns">${e.s === '准备面试' ? `<button class="log-ics" data-kind="${kind}" data-id="${e.id}" title="下载日历档">🗓</button>` : ''}<button class="log-del" data-kind="${kind}" data-id="${e.id}" title="删除这笔">✕</button></span></li>`).join('')}</ul>` : '<p class="hint">还没有记录。改上面的状态，或按下面的按钮记一笔。</p>'}
@@ -612,7 +634,9 @@
     const roomy = sideRoom() >= 236;
     const open = st.open ?? roomy;
     const up = ev.filter(x => x.e.s === '准备面试' && x.e.d >= today);
+    const ob = $('open-cal'); if (ob) ob.innerHTML = '📅' + (up.length ? `<b>${up.length}</b>` : '');
     if (!open) {
+      if (mobile()) { el.innerHTML = ''; return; } // 手机：入口在顶栏 📅，不在右边挡内容
       const y = Math.min(Math.max(st.ty ?? innerHeight * 0.4, 70), innerHeight - 60);
       el.innerHTML = `<button class="cal-tab" style="top:${y}px" title="打开进度日历" aria-label="打开进度日历">‹<span>📅</span>${up.length ? `<b>${up.length}</b>` : ''}</button>`;
       return;
@@ -672,6 +696,9 @@
     addEventListener('resize', () => renderCal());
   }
   $('open-settings').onclick = () => settings();
+  $('open-cal').onclick = () => { const o = !(calGet().open ?? false) || !document.querySelector('#cal .cal-card'); calSet({ open: o }); renderCal(); };
+  /* 电脑：分组＋筛选整块固定在顶栏下面；列表和详情按它的高度往下排 */
+  if ('ResizeObserver' in window) new ResizeObserver(([e]) => document.documentElement.style.setProperty('--barh', Math.ceil(e.target.getBoundingClientRect().height) + 'px')).observe($('bar'));
   $('open-prefs').onclick = () => settings('set');
 
   /* ---------- 同步（Google Apps Script） ---------- */

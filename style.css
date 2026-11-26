@@ -367,3 +367,39 @@ dialog{padding-top:0;overflow-y:auto;overscroll-behavior:contain}
 .dialog-head{position:sticky;top:0;z-index:3;background:#fff;margin:0 -24px 8px;padding:16px 24px 10px;border-bottom:1px solid var(--line)}
 .dialog-head button{min-width:40px;min-height:40px;font-size:18px}
 html:has(dialog[open]),html:has(dialog[open]) body{overflow:hidden}
+
+/* ===== v5（2026-11-26 第三轮：标签分好坏、手机底部操作条、筛选区固定） ===== */
+/* 卡片标签：坏＝红橙、好＝绿、中性＝灰 */
+.item .tags{gap:4px 10px}
+.chip.bad{color:#c2410c;font-weight:600}
+.chip.bad::before{content:'⚠︎ ';font-weight:400}
+.chip.good{color:var(--brand)}
+.chip.neutral{color:var(--faint)}
+.detail .chip.warn{color:#c2410c}
+/* 电脑：分组＋筛选整块固定 */
+@media (min-width:861px){
+  .bar{position:sticky;top:52px;z-index:4;background:var(--bg);padding-bottom:var(--sp-2)}
+  .list{top:calc(52px + var(--barh,110px) + 8px);max-height:calc(100vh - 52px - var(--barh,110px) - 24px)}
+  .detail{top:calc(52px + var(--barh,110px) + 8px);max-height:calc(100vh - 52px - var(--barh,110px) - 24px)}
+  .m-only,.mbar,.m-stage{display:none!important}
+  .split{margin-bottom:16px} /* 下边距要等于列表离屏幕底的距离，否则滑到底时列表会被推进筛选区下面 */
+}
+/* 手机：详情底部操作条（收藏／练习／无兴趣），上方只留原帖和公司链接 */
+#open-cal{position:relative}
+#open-cal b{position:absolute;top:-4px;right:-4px;background:#2f6fdb;color:#fff;border-radius:999px;font-size:10px;min-width:16px;line-height:16px;padding:0 3px}
+@media (max-width:860px){
+  .actions .keeps{display:none}
+  .mbar{display:none}
+  body.dopen .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:16;gap:8px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+  .mbar button{flex:1;border:0;background:var(--soft);border-radius:10px;padding:10px 6px;font-size:15px;white-space:nowrap}
+  .mbar button.on{background:#fbecef;color:#b3243f}
+  .mbar button.on.prac{background:#eef3fb;color:#2a4f8f}
+  body.dopen .detail{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+  body.dopen #toast{bottom:calc(80px + env(safe-area-inset-bottom))}
+  .m-stage{display:flex;flex-wrap:wrap;gap:8px 16px;margin:0 0 10px;font-size:var(--fs-sm);color:var(--mute)}
+  .m-stage label{display:flex;align-items:center;gap:6px}
+  .m-stage select{border:0;background:var(--soft);border-radius:10px;padding:6px 8px}
+  .top-inner{flex-wrap:nowrap}
+  nav{gap:6px}
+  .seg button{padding:5px 10px}
+}

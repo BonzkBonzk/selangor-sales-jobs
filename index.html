@@ -2,18 +2,19 @@
 <html lang="zh-MY">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#f3f5f1">
 <title>Job</title>
-<link rel="stylesheet" href="style.css?v=20261126m">
-<script defer src="app.js?v=20261126m"></script>
+<link rel="stylesheet" href="style.css?v=20261126n">
+<script defer src="app.js?v=20261126n"></script>
 </head>
 <body>
 <header class="top"><div class="shell top-inner">
   <a class="brand" href="./">Job</a>
   <nav aria-label="档案与设置">
     <div class="seg" role="group" aria-label="选择档案"><button data-profile="KH">KH 销售</button><button data-profile="JW">JW 日语</button></div>
+    <button id="open-cal" class="flat icon m-only" aria-label="进度日历" title="进度日历">📅</button>
     <button id="open-settings" class="flat">我的条件</button>
     <button id="open-prefs" class="flat icon" aria-label="设置" title="设置（同步、日历、备份）">⚙︎</button>
   </nav>
@@ -26,6 +27,7 @@
     <div class="meta" id="meta"></div>
   </section>
 
+  <div class="bar" id="bar">
   <section class="tabs" role="tablist" aria-label="职位分组">
     <button role="tab" data-tab="list">职位 <b id="n-list">0</b></button>
     <button role="tab" data-tab="fav">❤ 收藏 <b id="n-fav">0</b></button>
@@ -50,6 +52,7 @@
       <label class="chk" id="only-comm-wrap"><input id="f-only" type="checkbox"> 只看纯佣金</label>
     </div>
   </section>
+  </div>
 
   <section class="split">
     <div id="list" class="list" aria-label="职位列表"></div>
