@@ -355,3 +355,15 @@ html,body,button,select,input,a,label,.item{touch-action:manipulation}
 @media (max-width:860px){
   input,select,textarea,.f-main select,.adv select,.adv input,.pager select{font-size:16px}
 }
+
+/* 修：手机上分组那一排（职位／收藏…）可以上下拖。原因：按钮 margin-bottom:-1px 让内容比容器高 1px，
+   overflow-x:auto 时纵向也跟着可滚动。改成只准左右滚，底线改用 inset 阴影画 */
+@media (max-width:860px){
+  .tabs{overflow-y:hidden;overscroll-behavior-x:contain;border-bottom:0;box-shadow:inset 0 -1px 0 var(--line)}
+  .tabs button{margin-bottom:0}
+}
+/* 修：弹窗（我的条件／设置）标题和 ✕ 固定在顶部跟着滚；弹窗里滑动不再带动背后的职位列表 */
+dialog{padding-top:0;overflow-y:auto;overscroll-behavior:contain}
+.dialog-head{position:sticky;top:0;z-index:3;background:#fff;margin:0 -24px 8px;padding:16px 24px 10px;border-bottom:1px solid var(--line)}
+.dialog-head button{min-width:40px;min-height:40px;font-size:18px}
+html:has(dialog[open]),html:has(dialog[open]) body{overflow:hidden}
