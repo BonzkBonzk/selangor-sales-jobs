@@ -235,3 +235,76 @@ dialog .hint{font-size:12px}
 .cal-head{border-bottom:1px solid var(--line)}
 @media (max-width:860px){.intro{padding-top:18px}h1{font-size:24px}.filters{gap:8px}.search{flex-basis:100%}.item{padding:12px 4px}}
 @media (max-width:860px){.top-inner{padding:8px 16px}.tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}.tabs button{white-space:nowrap}}
+
+/* ===== Design system v3（2026-11-26 第一轮优化）：tokens ===== */
+:root{
+  --bg:#f5f5f7;--card:#fff;--ink:#1d1d1f;--ink-2:#3a3a3c;--mute:#5f5f66;--faint:#8a8a91;--line:#e3e3e8;--soft:#eeeef1;
+  --brand:#1f6b4a;--brand-2:#e8f2ec;--warn:#b3261e;--warn-2:#fbeceb;--gold:#8a5a00;
+  --fs-xs:12px;--fs-sm:13px;--fs-md:15px;--fs-lg:16px;--fs-xl:22px;
+  --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:24px;--r:12px;--r-s:8px}
+body{font-size:var(--fs-md)}
+/* 导航与标题 */
+.top-inner{height:52px}
+nav{gap:var(--sp-2)}
+.flat{font-size:var(--fs-sm)}
+.intro{align-items:center;padding:var(--sp-5) 0 var(--sp-2)}
+h1{font-size:24px}
+.news{margin-top:2px;font-size:var(--fs-sm);color:var(--mute)}
+.meta,#sync-badge{font-size:var(--fs-xs);color:var(--faint)}
+.tabs{margin:var(--sp-3) 0 0}
+.tabs button{font-size:var(--fs-sm);padding:8px 12px}
+.tabs button b{color:var(--faint)}
+/* 筛选：常用一行，其他折叠 */
+.filters{display:block;padding:var(--sp-3) 0 0}
+.f-main{display:flex;gap:var(--sp-2);align-items:center}
+.f-main .search{flex:1 1 auto;min-width:0}
+.f-main select,.adv select,.adv input{font-size:var(--fs-sm);padding:7px 10px}
+.adv-btn{white-space:nowrap;padding:7px 14px}
+.adv-btn.active{background:var(--brand-2);color:var(--brand)}
+.adv-btn b{font-weight:600}
+.adv{display:flex;flex-wrap:wrap;gap:var(--sp-3);align-items:center;padding:var(--sp-3) 0 0;font-size:var(--fs-sm);color:var(--mute)}
+.adv[hidden]{display:none}
+.range{display:flex;align-items:center;gap:6px}
+.range input{width:92px;border:0;background:var(--soft);border-radius:10px}
+.chk{display:flex;align-items:center;gap:6px;cursor:pointer}
+/* 列表：保留密度，提高可读性 */
+.split{margin-top:var(--sp-4)}
+.item{padding:12px 12px;gap:3px}
+.row1 strong{font-size:var(--fs-md)}
+.item .co,.co{font-size:var(--fs-sm);color:var(--mute)}
+.row3{font-size:var(--fs-sm)}
+.row3 b{font-size:14px;font-weight:600;color:var(--ink)}
+.row3 b.nopay{color:var(--mute);font-weight:500}
+.row3 i{font-size:var(--fs-xs);color:var(--faint)}
+.chip{font-size:var(--fs-xs)}
+.pager.top{font-size:var(--fs-xs);color:var(--faint)}
+/* 详情：跟着滚动，不留大片空白 */
+.detail{position:sticky;top:64px;align-self:start;min-height:0;max-height:calc(100vh - 80px);overflow:auto;padding:var(--sp-5) 28px}
+.detail h2{font-size:var(--fs-xl);margin:6px 0 2px}
+.detail .co{font-size:var(--fs-sm)}
+.detail h3{display:flex;align-items:baseline;gap:var(--sp-2);font-size:var(--fs-sm);font-weight:600;color:var(--ink-2);margin:var(--sp-5) 0 var(--sp-2);letter-spacing:0}
+.detail h3 .src{font-size:var(--fs-xs);font-weight:400;color:var(--faint)}
+.facts{margin:0}
+.money{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--sp-2);margin:0}
+.money div{background:var(--bg);border-radius:var(--r-s);padding:10px 12px}
+.money span{font-size:var(--fs-xs);color:var(--mute);margin-bottom:2px}
+.money b{font-size:14px;font-weight:600;line-height:1.45}
+.money b.unk,.unk{color:var(--faint);font-weight:400}
+.verified{font-size:var(--fs-xs);color:var(--brand);margin:var(--sp-2) 0 0!important}
+.why{border-bottom:0;padding:0;margin:0;gap:6px 12px}
+.detail section p{font-size:var(--fs-md);color:var(--ink-2)}
+/* ✓ × ～：分段控件，未选低调、选中清楚 */
+.tri{display:inline-flex;gap:0;background:var(--soft);border-radius:var(--r-s);padding:2px}
+.tri button{width:28px;height:24px;border:0;background:none;border-radius:6px;font-size:13px;color:var(--faint);line-height:1}
+.tri button:hover:not(:disabled){color:var(--ink);background:rgba(255,255,255,.7)}
+.tri .on.yes{background:var(--brand);color:#fff}
+.tri .on.no{background:var(--warn);color:#fff}
+.tri .on.unknown{background:#fff;color:var(--ink);box-shadow:0 0 0 1px var(--line)}
+.reqs li{padding:8px 0;font-size:14px}
+.reqs em{font-size:11px}
+@media (max-width:860px){
+  .detail{position:static;max-height:none;overflow:visible}
+  body.dopen .detail{position:fixed;max-height:none;overflow:auto}
+  .f-main{flex-wrap:wrap}.f-main .search{flex-basis:100%}
+  .money{grid-template-columns:1fr 1fr}
+}

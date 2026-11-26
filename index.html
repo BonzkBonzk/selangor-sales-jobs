@@ -6,15 +6,15 @@
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#f3f5f1">
 <title>Job</title>
-<link rel="stylesheet" href="style.css?v=20261126f">
-<script defer src="app.js?v=20261126f"></script>
+<link rel="stylesheet" href="style.css?v=20261126g">
+<script defer src="app.js?v=20261126g"></script>
 </head>
 <body>
 <header class="top"><div class="shell top-inner">
   <a class="brand" href="./">Job</a>
   <nav aria-label="档案与设置">
     <div class="seg" role="group" aria-label="选择档案"><button data-profile="KH">KH 销售</button><button data-profile="JW">JW 日语</button></div>
-    <button id="open-settings" class="flat">我的条件</button>
+    <button id="open-settings" class="flat">⚙︎ 我的条件</button>
   </nav>
 </div></header>
 
@@ -22,11 +22,10 @@
   <section class="intro">
     <div>
       <h1 id="title">销售职位</h1>
+      <div id="news" class="news" hidden></div>
     </div>
     <div class="meta" id="meta"></div>
   </section>
-
-  <div id="news" class="news" hidden></div>
 
   <section class="tabs" role="tablist" aria-label="职位分组">
     <button role="tab" data-tab="list">职位 <b id="n-list">0</b></button>
@@ -37,16 +36,19 @@
   </section>
 
   <section class="filters" aria-label="筛选">
-    <label class="search"><span aria-hidden="true">⌕</span><input id="q" type="search" placeholder="搜索"></label>
-    <select id="f-pay" aria-label="薪资"><option value="">薪资：全部</option><option value="yes">只看写明薪资</option><option value="no">只看没写薪资</option></select>
-    <select id="f-sort" aria-label="排序"><option value="score">推荐优先</option><option value="new">最新发布</option><option value="pay">广告薪资高</option></select>
-    <div class="pay">
-      <span>月薪 RM</span>
-      <input id="f-min" type="number" min="0" step="500" placeholder="最低" aria-label="最低月薪">
-      <input id="f-max" type="number" min="0" step="500" placeholder="最高" aria-label="最高月薪">
-      
-      <label><input id="f-latest" type="checkbox"> 只看 NEW</label>
-      <label id="only-comm-wrap"><input id="f-only" type="checkbox"> 只看纯佣金</label>
+    <div class="f-main">
+      <label class="search"><span aria-hidden="true">⌕</span><input id="q" type="search" placeholder="搜索职位、公司、地区"></label>
+      <select id="f-sort" aria-label="排序"><option value="score">推荐优先</option><option value="new">最新发布</option><option value="pay">广告薪资高</option></select>
+      <button id="adv-btn" class="flat adv-btn" type="button" aria-expanded="false" aria-controls="adv">筛选<b id="adv-n"></b></button>
+    </div>
+    <div id="adv" class="adv" hidden>
+      <select id="f-pay" aria-label="薪资"><option value="">薪资：全部</option><option value="yes">只看写明薪资</option><option value="no">只看没写薪资</option></select>
+      <span class="range"><span>月薪 RM</span>
+        <input id="f-min" type="number" min="0" step="500" placeholder="最低" aria-label="最低月薪">
+        <span aria-hidden="true">–</span>
+        <input id="f-max" type="number" min="0" step="500" placeholder="最高" aria-label="最高月薪"></span>
+      <label class="chk"><input id="f-latest" type="checkbox"> 只看 NEW</label>
+      <label class="chk" id="only-comm-wrap"><input id="f-only" type="checkbox"> 只看纯佣金</label>
     </div>
   </section>
 

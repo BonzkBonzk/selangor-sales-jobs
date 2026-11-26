@@ -251,6 +251,9 @@
 
   /* ---------- 渲染 ---------- */
   const chip = (t, v = '') => `<span class="chip ${v}">${esc(t)}</span>`;
+  const val = t => t ? `<b>${esc(t)}</b>` : '<b class="unk">未写明</b>';
+  const allowance = j => { const m = [j.commission, j.salary, j.summary].join(' ').match(/[^，。；,;+＋]*(津贴|allowance|油卡|petrol|车贴|交通费|电话费)[^，。；,;+＋]*/i); return m ? m[0].trim() : ''; };
+  const fmtShort = d => d ? String(d).slice(5, 10).replace('-', '/') : '—';
   const when = j => {
     const ago = a => a === null ? '?' : a === 0 ? 'today' : a + 'd ago';
     if (!j.postedAt) return '~' + ago(ageDays(j.firstSeen));
@@ -268,6 +271,7 @@
     $('f-pay').value = f.pay || '';
     $('f-only').checked = !!f.only;
     $('f-latest').checked = !!f.latest;
+    { const n = [f.pay, f.min, f.max, f.latest, !isJW() && f.only].filter(Boolean).length; $('adv-n').textContent = n ? ' · ' + n : ''; $('adv-btn').classList.toggle('active', n > 0); }
     $('q').value = f.q || '';
 
     const g = groups();
@@ -342,7 +346,7 @@
     const stageSel = (kind, rec) => `<select class="stage" data-kind="${kind}" aria-label="${kind === 'fav' ? '收藏' : '练习'}的跟进状态">${STAGES.map(s => `<option${rec.stage === s ? ' selected' : ''}>${s}</option>`).join('')}</select>`;
     box.innerHTML = `
       <div class="d-head">
-        <div class="tags">${chip(j.source)}${chip(CATS[store.profile][classify(j)] || '', 'green')}${j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${gone ? chip('已超过 30 天／已下架','warn') : ''}</div>
+        <div class="tags">${chip(j.source)}${j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${gone ? chip('已超过 30 天／已下架','warn') : ''}</div>
         <h2>${esc(j.title)}</h2>
         <p class="co">${esc(j.company)} · ${esc(j.location || '')} · ${esc(when(j))}</p>
         <p class="colinks">${companyLinks(j)}</p>
@@ -357,12 +361,20 @@
           ${(fav || prac) && gone ? '<button id="b-del" class="danger" title="删除">✕ 删除</button>' : ''}
         </div>
       </div>
-      <div class="money">
-        <div><span>💰 薪资</span><b>${esc(j.salary || '—')}</b></div>
-        ${j.basic ? `<div><span>底薪</span><b>${esc(j.basic)}</b></div>` : ''}
-        ${j.role === 'japanese' && !j.commission ? '' : `<div><span>佣金</span><b>${esc(j.commission || '有佣金')}</b></div>`}
-      </div>
-      ${r.tags.length ? `<div class="why">${r.tags.map(t => chip(t[0], t[1])).join('')}</div>` : ''}
+      <section class="facts">
+        <h3>薪酬 <span class="src">招聘广告 · 不是保证收入</span></h3>
+        <div class="money">
+          <div><span>广告薪资</span>${val(j.salary)}</div>
+          <div><span>底薪</span>${val(j.basic)}</div>
+          ${j.role === 'japanese' && !j.commission ? '' : `<div><span>佣金</span>${val(j.commission || (j.role === 'japanese' ? '' : '有（原帖写明）'))}</div>`}
+          <div><span>津贴</span>${val(allowance(j))}</div>
+        </div>
+        <p class="verified">✓ 已核对原帖 · ${esc(fmtShort(j.checkedAt || j.firstSeen))}${j.datePending ? ' · 发布日期待核对' : ''}</p>
+      </section>
+      <section class="facts">
+        <h3>推断 <span class="src">AI 判断，只影响排序</span></h3>
+        <div class="why">${chip(CATS[store.profile][classify(j)] || '', 'green')}${r.tags.map(t => chip(t[0], t[1])).join('')}</div>
+      </section>
       <section><h3>工作内容</h3><p>${esc(j.summary || '—')}</p></section>
       <section><h3>条件</h3>
         ${reqs.length ? `<ul class="reqs">${reqs.map((x, i) => { const v = fit(x); return `<li><span class="lbl">${esc(x.label)}${x.preferred ? ' <em>加分项</em>' : ''}</span>
@@ -558,6 +570,7 @@
   bindF('f-pay','pay'); bindF('f-min','min', e => +e.target.value || 0); bindF('f-max','max', e => +e.target.value || 0);
   bindF('f-only','only', e => e.target.checked);
   bindF('f-latest','latest', e => e.target.checked);
+  $('adv-btn').onclick = () => { const el = $('adv'); el.hidden = !el.hidden; $('adv-btn').setAttribute('aria-expanded', String(!el.hidden)); };
   $('news').addEventListener('click', e => { const b = e.target.closest('[data-latest]'); if (!b) return; P().f.latest = b.dataset.latest === '1'; tab = 'list'; page = 0; save(); render(); });
   document.querySelectorAll('[data-profile]').forEach(b => b.onclick = () => { store.profile = b.dataset.profile; save(); selected = ''; page = 0; purge(); render(); });
   document.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; selected = ''; page = 0; render(); });
