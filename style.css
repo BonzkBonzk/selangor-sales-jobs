@@ -345,3 +345,8 @@ h1{font-size:24px}
   .split{grid-template-columns:1fr}
   .actions .act-gap{display:none}
 }
+/* 修：手机全屏详情要能自己滚动（align-self:start 会让 fixed 详情缩成内容高度） */
+@media (max-width:860px){
+  body.dopen .detail{align-self:stretch;height:100%;max-height:none;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+  body.dopen{overflow:hidden}
+}
