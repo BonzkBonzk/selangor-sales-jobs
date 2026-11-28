@@ -53,7 +53,7 @@
   const readOnly = () => { try { const c = JSON.parse(localStorage.getItem('ssd.sync')); return !!(c && c.owner && c.owner !== store.profile); } catch { return false; } };
 
   /* ---------- 数据 ---------- */
-  let data = { jobs:[] }, latestBatch = '', byUrl = new Map(), tab = 'list', selected = '', page = 0, jumpTo = false, stick = false;
+  let data = { jobs:[] }, latestBatch = '', byUrl = new Map(), tab = 'list', selected = '', page = 0, jumpTo = false, stick = false, advance = '', lastOrder = [];
 
   const CATS = {
     KH: { '':'所有方向', energy:'能源 / Solar', b2b:'企业销售 / B2B', design:'家装 / 设计（高单价）', retail:'门店（备胎）', property:'房地产', auto:'汽车', digital:'数码 / 科技', finance:'金融 / 保险', education:'教育 / 招生', other:'其他销售' },
@@ -340,6 +340,17 @@
 
     if ($('go-set')) $('go-set').onclick = settings;
     // 在详情里收藏、练习或改条件后，职位可能移到别的分组；详情先停在这个职位，避免下一下点到别的职位
+    // 手机：收藏／练习／无兴趣后职位离开这个分组，详情直接跳到原本排在它后面的职位
+    if (advance) {
+      const here = new Set(rows.map(j => j.url));
+      if (!here.has(advance)) {
+        const ix = lastOrder.indexOf(advance);
+        const nx = lastOrder.slice(ix + 1).find(u => here.has(u)) || [...lastOrder.slice(0, Math.max(ix, 0))].reverse().find(u => here.has(u));
+        if (nx) { selected = nx; stick = false; advance = ''; lastOrder = rows.map(j => j.url); jumpTo = true; return render(); }
+      }
+      advance = '';
+    }
+    lastOrder = rows.map(j => j.url);
     let dj = view.find(j => j.url === selected);
     if (!dj && stick && selected) dj = byUrl.get(selected) || p.fav[selected]?.job || p.prac[selected]?.job;
     if (!dj) { stick = false; selected = view[0]?.url || ''; dj = view.find(j => j.url === selected); }
@@ -424,13 +435,13 @@
     box.querySelectorAll('button.keep').forEach(b => b.onclick = () => {
       const kind = b.dataset.kind, name = kind === 'fav' ? '收藏' : '练习';
       if (p[kind][j.url]) { if (gone) return confirmDelete(j, kind); drop(p, kind, j.url); toast('已取消' + name); }
-      else { put(p, kind, j.url, { job: snapshot(j), at: new Date().toISOString(), stage:'想申请' }); drop(p, 'ni', j.url); toast('已加入「' + name + '」，超过 30 天也会保留'); }
-      stick = true; save(); render();
+      else { put(p, kind, j.url, { job: snapshot(j), at: new Date().toISOString(), stage:'想申请' }); drop(p, 'ni', j.url); toast('已加入「' + name + '」，超过 30 天也会保留'); if (mobile()) advance = j.url; }
+      stick = true; save(); render(); if (mobile() && selected !== j.url) $('detail').scrollTop = 0;
     });
     box.querySelectorAll('.b-ni').forEach(b => b.onclick = () => {
       if (ni) { drop(p, 'ni', j.url); toast('已恢复到列表'); }
-      else { put(p, 'ni', j.url, { job: lite(j), at: new Date().toISOString() }); drop(p, 'fav', j.url); drop(p, 'prac', j.url); toast('已移到「无兴趣」，职位发布满 30 天后自动清除'); selected = ''; }
-      save(); render();
+      else { put(p, 'ni', j.url, { job: lite(j), at: new Date().toISOString() }); drop(p, 'fav', j.url); drop(p, 'prac', j.url); toast('已移到「无兴趣」，职位发布满 30 天后自动清除'); if (mobile()) advance = j.url; else selected = ''; }
+      save(); render(); if (mobile() && selected !== j.url) $('detail').scrollTop = 0;
     });
     box.querySelectorAll('.b-del').forEach(b => b.onclick = () => confirmDelete(j, prac && !fav ? 'prac' : (tab === 'prac' ? 'prac' : 'fav')));
     box.querySelectorAll('select.stage').forEach(el => el.onchange = e => stageModal(j, el.dataset.kind, e.target.value));
