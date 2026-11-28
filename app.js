@@ -53,6 +53,14 @@
   const readOnly = () => { try { const c = JSON.parse(localStorage.getItem('ssd.sync')); return !!(c && c.owner && c.owner !== store.profile); } catch { return false; } };
 
   /* ---------- 数据 ---------- */
+  const markedAt = iso => {
+    if (!iso) return '时间不详';
+    const d = new Date(iso); if (isNaN(d)) return '时间不详';
+    const o = { timeZone:'Asia/Kuala_Lumpur' };
+    const day = d.toLocaleDateString('en-CA', o), today = new Date().toLocaleDateString('en-CA', o);
+    const hm = d.toLocaleTimeString('en-GB', { ...o, hour:'2-digit', minute:'2-digit' });
+    return (day === today ? '今天' : day.slice(5).replace('-', '/')) + ' ' + hm;
+  };
   let data = { jobs:[] }, latestBatch = '', byUrl = new Map(), tab = 'list', selected = '', page = 0, jumpTo = false, stick = false, advance = '', lastOrder = [];
 
   const CATS = {
@@ -302,8 +310,9 @@
     rows.sort((a, b) => sort === 'new' ? dateOf(b).localeCompare(dateOf(a))
       : sort === 'pay' ? ((payRange(b.salary) || [0,0])[1] - (payRange(a.salary) || [0,0])[1])
       : (sc.get(b.url).score - sc.get(a.url).score) || dateOf(b).localeCompare(dateOf(a)));
-    if (tab === 'fav' || tab === 'prac') rows.sort((a,b) => (p[tab][b.url]?.at || '').localeCompare(p[tab][a.url]?.at || ''));
-    const splitPay = tab !== 'fav' && tab !== 'prac' && !f.pay;
+    // 收藏、练习、无兴趣：按标记时间排，最新标记的在最上面（按错最容易找回）
+    if (tab === 'fav' || tab === 'prac' || tab === 'ni') rows.sort((a,b) => (p[tab][b.url]?.at || '').localeCompare(p[tab][a.url]?.at || ''));
+    const splitPay = tab !== 'fav' && tab !== 'prac' && tab !== 'ni' && !f.pay;
     if (splitPay) rows = rows.filter(hasPay).concat(rows.filter(j => !hasPay(j)));
     const firstNoPay = splitPay ? rows.findIndex(j => !hasPay(j)) : -1;
     const noPayCount = firstNoPay >= 0 ? rows.length - firstNoPay : 0;
@@ -329,9 +338,10 @@
         <span class="row1">${isNew ? '<em class="new">NEW</em>' : ''}${p.fav[j.url] ? '<em class="heart">❤</em>' : ''}${p.prac[j.url] ? '<em class="prac">🎯</em>' : ''}<strong>${esc(j.title)}</strong></span>
         <span class="co">${esc(j.company)} · ${esc(j.location || '')}</span>
         <span class="row3"><b${j.salary ? '' : ' class="nopay"'}>${esc(j.salary || (j.commission ? '没写底薪' : '没写薪资'))}</b><i>${esc(when(j))}</i></span>
-        <span class="tags">${tab === 'hidden' ? required(j).filter(x => fit(x) === 'no').map(x => chip('× ' + x.label.slice(0, 18), 'warn')).join('') : ''}${tab !== 'list' && j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${st ? chip(st + ((tab === 'fav' || tab === 'prac') && p[tab][j.url]?.appliedAt && st !== '想申请' ? ' · ' + fmtD(p[tab][j.url].appliedAt) + ' 申请' : ''),'green') : ''}${expired ? chip('已超过 30 天','warn') : ''}${tab === 'list' ? cardTags(r) : ''}</span>
+        <span class="tags">${tab === 'hidden' ? required(j).filter(x => fit(x) === 'no').map(x => chip('× ' + x.label.slice(0, 18), 'warn')).join('') : ''}${tab !== 'list' && j.commissionType === 'only' ? chip('纯佣金','gold') : ''}${st ? chip(st + ((tab === 'fav' || tab === 'prac') && p[tab][j.url]?.appliedAt && st !== '想申请' ? ' · ' + fmtD(p[tab][j.url].appliedAt) + ' 申请' : ''),'green') : ''}${expired ? chip('已超过 30 天','warn') : ''}${tab === 'ni' ? chip('标记于 ' + markedAt(p.ni[j.url]?.at), 'neutral') : ''}${tab === 'list' ? cardTags(r) : ''}</span>
       </button>`;
     }).join('') : `<p class="empty">${tab === 'fav' ? '还没有收藏' : tab === 'prac' ? '还没有练习' : tab === 'ni' ? '没有' : tab === 'hidden' ? '没有<br><button class="primary" id="go-set">我的条件</button>' : '没有符合的职位'}</p>`) + pagerBot;
+    if (tab === 'ni' && rows.length) $('list').querySelector('.pager.top')?.insertAdjacentHTML('afterend', '<p class="ni-hint">按标记时间排，最新标记的在最上面；点开后按「恢复」放回列表</p>');
     $('list').querySelectorAll('.f-per').forEach(el => el.onchange = () => { P().f.per = +el.value; page = 0; save(); render(); });
     $('list').querySelectorAll('[data-pg]').forEach(b => b.onclick = () => {
       page += +b.dataset.pg; selected = ''; render();
